@@ -214,6 +214,9 @@
     <button class="nav-btn primary-nav-btn">
       <i class="fa-solid fa-bookmark"></i> My Collection
     </button>
+    <button id="syncCollectionsBtn" class="nav-btn outline-nav-btn" title="Sync collections now">
+      <i class="fa-solid fa-sync"></i>
+    </button>
     <button id="darkModeToggle" class="theme-toggle" title="Toggle Theme">
       <i class="fa-solid fa-moon"></i>
     </button>
@@ -341,13 +344,14 @@
 <h2>✨ Earned Badges</h2>
 <div class="badge-container">
 
-  <div class="badge gold">
+  <div class="badge gold" data-collectible="badge-first-pr">
     <div class="badge-icon">
       <i class="fa-solid fa-code-pull-request"></i>
     </div>
     <h3>First PR</h3>
     <p>Completed your first pull request</p>
     <span class="badge-tag">Unlocked</span>
+    <button class="collect-btn" data-action="add" aria-label="Add to collection">👉 Save</button>
   </div>
 
   <div class="badge blue">

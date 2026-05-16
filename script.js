@@ -265,6 +265,50 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// Load offline sync helpers (idb + collection sync) for collection features
+(function(){
+  if (!window.UIV || !window.UIV.idb) {
+    const s = document.createElement('script'); s.src = '/js/idb.js'; s.defer = true; document.head.appendChild(s);
+  }
+  if (!window.CollectionSync) {
+    const s2 = document.createElement('script'); s2.src = '/js/collection-sync.js'; s2.defer = true; document.head.appendChild(s2);
+  }
+})();
+
+// Wire up collectible buttons and elements to enqueue offline actions
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    document.querySelectorAll('[data-collectible]').forEach(el => {
+      const btn = el.querySelector('.collect-btn') || el;
+      btn.addEventListener('click', async (ev) => {
+        ev.preventDefault();
+        const id = el.dataset.collectible;
+        const action = btn.dataset.action || 'add';
+        if (window.CollectionSync) {
+          if (action === 'remove') {
+            await window.CollectionSync.enqueueRemove(id);
+            showToastSafe('Removed from collection (offline-first)');
+          } else {
+            const item = { id: id, html: el.innerHTML };
+            await window.CollectionSync.enqueueAdd(item);
+            showToastSafe('Added to collection (offline-first)');
+          }
+        } else {
+          showToastSafe('Collection sync not available');
+        }
+      });
+    });
+    // provide a manual sync trigger button if present
+    const syncBtn = document.getElementById('syncCollectionsBtn');
+    if (syncBtn) syncBtn.addEventListener('click', () => {
+      if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage('trigger-sync');
+      }
+      if (window.CollectionSync) window.CollectionSync.processQueueOnce().then(r => showToastSafe(`Synced ${r.synced} items`)).catch(()=>{});
+    });
+  } catch (e) { /* ignore */ }
+});
+
 
 // ================= SEARCH (ROUTING) =================
 function handleSearch(event) {
