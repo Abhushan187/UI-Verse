@@ -81,6 +81,10 @@ body.dark-mode .newsletter-form input {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   height: auto;
   padding: 0;
