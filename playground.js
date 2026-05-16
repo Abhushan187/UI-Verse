@@ -143,19 +143,33 @@
     const values = getControlValues();
     const styles = styleForType(activeType, values);
 
+    // Generate CSS class-based output
+    const className = 'uiv-component';
+    activeTarget.classList.add(className);
+    
+    // Remove inline styles and use CSS classes
     Object.keys(styles).forEach((prop) => {
-      activeTarget.style[prop] = styles[prop];
+      activeTarget.style[prop] = '';
     });
 
-    const styleText = Object.keys(styles)
-      .map((key) => {
-        const cssKey = key.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
-        return cssKey + ": " + styles[key] + ";";
-      })
-      .join(" ");
+    const cssOutput = generateCSS(className, styles, activeType);
+    activeTarget.setAttribute('class', activeTarget.className.replace('uiv-component', '').trim());
+    
+    const htmlOutput = `<div class="${className}">\n  ${activeTarget.outerHTML}\n</div>\n\n<style>\n${cssOutput}</style>`;
+    code.textContent = htmlOutput;
+  }
 
-    activeTarget.setAttribute("style", styleText);
-    code.textContent = activeTarget.outerHTML;
+  function generateCSS(className, styles, type) {
+    const rules = [];
+    
+    rules.push(`.${className} {`);
+    Object.keys(styles).forEach((prop) => {
+      const cssKey = prop.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
+      rules.push(`  ${cssKey}: ${styles[prop]};`);
+    });
+    rules.push('}');
+    
+    return rules.join('\n');
   }
 
   function findPreviewElement(card) {
