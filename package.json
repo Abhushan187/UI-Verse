@@ -31,7 +31,8 @@
     "cli": "node cli/src/index.js",
     "cli:add": "node cli/src/index.js add",
     "cli:list": "node cli/src/index.js list",
-    "cli:init": "node cli/src/index.js init"
+    "cli:init": "node cli/src/index.js init",
+    "tokens:extract": "node scripts/token-extractor.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.0.0",
