@@ -1,3 +1,80 @@
+/* Service Worker: handles background sync for collections
+   - listens for 'sync' event with tag 'collections-sync'
+   - reads queued actions from IndexedDB and posts to /api/collections/sync
+*/
+
+const DB_NAME = 'ui-verse-db';
+const STORE_QUEUE = 'sync-queue';
+const SYNC_ENDPOINT = '/api/collections/sync';
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function getAllQueueFromSW() {
+  return openDB().then(db => new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_QUEUE, 'readonly');
+    const store = tx.objectStore(STORE_QUEUE);
+    const req = store.getAll();
+    req.onsuccess = () => resolve(req.result || []);
+    req.onerror = () => reject(req.error);
+  }));
+}
+
+function clearQueueFromSW(ids) {
+  return openDB().then(db => new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_QUEUE, 'readwrite');
+    const store = tx.objectStore(STORE_QUEUE);
+    ids.forEach(id => store.delete(id));
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  }));
+}
+
+self.addEventListener('install', event => {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener('sync', event => {
+  if (event.tag === 'collections-sync') {
+    event.waitUntil((async () => {
+      try {
+        const queue = await getAllQueueFromSW();
+        if (!queue || queue.length === 0) return;
+        const res = await fetch(SYNC_ENDPOINT, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({actions: queue}),
+          credentials: 'include'
+        });
+        if (res.ok) {
+          const ids = queue.map(q => q.id).filter(Boolean);
+          await clearQueueFromSW(ids);
+          // notify clients
+          const clients = await self.clients.matchAll();
+          for (const c of clients) c.postMessage({type:'collections:sync:ok', synced: ids.length});
+        }
+      } catch (err) {
+        // nothing: will retry next sync
+      }
+    })());
+  }
+});
+
+self.addEventListener('message', event => {
+  if (!event.data) return;
+  if (event.data === 'trigger-sync') {
+    self.registration.sync && self.registration.sync.register('collections-sync').catch(()=>{});
+  }
+});
 // UI-Verse Service Worker — basic offline-first caching
 const CACHE_NAME = 'ui-verse-v1';
 const RUNTIME = 'runtime-cache';
