@@ -1446,24 +1446,50 @@
   });
 
   /* ---------- Code Toggle ---------- */
+  function getCodeBlock(id, btn) {
+    const scope = btn?.closest('.component-card, .feature-card');
+    if (scope) {
+      const scopedBlock = scope.querySelector(`.code-block[id="${CSS.escape(id)}"]`);
+      if (scopedBlock) {
+        return scopedBlock;
+      }
+
+      const firstScopedBlock = scope.querySelector('.code-block');
+      if (firstScopedBlock) {
+        return firstScopedBlock;
+      }
+    }
+
+    return document.getElementById(id);
+  }
+
   function toggleCode(id, btn) {
-    const block = document.getElementById(id);
+    const block = getCodeBlock(id, btn);
+    if (!block) return;
+
     const isOpen = block.classList.toggle('open');
-    btn.innerHTML = isOpen
-      ? '<i class="fa-solid fa-eye-slash"></i> Hide Code'
-      : '<i class="fa-solid fa-code"></i> View Code';
+    if (btn) {
+      btn.innerHTML = isOpen
+        ? '<i class="fa-solid fa-eye-slash"></i> Hide Code'
+        : '<i class="fa-solid fa-code"></i> View Code';
+    }
   }
 
   /* ---------- Copy Code ---------- */
   function copyCode(id, btn) {
-    const text = document.getElementById(id).innerText;
+    const block = getCodeBlock(id, btn);
+    if (!block) return;
+
+    const text = block.innerText;
     navigator.clipboard.writeText(text).then(() => {
-      btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
-        btn.classList.remove('copied');
-      }, 2000);
+      if (btn) {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      }
     });
   }
 
@@ -1556,17 +1582,6 @@ function showToast(message) {
   setTimeout(() => toast.remove(), 1500);
 }
 
-function toggleCode(id){
-  const el = document.getElementById(id);
-  el.style.display = el.style.display === "block" ? "none" : "block";
-}
-
-function copyCode(id,btn){
-  const text = document.getElementById(id).innerText;
-  navigator.clipboard.writeText(text);
-  btn.innerText = "Copied!";
-  setTimeout(()=>btn.innerText="Copy",1000);
-}
 </script>
 <style>
   button{
