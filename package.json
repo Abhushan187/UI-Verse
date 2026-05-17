@@ -44,7 +44,10 @@
     "csp:update": "node scripts/csp-hash-generator.js --update",
     "release": "semantic-release",
     "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s",
-    "version": "node scripts/version-manager.js"
+    "version": "node scripts/version-manager.js",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.0.0",
