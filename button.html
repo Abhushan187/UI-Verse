@@ -10,24 +10,6 @@
   <link rel="stylesheet" href="button.css">
   <title>Buttons — UIverse</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="home.css">
-  <link rel="stylesheet" href="shared-page.css">
-  <link rel="stylesheet" href="buttons.css">
-  <link rel="stylesheet" href="command-palette.css">
-  <link rel="stylesheet" href="css/url-state.css">
-  <!-- UIverse Modular Scripts - Load in dependency order -->
-  <!-- UIverse Registry (must load first) -->
-  <script src="js/registry.js"></script>
-  <!-- Core Modules -->
-  <script src="js/core/utils.js"></script>
-  <script src="js/core/security.js"></script>
   <script src="js/core/components-registry.js"></script>
   <script src="js/core/sanitize.js"></script>
   <!-- Feature Modules -->
@@ -746,24 +728,50 @@
   });
 
   /* ---------- Code Toggle ---------- */
+  function getCodeBlock(id, btn) {
+    const scope = btn?.closest('.component-card, .feature-card');
+    if (scope) {
+      const scopedBlock = scope.querySelector(`.code-block[id="${CSS.escape(id)}"]`);
+      if (scopedBlock) {
+        return scopedBlock;
+      }
+
+      const firstScopedBlock = scope.querySelector('.code-block');
+      if (firstScopedBlock) {
+        return firstScopedBlock;
+      }
+    }
+
+    return document.getElementById(id);
+  }
+
   function toggleCode(id, btn) {
-    const block = document.getElementById(id);
+    const block = getCodeBlock(id, btn);
+    if (!block) return;
+
     const isOpen = block.classList.toggle('open');
-    btn.innerHTML = isOpen
-      ? '<i class="fa-solid fa-eye-slash"></i> Hide Code'
-      : '<i class="fa-solid fa-code"></i> View Code';
+    if (btn) {
+      btn.innerHTML = isOpen
+        ? '<i class="fa-solid fa-eye-slash"></i> Hide Code'
+        : '<i class="fa-solid fa-code"></i> View Code';
+    }
   }
 
   /* ---------- Copy Code ---------- */
   function copyCode(id, btn) {
-    const text = document.getElementById(id).innerText;
+    const block = getCodeBlock(id, btn);
+    if (!block) return;
+
+    const text = block.innerText;
     navigator.clipboard.writeText(text).then(() => {
-      btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
-        btn.classList.remove('copied');
-      }, 2000);
+      if (btn) {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      }
     });
   }
 
@@ -856,17 +864,6 @@ function showToast(message) {
   setTimeout(() => toast.remove(), 1500);
 }
 
-function toggleCode(id){
-  const el = document.getElementById(id);
-  el.style.display = el.style.display === "block" ? "none" : "block";
-}
-
-function copyCode(id,btn){
-  const text = document.getElementById(id).innerText;
-  navigator.clipboard.writeText(text);
-  btn.innerText = "Copied!";
-  setTimeout(()=>btn.innerText="Copy",1000);
-}
 </script>
 <style>
   button{
