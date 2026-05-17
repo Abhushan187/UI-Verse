@@ -729,7 +729,8 @@
 
   /* ---------- Code Toggle ---------- */
   function getCodeBlock(id, btn) {
-    const scope = btn?.closest('.component-card, .feature-card');
+    const trigger = btn || document.activeElement;
+    const scope = trigger?.closest?.('.component-card, .feature-card');
     if (scope) {
       const scopedBlock = scope.querySelector(`.code-block[id="${CSS.escape(id)}"]`);
       if (scopedBlock) {
@@ -749,9 +750,10 @@
     const block = getCodeBlock(id, btn);
     if (!block) return;
 
+    const trigger = btn || document.activeElement;
     const isOpen = block.classList.toggle('open');
-    if (btn) {
-      btn.innerHTML = isOpen
+    if (trigger && trigger instanceof HTMLElement) {
+      trigger.innerHTML = isOpen
         ? '<i class="fa-solid fa-eye-slash"></i> Hide Code'
         : '<i class="fa-solid fa-code"></i> View Code';
     }
@@ -763,13 +765,14 @@
     if (!block) return;
 
     const text = block.innerText;
+    const trigger = btn || document.activeElement;
     navigator.clipboard.writeText(text).then(() => {
-      if (btn) {
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-        btn.classList.add('copied');
+      if (trigger && trigger instanceof HTMLElement) {
+        trigger.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        trigger.classList.add('copied');
         setTimeout(() => {
-          btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
-          btn.classList.remove('copied');
+          trigger.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
+          trigger.classList.remove('copied');
         }, 2000);
       }
     });
