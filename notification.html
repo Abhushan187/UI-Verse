@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Notifications — UIverse</title>
+
+  <!-- Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Icons -->
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="notification.css"
+  >
+
+</head>
+
+<body>
+
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+  <div>
+
+    <div class="sidebar-brand">
+
+      <div class="brand-icon">
+        ⬡
+      </div>
+
+      <div class="brand-text">
+        UIverse
+      </div>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a href="#">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+
+      <a href="#">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Components</span>
+      </a>
+
+      <a
+        href="#"
+        class="active"
+      >
+        <i class="fa-solid fa-bell"></i>
+        <span>Notifications</span>
+      </a>
+
+      <a href="#">
+        <i class="fa-solid fa-code"></i>
+        <span>Source</span>
+      </a>
+
+      <a href="#">
+        <i class="fa-solid fa-book"></i>
+        <span>Docs</span>
+      </a>
+
+    </nav>
+
+  </div>
+
+  <div class="sidebar-footer">
+
+    <a href="#">
+      <i class="fab fa-github"></i>
+    </a>
+
+    <a href="#">
+      <i class="fab fa-discord"></i>
+    </a>
+
+    <a href="#">
+      <i class="fab fa-x-twitter"></i>
+    </a>
+
+  </div>
+
+</aside>
+
+<!-- =====================================================
+NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+  <div class="search-bar">
+
+    <i class="fa-solid fa-magnifying-glass"></i>
+
+    <input
+      type="text"
+      placeholder="Search notifications..."
+      id="searchInput"
+    >
+
+  </div>
+
+  <div class="nav-actions">
+
+    <div class="notification-counter">
+
+      <i class="fa-solid fa-bell"></i>
+
+      <span id="counter">
+        12
+      </span>
+
+    </div>
+
+    <button class="outline-btn">
+      Documentation
+    </button>
+
+    <button class="primary-btn">
+      Explore UI
+    </button>
+
+  </div>
+
+</header>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<main class="main-home">
+
+  <!-- HERO -->
+
+  <section class="hero-section">
+
+    <div class="hero-badge">
+      ✦ Notification Components
+    </div>
+
+    <h1>
+      Modern <span>Notification UI</span>
+    </h1>
+
+    <p>
+
+      Premium notification cards,
+      toast alerts, activity feeds,
+      settings panels and real-time
+      notification interfaces for
+      modern applications.
+
+    </p>
+
+  </section>
+
+  <!-- FILTER -->
+
+  <section class="filter-bar">
+
+    <button class="filter-btn active">
+      All
+    </button>
+
+    <button class="filter-btn">
+      Alerts
+    </button>
+
+    <button class="filter-btn">
+      Activity
+    </button>
+
+    <button class="filter-btn">
+      Toasts
+    </button>
+
+    <button class="filter-btn">
+      Settings
+    </button>
+
+  </section>
+
+  <!-- GRID -->
+
+  <section class="notification-grid">
+
+    <!-- ALERTS -->
+
+    <div class="notification-card">
+
+      <div class="card-header">
+
+        <div>
+
+          <span class="card-label">
+            ALERTS
+          </span>
+
+          <h2>
+            Notification Alerts
+          </h2>
+
+        </div>
+
+      </div>
+
+      <div class="alert-list">
+
+        <div class="alert success">
+
+          <i class="fa-solid fa-circle-check"></i>
+
+          <div>
+
+            <strong>
+              Payment Successful
+            </strong>
+
+            <p>
+              Your subscription was activated.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="alert warning">
+
+          <i class="fa-solid fa-triangle-exclamation"></i>
+
+          <div>
+
+            <strong>
+              Storage Almost Full
+            </strong>
+
+            <p>
+              Upgrade your storage plan.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="alert error">
+
+          <i class="fa-solid fa-circle-xmark"></i>
+
+          <div>
+
+            <strong>
+              Failed Upload
+            </strong>
+
+            <p>
+              Something went wrong.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ACTIVITY -->
+
+    <div class="notification-card">
+
+      <div class="card-header">
+
+        <div>
+
+          <span class="card-label">
+            FEED
+          </span>
+
+          <h2>
+            Activity Feed
+          </h2>
+
+        </div>
+
+      </div>
+
+      <div class="activity-feed">
+
+        <div class="activity-item unread">
+
+          <img
+            src="https://i.pravatar.cc/100?img=12"
+            alt=""
+          >
+
+          <div>
+
+            <strong>
+              Alex uploaded a component
+            </strong>
+
+            <span>
+              2 min ago
+            </span>
+
+          </div>
+
+          <button class="mark-read">
+            Read
+          </button>
+
+        </div>
+
+        <div class="activity-item unread">
+
+          <img
+            src="https://i.pravatar.cc/100?img=22"
+            alt=""
+          >
+
+          <div>
+
+            <strong>
+              Emma commented on dashboard UI
+            </strong>
+
+            <span>
+              10 min ago
+            </span>
+
+          </div>
+
+          <button class="mark-read">
+            Read
+          </button>
+
+        </div>
+
+        <div class="activity-item">
+
+          <img
+            src="https://i.pravatar.cc/100?img=32"
+            alt=""
+          >
+
+          <div>
+
+            <strong>
+              Noah updated source page
+            </strong>
+
+            <span>
+              1 hour ago
+            </span>
+
+          </div>
+
+          <button class="mark-read">
+            Read
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TOAST -->
+
+    <div class="notification-card">
+
+      <div class="card-header">
+
+        <div>
+
+          <span class="card-label">
+            TOAST
+          </span>
+
+          <h2>
+            Toast Notifications
+          </h2>
+
+        </div>
+
+      </div>
+
+      <div class="toast-buttons">
+
+        <button
+          class="toast-btn success-btn"
+          data-toast="Success Notification"
+        >
+          Success Toast
+        </button>
+
+        <button
+          class="toast-btn warning-btn"
+          data-toast="Warning Notification"
+        >
+          Warning Toast
+        </button>
+
+        <button
+          class="toast-btn error-btn"
+          data-toast="Error Notification"
+        >
+          Error Toast
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- SETTINGS -->
+
+    <div class="notification-card">
+
+      <div class="card-header">
+
+        <div>
+
+          <span class="card-label">
+            SETTINGS
+          </span>
+
+          <h2>
+            Notification Settings
+          </h2>
+
+        </div>
+
+      </div>
+
+      <div class="settings-list">
+
+        <div class="setting-item">
+
+          <div>
+
+            <strong>
+              Push Notifications
+            </strong>
+
+            <span>
+              Receive instant updates
+            </span>
+
+          </div>
+
+          <label class="switch">
+
+            <input
+              type="checkbox"
+              checked
+            >
+
+            <span class="slider"></span>
+
+          </label>
+
+        </div>
+
+        <div class="setting-item">
+
+          <div>
+
+            <strong>
+              Email Alerts
+            </strong>
+
+            <span>
+              Weekly summary emails
+            </span>
+
+          </div>
+
+          <label class="switch">
+
+            <input
+              type="checkbox"
+              checked
+            >
+
+            <span class="slider"></span>
+
+          </label>
+
+        </div>
+
+        <div class="setting-item">
+
+          <div>
+
+            <strong>
+              Mentions
+            </strong>
+
+            <span>
+              Alerts when tagged
+            </span>
+
+          </div>
+
+          <label class="switch">
+
+            <input type="checkbox">
+
+            <span class="slider"></span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- EMPTY -->
+
+    <div class="notification-card empty-card">
+
+      <div class="empty-icon">
+        <i class="fa-regular fa-bell-slash"></i>
+      </div>
+
+      <h2>
+        No New Notifications
+      </h2>
+
+      <p>
+
+        You're all caught up.
+        New notifications will
+        appear here.
+
+      </p>
+
+      <button>
+        Refresh
+      </button>
+
+    </div>
+
+  </section>
+
+</main>
+
+<!-- TOAST CONTAINER -->
+
+<div
+  class="toast-container"
+  id="toastContainer"
+></div>
+
+<script src="notification.js"></script>
+
+</body>
+</html>
