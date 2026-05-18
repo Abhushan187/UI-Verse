@@ -5,7 +5,426 @@
 
 const Sandbox = {
   _state: {
-    initialized: false
+    initialized: false,
+    overlayByFrame: new WeakMap()
+  },
+
+  _getThemeTokens(doc) {
+    try {
+      const styles = doc.defaultView.getComputedStyle(doc.documentElement);
+      return {
+        bg: styles.getPropertyValue('--bg').trim(),
+        surface: styles.getPropertyValue('--surface').trim(),
+        text: styles.getPropertyValue('--text').trim(),
+        cardBg: styles.getPropertyValue('--card-bg').trim(),
+        cardBorder: styles.getPropertyValue('--card-border').trim(),
+        navBg: styles.getPropertyValue('--nav-bg').trim(),
+        navBorder: styles.getPropertyValue('--nav-border').trim()
+      };
+    } catch (error) {
+      return {};
+    }
+  },
+
+  _parseColor(value) {
+    if (!value || value === 'transparent') return null;
+
+    const normalized = String(value).trim();
+    const rgba = normalized.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/i);
+    if (rgba) {
+      return {
+        r: Number(rgba[1]),
+        g: Number(rgba[2]),
+        b: Number(rgba[3]),
+        a: rgba[4] === undefined ? 1 : Number(rgba[4])
+      };
+    }
+
+    const hex = normalized.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+    if (hex) {
+      const raw = hex[1].length === 3
+        ? hex[1].split('').map((ch) => ch + ch).join('')
+        : hex[1];
+      return {
+        r: parseInt(raw.slice(0, 2), 16),
+        g: parseInt(raw.slice(2, 4), 16),
+        b: parseInt(raw.slice(4, 6), 16),
+        a: 1
+      };
+    }
+
+    return null;
+  },
+
+  _relativeLuminance(color) {
+    const channel = (value) => {
+      const normalized = value / 255;
+      return normalized <= 0.03928
+        ? normalized / 12.92
+        : Math.pow((normalized + 0.055) / 1.055, 2.4);
+    };
+
+    return (0.2126 * channel(color.r)) + (0.7152 * channel(color.g)) + (0.0722 * channel(color.b));
+  },
+
+  _contrastRatio(foreground, background) {
+    const light = Math.max(this._relativeLuminance(foreground), this._relativeLuminance(background));
+    const dark = Math.min(this._relativeLuminance(foreground), this._relativeLuminance(background));
+    return (light + 0.05) / (dark + 0.05);
+  },
+
+  _describeElement(el) {
+    if (!el || !el.tagName) return 'unknown';
+
+    const id = el.id ? `#${el.id}` : '';
+    const cls = el.classList && el.classList.length ? `.${Array.from(el.classList).slice(0, 2).join('.')}` : '';
+    const text = (el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 36);
+    return `${el.tagName.toLowerCase()}${id}${cls}${text ? ` “${text}”` : ''}`;
+  },
+
+  _isVisibleElement(el) {
+    if (!el || typeof el.getBoundingClientRect !== 'function') return false;
+
+    const rect = el.getBoundingClientRect();
+    const style = el.ownerDocument.defaultView.getComputedStyle(el);
+    return rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none' && Number(style.opacity || 1) > 0;
+  },
+
+  _getEffectiveBackgroundColor(el) {
+    let current = el;
+
+    while (current) {
+      const style = current.ownerDocument.defaultView.getComputedStyle(current);
+      const background = this._parseColor(style.backgroundColor);
+      if (background && background.a > 0) return background;
+      current = current.parentElement;
+    }
+
+    return { r: 255, g: 255, b: 255, a: 1 };
+  },
+
+  _getFocusableElements(root) {
+    return Array.from(root.querySelectorAll([
+      'button:not([disabled])',
+      'a[href]',
+      'input:not([disabled])',
+      'textarea:not([disabled])',
+      'select:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])'
+    ].join(', '))).filter((el) => this._isVisibleElement(el));
+  },
+
+  _scanPreviewAccessibility(doc) {
+    const issues = [];
+    const tokens = this._getThemeTokens(doc);
+
+    const pushIssue = (severity, rule, message, element, extra = {}) => {
+      issues.push({
+        severity,
+        rule,
+        message,
+        element,
+        tokens,
+        ...extra
+      });
+    };
+
+    const buttonCandidates = Array.from(doc.querySelectorAll('button, [role="button"]'));
+    buttonCandidates.forEach((button) => {
+      const hasLabel = Boolean(button.getAttribute('aria-label') || button.getAttribute('aria-labelledby') || button.getAttribute('title'));
+      const visibleText = (button.textContent || '').trim();
+      const iconOnly = button.querySelector('i, svg, img') && visibleText.length === 0;
+
+      if (!hasLabel && iconOnly) {
+        pushIssue('warning', 'button-label', 'Button is missing an accessible label', button, {
+          fix: 'Add aria-label or visible text'
+        });
+      }
+    });
+
+    const headings = Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+    if (headings.length > 0) {
+      const levels = headings.map((heading) => Number(heading.tagName.slice(1)));
+      const firstLevel = levels[0];
+
+      if (firstLevel > 1) {
+        pushIssue('warning', 'heading-hierarchy', `Heading hierarchy starts at h${firstLevel} instead of h1`, headings[0], {
+          fix: 'Start the preview with an h1 or a semantically equivalent heading'
+        });
+      }
+
+      for (let index = 1; index < levels.length; index += 1) {
+        if (levels[index] > levels[index - 1] + 1) {
+          pushIssue('warning', 'heading-hierarchy', `Heading level jumps from h${levels[index - 1]} to h${levels[index]}`, headings[index], {
+            fix: 'Move through heading levels in order'
+          });
+        }
+      }
+    }
+
+    const textSelectors = [
+      'button',
+      'a[href]',
+      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+      'p', 'li', 'label', 'figcaption', 'small', 'strong', 'em', 'span', 'div'
+    ].join(', ');
+
+    Array.from(doc.querySelectorAll(textSelectors)).forEach((element) => {
+      if (!this._isVisibleElement(element)) return;
+      if ((element.textContent || '').trim().length < 3) return;
+
+      const style = doc.defaultView.getComputedStyle(element);
+      const foreground = this._parseColor(style.color);
+      if (!foreground) return;
+
+      const background = this._getEffectiveBackgroundColor(element);
+      const ratio = this._contrastRatio(foreground, background);
+      const tokenHints = [];
+
+      if (tokens.text && style.color.trim() === tokens.text) tokenHints.push('--text');
+      if (tokens.surface && style.backgroundColor.trim() === tokens.surface) tokenHints.push('--surface');
+      if (tokens.bg && style.backgroundColor.trim() === tokens.bg) tokenHints.push('--bg');
+
+      if (ratio < 4.5) {
+        pushIssue('warning', 'contrast', `Low contrast (${ratio.toFixed(2)}:1)`, element, {
+          ratio,
+          fix: tokenHints.length ? `Review theme token usage: ${tokenHints.join(', ')}` : 'Adjust foreground or background colors'
+        });
+      }
+    });
+
+    const dialogRoots = Array.from(doc.querySelectorAll('[aria-modal="true"], [role="dialog"], [data-focus-trap]'));
+    dialogRoots.forEach((dialog) => {
+      const focusables = this._getFocusableElements(dialog);
+      const allFocusables = this._getFocusableElements(doc.body);
+      const closeButton = dialog.querySelector('button[aria-label*="close" i], button[title*="close" i], [data-close], [data-dismiss]');
+      const outsideFocusables = allFocusables.filter((item) => !dialog.contains(item));
+
+      if (focusables.length === 0) {
+        pushIssue('warning', 'focus-trap', 'Dialog-like component has no focusable content', dialog, {
+          fix: 'Add a focusable control inside the modal or drawer'
+        });
+      }
+
+      if (!closeButton) {
+        pushIssue('warning', 'focus-trap', 'Dialog-like component is missing a clear close control', dialog, {
+          fix: 'Add a close button or dismiss action'
+        });
+      }
+
+      if (dialog.getAttribute('aria-modal') === 'true' && outsideFocusables.length > 0) {
+        pushIssue('warning', 'focus-trap', 'Focusable elements remain reachable outside the modal', dialog, {
+          fix: 'Trap focus inside the modal while it is open'
+        });
+      }
+    });
+
+    return {
+      issues: issues.slice(0, 8),
+      totalIssues: issues.length,
+      hasIssues: issues.length > 0
+    };
+  },
+
+  _injectPreviewAuditStyles(doc) {
+    if (doc.getElementById('sandbox-a11y-styles')) return;
+
+    const style = doc.createElement('style');
+    style.id = 'sandbox-a11y-styles';
+    style.textContent = `
+      .sandbox-a11y-overlay {
+        position: fixed;
+        top: 14px;
+        right: 14px;
+        z-index: 10000;
+        width: min(320px, calc(100vw - 28px));
+        display: grid;
+        gap: 10px;
+        padding: 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(15, 23, 42, 0.14);
+        background: rgba(255, 255, 255, 0.92);
+        color: #0f172a;
+        box-shadow: 0 16px 32px rgba(15, 23, 42, 0.16);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        font-family: inherit;
+      }
+
+      .sandbox-a11y-overlay[hidden] {
+        display: none !important;
+      }
+
+      .sandbox-a11y-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .sandbox-a11y-kicker {
+        margin: 0 0 2px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #0ea5e9;
+      }
+
+      .sandbox-a11y-title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .sandbox-a11y-summary {
+        margin: 0;
+        font-size: 12px;
+        color: #475569;
+      }
+
+      .sandbox-a11y-list {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        max-height: 260px;
+        overflow: auto;
+      }
+
+      .sandbox-a11y-item {
+        display: grid;
+        gap: 8px;
+        padding: 10px 11px;
+        border-radius: 12px;
+        background: rgba(241, 245, 249, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.24);
+      }
+
+      .sandbox-a11y-item strong {
+        font-size: 12px;
+      }
+
+      .sandbox-a11y-item p {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #334155;
+      }
+
+      .sandbox-a11y-item small {
+        display: block;
+        color: #64748b;
+        font-size: 11px;
+      }
+
+      .sandbox-a11y-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .sandbox-a11y-jump {
+        border: 0;
+        border-radius: 999px;
+        padding: 7px 10px;
+        background: #0ea5e9;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .sandbox-a11y-jump:hover {
+        background: #0284c7;
+      }
+
+      .sandbox-a11y-highlight {
+        outline: 3px solid #0ea5e9 !important;
+        outline-offset: 3px !important;
+        box-shadow: 0 0 0 6px rgba(14, 165, 233, 0.18) !important;
+      }
+    `;
+    doc.head.appendChild(style);
+  },
+
+  _renderPreviewAuditOverlay(doc, report) {
+    this._injectPreviewAuditStyles(doc);
+
+    let overlay = doc.getElementById('sandbox-a11y-overlay');
+    if (!report.hasIssues) {
+      if (overlay) overlay.remove();
+      return;
+    }
+
+    if (!overlay) {
+      overlay = doc.createElement('aside');
+      overlay.id = 'sandbox-a11y-overlay';
+      overlay.className = 'sandbox-a11y-overlay';
+      overlay.setAttribute('role', 'status');
+      overlay.setAttribute('aria-live', 'polite');
+      doc.body.appendChild(overlay);
+    }
+
+    overlay.innerHTML = `
+      <div class="sandbox-a11y-header">
+        <div>
+          <p class="sandbox-a11y-kicker">Accessibility audit</p>
+          <h2 class="sandbox-a11y-title">${report.totalIssues} warning${report.totalIssues === 1 ? '' : 's'} found</h2>
+          <p class="sandbox-a11y-summary">Warn-only overlay for beginner-friendly previews.</p>
+        </div>
+      </div>
+      <ul class="sandbox-a11y-list">
+        ${report.issues.map((issue, index) => {
+          const targetLabel = this._describeElement(issue.element);
+          const fixLabel = issue.fix ? `<small>${issue.fix}</small>` : '';
+          return `
+            <li class="sandbox-a11y-item">
+              <strong>${index + 1}. ${issue.rule.replace(/-/g, ' ')}</strong>
+              <p>${issue.message}</p>
+              <small>${targetLabel}</small>
+              ${fixLabel}
+              <div class="sandbox-a11y-actions">
+                <button type="button" class="sandbox-a11y-jump" data-jump-index="${index}">Jump to element</button>
+              </div>
+            </li>
+          `;
+        }).join('')}
+      </ul>
+    `;
+
+    overlay.querySelectorAll('[data-jump-index]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const index = Number(button.getAttribute('data-jump-index'));
+        const issue = report.issues[index];
+        const target = issue && issue.element;
+        if (!target || typeof target.scrollIntoView !== 'function') return;
+
+        target.classList.add('sandbox-a11y-highlight');
+        target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+        if (typeof target.focus === 'function') {
+          try {
+            target.focus({ preventScroll: true });
+          } catch (error) {
+            target.focus();
+          }
+        }
+
+        setTimeout(() => {
+          target.classList.remove('sandbox-a11y-highlight');
+        }, 1800);
+      });
+    });
+  },
+
+  _updatePreviewAccessibilityOverlay(iframe) {
+    const doc = iframe.contentDocument;
+    if (!doc || !doc.body) return;
+
+    const report = this._scanPreviewAccessibility(doc);
+    this._state.overlayByFrame.set(iframe, report);
+    this._renderPreviewAuditOverlay(doc, report);
   },
 
   /**
@@ -72,6 +491,10 @@ const Sandbox = {
       iframe.setAttribute("sandbox", "allow-scripts");
       iframe.setAttribute("title", "Live component preview");
       iframe.loading = "lazy";
+
+      iframe.addEventListener('load', () => {
+        this._updatePreviewAccessibilityOverlay(iframe);
+      });
 
       // Create editable textarea
       const textarea = document.createElement("textarea");
