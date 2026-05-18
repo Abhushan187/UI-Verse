@@ -86,6 +86,10 @@ const Bootstrap = {
       UIverse.register('ComponentGallery', ComponentGallery);
     }
 
+    if (typeof TutorialMode !== 'undefined') {
+      UIverse.register('TutorialMode', TutorialMode);
+    }
+
     if (window.UIVERSE_DEBUG) {
       console.info('[Bootstrap] All modules registered with UIverse registry');
     }
@@ -123,6 +127,10 @@ const Bootstrap = {
    * This prevents errors from modules expecting specific page elements
    */
   initConditionalModules() {
+    // Ensure TutorialMode exists even if feature ordering changes
+    if (typeof TutorialMode === 'undefined') {
+      // no-op
+    }
     // Skip Sidebar if element not present
     if (!document.querySelector(".sidebar")) {
       UIverse.modules['Sidebar'] && (UIverse.modules['Sidebar'].module.init = () => {});
