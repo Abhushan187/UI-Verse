@@ -1,6 +1,6 @@
 /**
  * Component Gallery Feature
- * Manages component card filtering, searching, and collection functionality
+ * Manages component card filtering, searching, collection, and favorites functionality
  */
 
 const ComponentGallery = {
@@ -20,6 +20,10 @@ const ComponentGallery = {
     }
   },
 
+  _storageKeys: {
+    favorites: 'favorites'
+  },
+
   /**
    * Initialize component gallery
    */
@@ -34,7 +38,9 @@ const ComponentGallery = {
 
     this._normalizeCardMetadata();
     this._injectCopyButtons();
+    this._ensureCardIdentifiers();
     this._insertCollectionButtons();
+    this._insertFavoriteButtons();
     this._createFilterUI();
     this._initSearchFilter();
     this._injectSmartFilterStyles();
@@ -59,6 +65,13 @@ const ComponentGallery = {
       .replace(/[^a-z0-9\s-]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
+  },
+
+  _normalizeId(value) {
+    return String(value || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
   },
 
   /**
@@ -149,6 +162,100 @@ const ComponentGallery = {
     });
   },
 
+  _ensureCardIdentifiers() {
+    const pageKey = typeof getCurrentPageName === 'function'
+      ? getCurrentPageName()
+      : window.location.pathname.split('/').pop() || 'component';
+
+    this._getComponentCards().forEach((card, index) => {
+      if (!card.dataset.componentId || !card.dataset.componentId.trim()) {
+        const label = card.querySelector('.card-label, h3, h2, h4')?.textContent || card.dataset.name || `component ${index + 1}`;
+        const tags = card.dataset.tags || '';
+        card.dataset.componentId = this._normalizeId([pageKey, label, tags].filter(Boolean).join(' '));
+      } else {
+        card.dataset.componentId = this._normalizeId(card.dataset.componentId);
+      }
+    });
+  },
+
+  _getFavorites() {
+    try {
+      const raw = localStorage.getItem(this._storageKeys.favorites);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed)
+        ? parsed.map((id) => this._normalizeId(id)).filter(Boolean)
+        : [];
+    } catch (e) {
+      if (window.UIVERSE_DEBUG) console.error('getFavorites error', e);
+      return [];
+    }
+  },
+
+  _setFavorites(favorites) {
+    const normalized = Array.from(new Set((favorites || []).map((id) => this._normalizeId(id)).filter(Boolean)));
+    localStorage.setItem(this._storageKeys.favorites, JSON.stringify(normalized));
+    return normalized;
+  },
+
+  _isFavorite(componentId) {
+    const normalizedId = this._normalizeId(componentId);
+    if (!normalizedId) return false;
+    return this._getFavorites().includes(normalizedId);
+  },
+
+  _updateFavoriteButtonState(button, isActive) {
+    if (!button) return;
+
+    button.classList.toggle('is-favorited', Boolean(isActive));
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    button.innerHTML = isActive
+      ? '<i class="fa-solid fa-star"></i> Favorite'
+      : '<i class="fa-regular fa-star"></i> Favorite';
+  },
+
+  _syncFavoriteButtons() {
+    this._getComponentCards().forEach((card) => {
+      const favoriteButton = card.querySelector('.favorite-btn');
+      if (!favoriteButton) return;
+
+      this._updateFavoriteButtonState(favoriteButton, this._isFavorite(card.dataset.componentId));
+    });
+  },
+
+  _toggleFavoriteFromCard(button) {
+    try {
+      const card = button?.closest?.('.component-card');
+      if (!card) return;
+
+      const componentId = this._normalizeId(card.dataset.componentId);
+      if (!componentId) return;
+
+      const title = card.querySelector('.card-label')?.textContent || card.dataset.name || 'Component';
+      const favorites = this._getFavorites();
+      const exists = favorites.includes(componentId);
+
+      if (exists) {
+        this._setFavorites(favorites.filter((id) => id !== componentId));
+        if (typeof showToast === 'function') {
+          showToast(title + ' removed from favorites');
+        }
+      } else {
+        this._setFavorites([...favorites, componentId]);
+        if (typeof showToast === 'function') {
+          showToast(title + ' added to favorites');
+        }
+      }
+
+      this._syncFavoriteButtons();
+      this._applyFilters();
+    } catch (e) {
+      if (window.UIVERSE_DEBUG) console.error('toggleFavoriteFromCard error', e);
+      if (typeof showToast === 'function') {
+        showToast('Failed to update favorites');
+      }
+    }
+  },
+
   /**
    * Inject copy buttons for code blocks
    * @private
@@ -212,6 +319,32 @@ const ComponentGallery = {
       });
     } catch (e) {
       if (window.UIVERSE_DEBUG) console.error('insertCollectionButtons', e);
+    }
+  },
+
+  _insertFavoriteButtons() {
+    try {
+      this._getComponentCards().forEach((card) => {
+        if (card.querySelector('.favorite-btn')) return;
+
+        const actions = card.querySelector('.actions') || (() => {
+          const container = document.createElement('div');
+          container.className = 'actions';
+          card.appendChild(container);
+          return container;
+        })();
+
+        const favoriteButton = document.createElement('button');
+        favoriteButton.className = 'action-btn favorite-btn';
+        favoriteButton.type = 'button';
+        favoriteButton.setAttribute('aria-pressed', 'false');
+        favoriteButton.addEventListener('click', () => this._toggleFavoriteFromCard(favoriteButton));
+
+        this._updateFavoriteButtonState(favoriteButton, this._isFavorite(card.dataset.componentId));
+        actions.insertBefore(favoriteButton, actions.firstChild || null);
+      });
+    } catch (e) {
+      if (window.UIVERSE_DEBUG) console.error('insertFavoriteButtons', e);
     }
   },
 
@@ -305,7 +438,7 @@ const ComponentGallery = {
     });
 
     return {
-      categories: Array.from(categories).sort(),
+      categories: Array.from(new Set(['favorites', ...Array.from(categories).sort()])),
       tags: Array.from(tags).sort()
     };
   },
@@ -359,16 +492,18 @@ const ComponentGallery = {
     allChip.className = 'filter-chip active';
     allChip.textContent = 'All';
     allChip.dataset.category = 'all';
-    allChip.addEventListener('click', (e) => this._selectCategory(e.target.dataset.category, e.target));
+    allChip.addEventListener('click', (e) => this._selectCategory(e.currentTarget.dataset.category, e.currentTarget));
     categoryChips.appendChild(allChip);
 
     // Category chips
     metadata.categories.forEach(cat => {
       const chip = document.createElement('button');
       chip.className = 'filter-chip';
-      chip.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+      chip.innerHTML = cat === 'favorites'
+        ? '<i class="fa-solid fa-star"></i> Favorites'
+        : cat.charAt(0).toUpperCase() + cat.slice(1);
       chip.dataset.category = cat;
-      chip.addEventListener('click', (e) => this._selectCategory(e.target.dataset.category, e.target));
+      chip.addEventListener('click', (e) => this._selectCategory(e.currentTarget.dataset.category, e.currentTarget));
       categoryChips.appendChild(chip);
     });
 
@@ -389,7 +524,7 @@ const ComponentGallery = {
         chip.className = 'filter-chip';
         chip.textContent = tag;
         chip.dataset.tag = tag;
-        chip.addEventListener('click', (e) => this._toggleTag(e.target.dataset.tag, e.target));
+        chip.addEventListener('click', (e) => this._toggleTag(e.currentTarget.dataset.tag, e.currentTarget));
         tagChips.appendChild(chip);
       });
 
@@ -435,11 +570,15 @@ const ComponentGallery = {
 
     cards.forEach(card => {
       const cardCategory = card.dataset.cat;
+      const cardId = card.dataset.componentId;
       const cardTags = card.dataset.tags ? card.dataset.tags.split(',').map(t => t.trim()) : [];
       const cardName = (card.dataset.name || card.innerText).toLowerCase();
 
-      const categoryMatch = !this._state.filterState.selectedCategory ||
-        cardCategory === this._state.filterState.selectedCategory;
+      const selectedCategory = this._state.filterState.selectedCategory;
+      const categoryMatch = !selectedCategory ||
+        (selectedCategory === 'favorites'
+          ? this._isFavorite(cardId)
+          : cardCategory === selectedCategory);
 
       const tagMatch = this._state.filterState.selectedTags.size === 0 ||
         Array.from(this._state.filterState.selectedTags).some(tag => cardTags.includes(tag));
@@ -604,6 +743,21 @@ const ComponentGallery = {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
+      }
+
+      .filter-chip i,
+      .favorite-btn i {
+        margin-right: 6px;
+      }
+
+      .favorite-btn.is-favorited {
+        border-color: rgba(255, 193, 7, 0.45);
+        background: linear-gradient(135deg, rgba(255, 193, 7, 0.18), rgba(255, 171, 0, 0.24));
+        color: #ffcf54;
+      }
+
+      .favorite-btn.is-favorited:hover {
+        transform: translateY(-1px);
       }
     `;
     document.head.appendChild(style);
