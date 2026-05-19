@@ -66,6 +66,11 @@
     <button onclick="filterCategory('price', this)">Price Ranges</button>
     <button onclick="filterCategory('tags', this)">Search Tags</button>
     <button onclick="filterCategory('dropdown', this)">Dropdowns</button>
+    <button onclick="filterCategory('chips', this)">Chip Filters</button>
+    <button onclick="filterCategory('rating', this)">Rating</button>
+    <button onclick="filterCategory('date', this)">Date Range</button>
+    <button onclick="filterCategory('color', this)">Color</button>
+    <button onclick="filterCategory('autocomplete', this)">Autocomplete</button>
   </section>
 
   <!-- SHOWROOM GRID -->
@@ -338,9 +343,254 @@
 &lt;/div&gt;</code></pre>
     </div>
 
+
+    <div class="component-card" data-category="chips">
+      <div class="card-preview">
+        <div class="card-interactive-area full-width">
+          <div class="premium-chip-filter">
+            <div class="chip-scroll-row" id="chipRow">
+              <div class="filter-chip active" onclick="toggleChip(this)"><i class="fa-solid fa-layer-group"></i> All</div>
+              <div class="filter-chip" onclick="toggleChip(this)"><i class="fa-solid fa-mobile-screen"></i> Mobile</div>
+              <div class="filter-chip" onclick="toggleChip(this)"><i class="fa-solid fa-desktop"></i> Desktop</div>
+              <div class="filter-chip" onclick="toggleChip(this)"><i class="fa-solid fa-tablet"></i> Tablet</div>
+              <div class="filter-chip" onclick="toggleChip(this)"><i class="fa-solid fa-wand-magic-sparkles"></i> Animated</div>
+              <div class="filter-chip" onclick="toggleChip(this)"><i class="fa-solid fa-moon"></i> Dark Mode</div>
+            </div>
+            <div class="chip-count-label" id="chipCountLabel">1 selected</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <h3>Multi-Select Chips</h3>
+          <span>Chip Filters</span>
+        </div>
+        <p>A horizontal scrollable chip row with multi-select toggle states, glow activation, and a live selection counter badge.</p>
+        <div class="card-actions">
+          <button onclick="toggleCode('codeChip', this)"><i class="fa-solid fa-code"></i> View Code</button>
+          <button onclick="copyCode('codeChip', this)"><i class="fa-solid fa-copy"></i> Copy HTML</button>
+        </div>
+      </div>
+
+      <pre class="code-block" id="codeChip" style="display:none;"><code>&lt;div class="premium-chip-filter"&gt;
+  &lt;div class="chip-scroll-row"&gt;
+    &lt;div class="filter-chip active"&gt;All&lt;/div&gt;
+    &lt;div class="filter-chip"&gt;Mobile&lt;/div&gt;
+    &lt;div class="filter-chip"&gt;Desktop&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="component-card" data-category="rating">
+      <div class="card-preview">
+        <div class="card-interactive-area full-width">
+          <div class="premium-rating-filter">
+            <div class="rating-filter-title">Filter by Rating</div>
+            <div class="rating-rows">
+              <label class="rating-row" onclick="selectRating(this)">
+                <input type="radio" name="ratingFilter" value="5">
+                <div class="rating-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <span class="rating-label">5 Stars</span>
+                <span class="rating-count">1.2k</span>
+              </label>
+              <label class="rating-row" onclick="selectRating(this)">
+                <input type="radio" name="ratingFilter" value="4">
+                <div class="rating-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                </div>
+                <span class="rating-label">4 & up</span>
+                <span class="rating-count">3.8k</span>
+              </label>
+              <label class="rating-row" onclick="selectRating(this)">
+                <input type="radio" name="ratingFilter" value="3">
+                <div class="rating-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                </div>
+                <span class="rating-label">3 & up</span>
+                <span class="rating-count">5.1k</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <h3>Rating Filter</h3>
+          <span>Rating</span>
+        </div>
+        <p>A star-based rating filter panel with glow-on-hover star rows, active selection highlight, and animated count badges.</p>
+        <div class="card-actions">
+          <button onclick="toggleCode('codeRating', this)"><i class="fa-solid fa-code"></i> View Code</button>
+          <button onclick="copyCode('codeRating', this)"><i class="fa-solid fa-copy"></i> Copy HTML</button>
+        </div>
+      </div>
+
+      <pre class="code-block" id="codeRating" style="display:none;"><code>&lt;div class="premium-rating-filter"&gt;
+  &lt;div class="rating-rows"&gt;
+    &lt;label class="rating-row"&gt;
+      &lt;input type="radio" name="ratingFilter" value="5"&gt;
+      &lt;div class="rating-stars"&gt;...stars...&lt;/div&gt;
+      &lt;span class="rating-label"&gt;5 Stars&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="component-card" data-category="date">
+      <div class="card-preview">
+        <div class="card-interactive-area full-width">
+          <div class="premium-date-range-filter">
+            <div class="date-range-header">
+              <i class="fa-solid fa-calendar-days"></i>
+              <span>Date Range</span>
+            </div>
+            <div class="date-inputs-row">
+              <div class="date-input-group">
+                <label>From</label>
+                <input type="date" id="dateFrom" class="date-input-field" value="2026-01-01">
+              </div>
+              <div class="date-arrow-divider"><i class="fa-solid fa-arrow-right"></i></div>
+              <div class="date-input-group">
+                <label>To</label>
+                <input type="date" id="dateTo" class="date-input-field" value="2026-05-31">
+              </div>
+            </div>
+            <div class="date-presets-row">
+              <button class="date-preset-btn" onclick="setDatePreset('week', this)">Last 7d</button>
+              <button class="date-preset-btn active" onclick="setDatePreset('month', this)">This Month</button>
+              <button class="date-preset-btn" onclick="setDatePreset('year', this)">This Year</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <h3>Date Range Filter</h3>
+          <span>Date Range</span>
+        </div>
+        <p>A glassmorphic date range picker with From/To date inputs and quick preset buttons for 7-day, monthly, and yearly ranges.</p>
+        <div class="card-actions">
+          <button onclick="toggleCode('codeDate', this)"><i class="fa-solid fa-code"></i> View Code</button>
+          <button onclick="copyCode('codeDate', this)"><i class="fa-solid fa-copy"></i> Copy HTML</button>
+        </div>
+      </div>
+
+      <pre class="code-block" id="codeDate" style="display:none;"><code>&lt;div class="premium-date-range-filter"&gt;
+  &lt;div class="date-inputs-row"&gt;
+    &lt;div class="date-input-group"&gt;
+      &lt;label&gt;From&lt;/label&gt;
+      &lt;input type="date" class="date-input-field"&gt;
+    &lt;/div&gt;
+    &lt;div class="date-input-group"&gt;
+      &lt;label&gt;To&lt;/label&gt;
+      &lt;input type="date" class="date-input-field"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="component-card" data-category="color">
+      <div class="card-preview">
+        <div class="card-interactive-area full-width">
+          <div class="premium-color-swatch-filter">
+            <div class="color-filter-title">Filter by Color</div>
+            <div class="color-swatches-grid">
+              <div class="color-swatch active" style="--swatch-color: #7b61ff;" onclick="toggleSwatch(this)" title="Purple"></div>
+              <div class="color-swatch" style="--swatch-color: #ff7a3d;" onclick="toggleSwatch(this)" title="Orange"></div>
+              <div class="color-swatch" style="--swatch-color: #10b981;" onclick="toggleSwatch(this)" title="Emerald"></div>
+              <div class="color-swatch" style="--swatch-color: #ef4444;" onclick="toggleSwatch(this)" title="Red"></div>
+              <div class="color-swatch" style="--swatch-color: #06b6d4;" onclick="toggleSwatch(this)" title="Cyan"></div>
+              <div class="color-swatch" style="--swatch-color: #f59e0b;" onclick="toggleSwatch(this)" title="Amber"></div>
+              <div class="color-swatch" style="--swatch-color: #ec4899;" onclick="toggleSwatch(this)" title="Pink"></div>
+              <div class="color-swatch swatch-none" onclick="toggleSwatch(this)" title="None"><i class="fa-solid fa-ban"></i></div>
+            </div>
+            <div class="color-filter-result" id="colorResult">Purple selected</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <h3>Color Swatch Filter</h3>
+          <span>Color</span>
+        </div>
+        <p>A multi-select color dot swatch filter with glowing active ring animation, color names, and a live result readout below.</p>
+        <div class="card-actions">
+          <button onclick="toggleCode('codeColor', this)"><i class="fa-solid fa-code"></i> View Code</button>
+          <button onclick="copyCode('codeColor', this)"><i class="fa-solid fa-copy"></i> Copy HTML</button>
+        </div>
+      </div>
+
+      <pre class="code-block" id="codeColor" style="display:none;"><code>&lt;div class="premium-color-swatch-filter"&gt;
+  &lt;div class="color-swatches-grid"&gt;
+    &lt;div class="color-swatch active" style="--swatch-color:#7b61ff;"&gt;&lt;/div&gt;
+    &lt;div class="color-swatch" style="--swatch-color:#ff7a3d;"&gt;&lt;/div&gt;
+    &lt;div class="color-swatch" style="--swatch-color:#10b981;"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="component-card" data-category="autocomplete">
+      <div class="card-preview">
+        <div class="card-interactive-area full-width">
+          <div class="premium-autocomplete-search">
+            <div class="autocomplete-input-wrap" id="autocompleteWrap">
+              <i class="fa-solid fa-magnifying-glass autocomplete-icon"></i>
+              <input type="text" id="autocompleteInput" placeholder="Search components..." autocomplete="off" oninput="handleAutocomplete(this.value)" onfocus="showAutoSuggestions()" onblur="hideAutoSuggestionsDelayed()">
+              <div class="autocomplete-kbd">⌘K</div>
+            </div>
+            <div class="autocomplete-dropdown" id="autoDropdown">
+              <div class="auto-suggestion-group">
+                <div class="auto-group-label">Components</div>
+                <div class="auto-item" onmousedown="selectAutoItem('Buttons')"><i class="fa-solid fa-hand-pointer"></i> Buttons</div>
+                <div class="auto-item" onmousedown="selectAutoItem('Cards')"><i class="fa-solid fa-table-cells-large"></i> Cards</div>
+                <div class="auto-item" onmousedown="selectAutoItem('Dropdowns')"><i class="fa-solid fa-caret-down"></i> Dropdowns</div>
+              </div>
+              <div class="auto-suggestion-group">
+                <div class="auto-group-label">Recent</div>
+                <div class="auto-item" onmousedown="selectAutoItem('Price Filter')"><i class="fa-solid fa-clock-rotate-left"></i> Price Filter</div>
+                <div class="auto-item" onmousedown="selectAutoItem('Search Tags')"><i class="fa-solid fa-clock-rotate-left"></i> Search Tags</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-content">
+        <div class="card-top">
+          <h3>Autocomplete Search</h3>
+          <span>Autocomplete</span>
+        </div>
+        <p>A premium search input with animated grouped autocomplete dropdown, keyboard shortcut badge, and focus-triggered suggestions.</p>
+        <div class="card-actions">
+          <button onclick="toggleCode('codeAuto', this)"><i class="fa-solid fa-code"></i> View Code</button>
+          <button onclick="copyCode('codeAuto', this)"><i class="fa-solid fa-copy"></i> Copy HTML</button>
+        </div>
+      </div>
+
+      <pre class="code-block" id="codeAuto" style="display:none;"><code>&lt;div class="premium-autocomplete-search"&gt;
+  &lt;div class="autocomplete-input-wrap"&gt;
+    &lt;i class="fa-solid fa-magnifying-glass"&gt;&lt;/i&gt;
+    &lt;input type="text" placeholder="Search..."&gt;
+    &lt;div class="autocomplete-kbd"&gt;⌘K&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="autocomplete-dropdown"&gt;
+    &lt;div class="auto-suggestion-group"&gt;
+      &lt;div class="auto-group-label"&gt;Components&lt;/div&gt;
+      &lt;div class="auto-item"&gt;Buttons&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
   </div>
 
-  <!-- PREMIUM GLASSMORPHISM FOOTER -->
+  
   <footer class="premium-footer">
     <div class="footer-grid">
       <!-- Brand column -->
@@ -587,60 +837,94 @@
     list.classList.remove('open');
   }
 
-  // Global Actions
   function activateAllFilters() {
-    // Select category 1
     const item = document.querySelectorAll('.tab-item')[1];
     setCategoryTab(1, item);
 
-    // Max prices
     document.getElementById('priceMin').value = 300;
     document.getElementById('priceMax').value = 950;
     updatePriceSliders();
 
-    // Add suggested tags
     addSuggestedTag('Clean');
     addSuggestedTag('3D');
 
-    // Accordions open
     document.querySelectorAll('.accordion-header').forEach(h => {
       if (!h.classList.contains('active')) {
         toggleAccordion(h);
       }
     });
 
-    // Check all checkboxes
     document.querySelectorAll('.filter-checkbox-row input').forEach(c => c.checked = true);
 
-    // Set dropdown to rating
     const mItem = document.querySelectorAll('.menu-item')[2];
     selectDropdownSort('Top Rated', mItem);
+
+    document.querySelectorAll('#chipRow .filter-chip').forEach((c, idx) => {
+      if (idx > 0) c.classList.add('active');
+    });
+    const chipCount = document.querySelectorAll('#chipRow .filter-chip.active').length;
+    document.getElementById('chipCountLabel').textContent = chipCount + ' selected';
+
+    const rRow = document.querySelectorAll('.rating-row')[0];
+    if (rRow) {
+      rRow.querySelector('input').checked = true;
+      selectRating(rRow);
+    }
+
+    const dateBtn = document.querySelectorAll('.date-preset-btn')[0];
+    if (dateBtn) setDatePreset('week', dateBtn);
+
+    document.querySelectorAll('.color-swatch').forEach((s, idx) => {
+      if (idx === 1 || idx === 2) s.classList.add('active');
+    });
+    toggleSwatch(document.createElement('div'));
+
+    document.getElementById('autocompleteInput').value = 'Buttons';
+    showAutoSuggestions();
   }
 
-  // Reset progress states
   function resetAllFilters() {
-    // Select category 0
     const item = document.querySelectorAll('.tab-item')[0];
     setCategoryTab(0, item);
 
-    // Reset price range
     document.getElementById('priceMin').value = 150;
     document.getElementById('priceMax').value = 800;
     updatePriceSliders();
 
-    // Reset tag pills
     const row = document.getElementById('activeTagsRow');
     row.innerHTML = `<div class="tag-pill">UI<i class="fa-solid fa-xmark" onclick="removeSearchTag(this)"></i></div><div class="tag-pill">Glass<i class="fa-solid fa-xmark" onclick="removeSearchTag(this)"></i></div>`;
 
-    // Reset checkboxes
     document.querySelectorAll('.filter-checkbox-row input').forEach((c, idx) => {
       c.checked = idx === 0 || idx === 2;
     });
 
-    // Reset dropdown
     const mItem = document.querySelectorAll('.menu-item')[0];
     selectDropdownSort('Popularity', mItem);
+
+    document.querySelectorAll('#chipRow .filter-chip').forEach((c, idx) => {
+      if (idx === 0) c.classList.add('active');
+      else c.classList.remove('active');
+    });
+    document.getElementById('chipCountLabel').textContent = '1 selected';
+
+    document.querySelectorAll('.rating-row').forEach(r => {
+      r.classList.remove('active');
+      r.querySelector('input').checked = false;
+    });
+
+    const dateBtn = document.querySelectorAll('.date-preset-btn')[1];
+    if (dateBtn) setDatePreset('month', dateBtn);
+
+    document.querySelectorAll('.color-swatch').forEach((s, idx) => {
+      if (idx === 0) s.classList.add('active');
+      else s.classList.remove('active');
+    });
+    document.getElementById('colorResult').textContent = 'Purple selected';
+
+    document.getElementById('autocompleteInput').value = '';
+    hideAutoSuggestionsDelayed();
   }
+
 
   // Filter category
   function filterCategory(cat, btn) {
@@ -717,7 +1001,70 @@
     }
   }
 
-  // Close dropdown on click outside
+  function toggleChip(chip) {
+    chip.classList.toggle('active');
+    const row = document.getElementById('chipRow');
+    const count = row.querySelectorAll('.filter-chip.active').length;
+    const label = document.getElementById('chipCountLabel');
+    label.textContent = count === 0 ? 'None selected' : count + ' selected';
+  }
+
+  function selectRating(row) {
+    document.querySelectorAll('.rating-row').forEach(r => r.classList.remove('active'));
+    row.classList.add('active');
+  }
+
+  function setDatePreset(preset, btn) {
+    document.querySelectorAll('.date-preset-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const today = new Date();
+    const toInput = document.getElementById('dateTo');
+    const fromInput = document.getElementById('dateFrom');
+    toInput.value = today.toISOString().split('T')[0];
+    if (preset === 'week') {
+      const d = new Date(today); d.setDate(d.getDate() - 7);
+      fromInput.value = d.toISOString().split('T')[0];
+    } else if (preset === 'month') {
+      fromInput.value = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
+    } else if (preset === 'year') {
+      fromInput.value = new Date(today.getFullYear(), 0, 1).toISOString().split('T')[0];
+    }
+  }
+
+  const swatchNames = { '#7b61ff': 'Purple', '#ff7a3d': 'Orange', '#10b981': 'Emerald', '#ef4444': 'Red', '#06b6d4': 'Cyan', '#f59e0b': 'Amber', '#ec4899': 'Pink' };
+  function toggleSwatch(el) {
+    el.classList.toggle('active');
+    const active = Array.from(document.querySelectorAll('.color-swatch.active:not(.swatch-none)')).map(s => swatchNames[s.style.getPropertyValue('--swatch-color').trim()] || s.title);
+    const label = document.getElementById('colorResult');
+    label.textContent = active.length === 0 ? 'None selected' : active.join(', ') + ' selected';
+  }
+
+  function showAutoSuggestions() {
+    document.getElementById('autoDropdown').classList.add('open');
+    document.getElementById('autocompleteWrap').classList.add('focused');
+  }
+
+  function hideAutoSuggestionsDelayed() {
+    setTimeout(() => {
+      document.getElementById('autoDropdown').classList.remove('open');
+      document.getElementById('autocompleteWrap').classList.remove('focused');
+    }, 150);
+  }
+
+  function handleAutocomplete(val) {
+    const items = document.querySelectorAll('.auto-item');
+    items.forEach(item => {
+      item.style.display = val === '' || item.textContent.toLowerCase().includes(val.toLowerCase()) ? 'flex' : 'none';
+    });
+    if (val !== '') showAutoSuggestions();
+  }
+
+  function selectAutoItem(label) {
+    document.getElementById('autocompleteInput').value = label;
+    document.getElementById('autoDropdown').classList.remove('open');
+    document.getElementById('autocompleteWrap').classList.remove('focused');
+  }
+
   window.addEventListener('click', (e) => {
     if (!e.target.closest('.premium-sort-dropdown')) {
       const list = document.getElementById('dropdownMenu');
@@ -725,8 +1072,8 @@
     }
   });
 
-  // Run on start
   updatePriceSliders();
+
 </script>
 
 </body>
