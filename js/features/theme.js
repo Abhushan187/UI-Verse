@@ -66,6 +66,13 @@ const Theme = {
 
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     this.updateToggleState(this._getToggleButtons(), isDark);
+
+    document.dispatchEvent(new CustomEvent('uiverse:theme-change', {
+      detail: {
+        theme: isDark ? 'dark' : 'light',
+        isDark
+      }
+    }));
   },
 
   _syncThemeFromStorage() {

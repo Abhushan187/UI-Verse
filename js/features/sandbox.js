@@ -10,6 +10,7 @@ const Sandbox = {
     previewSlots: new Set(),
     previewObserver: null,
     mutationObserver: null,
+    themeListener: null,
     initStartedAt: 0,
     loadedPreviewCount: 0
   },
@@ -28,6 +29,7 @@ const Sandbox = {
         border-radius: 10px;
         overflow: hidden;
         background: linear-gradient(180deg, rgba(248, 250, 252, 0.94), rgba(241, 245, 249, 0.88));
+        transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
       }
 
       .sandbox-preview-slot.is-loading {
@@ -101,6 +103,19 @@ const Sandbox = {
         background: transparent;
       }
 
+      .sandbox-preview-slot.theme-dark {
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .sandbox-preview-slot.theme-light {
+        border-color: rgba(148, 163, 184, 0.3);
+      }
+
+      .sandbox-preview-slot[data-theme-bg-light],
+      .sandbox-preview-slot[data-theme-bg-dark] {
+        isolation: isolate;
+      }
+
       @keyframes sandboxPulse {
         0%, 100% { opacity: 0.72; }
         50% { opacity: 1; }
@@ -123,6 +138,53 @@ const Sandbox = {
       <div class="sandbox-skeleton-line short"></div>
     `;
     return skeleton;
+  },
+
+  _getThemePreference() {
+    return document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+  },
+
+  _resolveThemeBackground(slot) {
+    const isDark = this._getThemePreference() === 'dark';
+    const lightBg = slot?.card?.dataset?.themeBgLight || slot?.placeholder?.dataset?.themeBgLight || '';
+    const darkBg = slot?.card?.dataset?.themeBgDark || slot?.placeholder?.dataset?.themeBgDark || '';
+
+    const chosen = isDark ? (darkBg || lightBg) : (lightBg || darkBg);
+    const fallback = isDark
+      ? 'linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(17, 24, 39, 0.9))'
+      : 'linear-gradient(180deg, rgba(248, 250, 252, 0.94), rgba(241, 245, 249, 0.88))';
+
+    return {
+      background: chosen || fallback,
+      mode: isDark ? 'dark' : 'light'
+    };
+  },
+
+  _applyThemeToSlot(slot) {
+    if (!slot || !slot.placeholder) return;
+
+    const theme = this._resolveThemeBackground(slot);
+    slot.placeholder.dataset.themeMode = theme.mode;
+    slot.placeholder.dataset.themeBgLight = slot.placeholder.dataset.themeBgLight || slot.card?.dataset?.themeBgLight || '';
+    slot.placeholder.dataset.themeBgDark = slot.placeholder.dataset.themeBgDark || slot.card?.dataset?.themeBgDark || '';
+    slot.placeholder.style.background = theme.background;
+    slot.placeholder.classList.toggle('theme-dark', theme.mode === 'dark');
+    slot.placeholder.classList.toggle('theme-light', theme.mode === 'light');
+  },
+
+  _syncThemeAwarePreviews() {
+    this._state.previewSlots.forEach((slot) => {
+      this._applyThemeToSlot(slot);
+    });
+  },
+
+  _bindThemeEvents() {
+    if (this._state.themeListener) return;
+
+    const onThemeChange = () => this._syncThemeAwarePreviews();
+    document.addEventListener('uiverse:theme-change', onThemeChange);
+    document.addEventListener('themechange', onThemeChange);
+    this._state.themeListener = onThemeChange;
   },
 
   _cleanupSlot(slot) {
@@ -922,6 +984,7 @@ const Sandbox = {
       };
 
       placeholder.__sandboxSlot = slot;
+      this._applyThemeToSlot(slot);
       slot.removeExistingCodeBlock = () => {
         if (existingCodeBlock) {
           existingCodeBlock.replaceWith(textarea);
@@ -952,6 +1015,7 @@ const Sandbox = {
 
       slot.htmlContent = slot.htmlContent || '';
       this._state.previewSlots.add(slot);
+      this._bindThemeEvents();
 
       if (this._state.previewObserver) {
         this._state.previewObserver.observe(placeholder);
