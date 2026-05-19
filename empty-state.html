@@ -584,6 +584,244 @@
 }</textarea>
     </div>
 
+    <div class="component-card" data-name="no search history empty magnifying glass">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+        <div>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 4px 0;">
+            6. No Search History
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0; max-width: 320px;">
+            Clean state for empty search logs with interactive suggested tags.
+          </p>
+        </div>
+        <span style="background: rgba(148, 163, 184, 0.1); color: var(--empty-text-muted); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Search</span>
+      </div>
+
+      <div class="component-preview">
+        <div class="empty-history-card">
+          <i class="fa-solid fa-clock-rotate-left empty-history-icon"></i>
+          <h3 style="font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 8px 0;">
+            No Recent Searches
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0 0 1.5rem 0; line-height: 1.5;">
+            Your search history is empty. Try searching for something new or use our suggestions below.
+          </p>
+          <div class="empty-history-tags">
+            <span class="empty-history-tag">UI Kits</span>
+            <span class="empty-history-tag">Icons</span>
+            <span class="empty-history-tag">Templates</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn view-btn" onclick="toggleCode('code-history', this)"><i class="fa-solid fa-code"></i> View Code</button>
+        <button class="action-btn copy-btn" onclick="copyCode('code-history', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+      </div>
+      <textarea id="code-history" class="code-block" style="display: none; width: 100%; min-height: 180px; font-family: monospace; padding: 12px; border-radius: 12px; border: 1px solid var(--empty-card-border); background: var(--empty-bg-subtle); color: var(--empty-text-main); font-size: 0.85rem;" readonly>
+&lt;div class="empty-history-card"&gt;
+  &lt;i class="fa-solid fa-clock-rotate-left empty-history-icon"&gt;&lt;/i&gt;
+  &lt;h3&gt;No Recent Searches&lt;/h3&gt;
+  &lt;p&gt;Your search history is empty. Try searching for something new.&lt;/p&gt;
+  &lt;div class="empty-history-tags"&gt;
+    &lt;span class="empty-history-tag"&gt;UI Kits&lt;/span&gt;
+    &lt;span class="empty-history-tag"&gt;Icons&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</textarea>
+    </div>
+
+    <div class="component-card" data-name="empty shopping cart ecommerce">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+        <div>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 4px 0;">
+            7. Empty Shopping Cart
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0; max-width: 320px;">
+            Engaging empty cart state with pulsing animations to encourage shopping.
+          </p>
+        </div>
+        <span style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Commerce</span>
+      </div>
+
+      <div class="component-preview">
+        <div class="empty-cart-card">
+          <div class="empty-cart-graphic">
+            <div class="empty-cart-circle">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+          </div>
+          <h3 style="font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 8px 0;">
+            Your Cart is Empty
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0 0 1.5rem 0; line-height: 1.5;">
+            Looks like you haven't added anything to your cart yet. Discover our latest collections.
+          </p>
+          <button class="empty-submit-btn" style="background: #10b981;">Start Shopping</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn view-btn" onclick="toggleCode('code-cart', this)"><i class="fa-solid fa-code"></i> View Code</button>
+        <button class="action-btn copy-btn" onclick="copyCode('code-cart', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+      </div>
+      <textarea id="code-cart" class="code-block" style="display: none; width: 100%; min-height: 180px; font-family: monospace; padding: 12px; border-radius: 12px; border: 1px solid var(--empty-card-border); background: var(--empty-bg-subtle); color: var(--empty-text-main); font-size: 0.85rem;" readonly>
+&lt;div class="empty-cart-card"&gt;
+  &lt;div class="empty-cart-graphic"&gt;
+    &lt;div class="empty-cart-circle"&gt;
+      &lt;i class="fa-solid fa-cart-shopping"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;h3&gt;Your Cart is Empty&lt;/h3&gt;
+  &lt;p&gt;Discover our latest collections.&lt;/p&gt;
+  &lt;button class="empty-submit-btn" style="background: #10b981;"&gt;Start Shopping&lt;/button&gt;
+&lt;/div&gt;</textarea>
+    </div>
+
+    <div class="component-card" data-name="no connections friends network social">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+        <div>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 4px 0;">
+            8. No Connections
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0; max-width: 320px;">
+            Social network empty state illustrating unconnected user nodes.
+          </p>
+        </div>
+        <span style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Social</span>
+      </div>
+
+      <div class="component-preview">
+        <div class="empty-network-card">
+          <div class="empty-network-nodes">
+            <div class="empty-node"><i class="fa-solid fa-user"></i></div>
+            <div class="empty-node main"><i class="fa-solid fa-user-plus"></i></div>
+            <div class="empty-node"><i class="fa-solid fa-user"></i></div>
+          </div>
+          <h3 style="font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 8px 0;">
+            No Connections Yet
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0 0 1.5rem 0; line-height: 1.5;">
+            Expand your network by discovering and connecting with like-minded professionals.
+          </p>
+          <button class="empty-submit-btn">Find Friends</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn view-btn" onclick="toggleCode('code-network', this)"><i class="fa-solid fa-code"></i> View Code</button>
+        <button class="action-btn copy-btn" onclick="copyCode('code-network', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+      </div>
+      <textarea id="code-network" class="code-block" style="display: none; width: 100%; min-height: 180px; font-family: monospace; padding: 12px; border-radius: 12px; border: 1px solid var(--empty-card-border); background: var(--empty-bg-subtle); color: var(--empty-text-main); font-size: 0.85rem;" readonly>
+&lt;div class="empty-network-card"&gt;
+  &lt;div class="empty-network-nodes"&gt;
+    &lt;div class="empty-node"&gt;&lt;i class="fa-solid fa-user"&gt;&lt;/i&gt;&lt;/div&gt;
+    &lt;div class="empty-node main"&gt;&lt;i class="fa-solid fa-user-plus"&gt;&lt;/i&gt;&lt;/div&gt;
+    &lt;div class="empty-node"&gt;&lt;i class="fa-solid fa-user"&gt;&lt;/i&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;h3&gt;No Connections Yet&lt;/h3&gt;
+  &lt;button class="empty-submit-btn"&gt;Find Friends&lt;/button&gt;
+&lt;/div&gt;</textarea>
+    </div>
+
+    <div class="component-card" data-name="empty task list completed to do">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+        <div>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 4px 0;">
+            9. All Tasks Completed
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0; max-width: 320px;">
+            Positive reinforcement state when a user finishes their todo list.
+          </p>
+        </div>
+        <span style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Productivity</span>
+      </div>
+
+      <div class="component-preview">
+        <div class="empty-tasks-card">
+          <div class="empty-tasks-list">
+            <div class="empty-task-item">
+              <i class="fa-solid fa-check-circle empty-task-icon"></i>
+              <div class="empty-task-line"></div>
+            </div>
+            <div class="empty-task-item">
+              <i class="fa-solid fa-check-circle empty-task-icon"></i>
+              <div class="empty-task-line" style="width: 60%; flex: none;"></div>
+            </div>
+          </div>
+          <h3 style="font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 8px 0;">
+            You're All Caught Up!
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0 0 1.5rem 0; line-height: 1.5;">
+            Great job! You've completed all your scheduled tasks for today. Take a well-deserved break.
+          </p>
+          <button class="empty-submit-btn" style="background: linear-gradient(135deg, #8b5cf6, #d946ef);">Add New Task</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn view-btn" onclick="toggleCode('code-tasks', this)"><i class="fa-solid fa-code"></i> View Code</button>
+        <button class="action-btn copy-btn" onclick="copyCode('code-tasks', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+      </div>
+      <textarea id="code-tasks" class="code-block" style="display: none; width: 100%; min-height: 180px; font-family: monospace; padding: 12px; border-radius: 12px; border: 1px solid var(--empty-card-border); background: var(--empty-bg-subtle); color: var(--empty-text-main); font-size: 0.85rem;" readonly>
+&lt;div class="empty-tasks-card"&gt;
+  &lt;div class="empty-tasks-list"&gt;
+    &lt;div class="empty-task-item"&gt;
+      &lt;i class="fa-solid fa-check-circle empty-task-icon"&gt;&lt;/i&gt;
+      &lt;div class="empty-task-line"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="empty-task-item"&gt;
+      &lt;i class="fa-solid fa-check-circle empty-task-icon"&gt;&lt;/i&gt;
+      &lt;div class="empty-task-line" style="width: 60%; flex: none;"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;h3&gt;You're All Caught Up!&lt;/h3&gt;
+  &lt;button class="empty-submit-btn"&gt;Add New Task&lt;/button&gt;
+&lt;/div&gt;</textarea>
+    </div>
+
+    <div class="component-card" data-name="no payment methods wallet billing">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+        <div>
+          <h2 style="font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 4px 0;">
+            10. No Payment Methods
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0; max-width: 320px;">
+            Billing interface fallback displaying a stylized empty wallet.
+          </p>
+        </div>
+        <span style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Billing</span>
+      </div>
+
+      <div class="component-preview">
+        <div class="empty-wallet-card">
+          <div class="empty-wallet-graphic">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <h3 style="font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--empty-text-main); margin: 0 0 8px 0;">
+            No Payment Methods
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--empty-text-muted); margin: 0 0 1.5rem 0; line-height: 1.5;">
+            You haven't linked any credit cards or bank accounts yet. Add a payment method to unlock features.
+          </p>
+          <button class="empty-submit-btn" style="background: linear-gradient(135deg, #f59e0b, #ea580c);"><i class="fa-solid fa-plus"></i> Add Card</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn view-btn" onclick="toggleCode('code-wallet', this)"><i class="fa-solid fa-code"></i> View Code</button>
+        <button class="action-btn copy-btn" onclick="copyCode('code-wallet', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+      </div>
+      <textarea id="code-wallet" class="code-block" style="display: none; width: 100%; min-height: 180px; font-family: monospace; padding: 12px; border-radius: 12px; border: 1px solid var(--empty-card-border); background: var(--empty-bg-subtle); color: var(--empty-text-main); font-size: 0.85rem;" readonly>
+&lt;div class="empty-wallet-card"&gt;
+  &lt;div class="empty-wallet-graphic"&gt;
+    &lt;i class="fa-solid fa-wallet"&gt;&lt;/i&gt;
+  &lt;/div&gt;
+  &lt;h3&gt;No Payment Methods&lt;/h3&gt;
+  &lt;p&gt;You haven't linked any credit cards or bank accounts yet.&lt;/p&gt;
+  &lt;button class="empty-submit-btn"&gt;Add Card&lt;/button&gt;
+&lt;/div&gt;</textarea>
+    </div>
+
   </div>
 
 </main>

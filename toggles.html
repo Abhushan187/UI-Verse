@@ -135,13 +135,24 @@
 
     .page-hero{
       max-width:1300px;
-      margin:auto;
-      padding:60px 24px 30px;
+      margin:40px auto 30px;
+      padding:48px 56px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
       display:flex;
       justify-content:space-between;
       gap:40px;
       align-items:center;
       flex-wrap:wrap;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-left{
+      flex:1;
+      min-width:300px;
     }
 
     .page-title{
@@ -167,14 +178,14 @@
     .meta-badge{
       padding:10px 16px;
       border-radius:999px;
-      background:var(--card);
+      background:var(--bg);
       border:1px solid var(--border);
       font-size:.92rem;
       box-shadow:var(--shadow);
     }
 
     .toggle-hero-preview{
-      background:var(--card);
+      background:var(--bg);
       border:1px solid var(--border);
       border-radius:var(--radius);
       padding:24px;
@@ -945,6 +956,201 @@
       left: calc(100% - 20px);
       background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
       transform: rotate(15deg);
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer {
+      margin-left: 250px;
+      background: var(--card);
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding: 0;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+      gap: 40px;
+      padding: 56px 48px 40px;
+      max-width: 100%;
+    }
+
+    .footer-logo {
+      font-family: "Syne", sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--orange, #eb6835);
+      margin-bottom: 12px;
+    }
+
+    .footer-col p {
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .footer-col h3 {
+      font-family: "Syne", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul li a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--orange, #eb6835);
+    }
+
+    .socials {
+      display: flex;
+      gap: 12px;
+    }
+
+    .socials a {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .socials a:hover {
+      background: var(--orange, #eb6835);
+      color: #fff;
+      transform: translateY(-2px);
+      border-color: var(--orange, #eb6835);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .newsletter-form input:focus {
+      border-color: var(--orange, #eb6835);
+    }
+
+    .newsletter-form button {
+      padding: 10px 18px;
+      background: var(--orange, #eb6835);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .newsletter-form button:hover {
+      background: #d45c28;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 20px 48px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* SCROLL TOP */
+    #scrollTopBtn {
+      position: fixed;
+      right: 28px;
+      bottom: 28px;
+      width: 54px;
+      height: 54px;
+      border: none;
+      border-radius: 50%;
+      background: #eb6835;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+      opacity: 0;
+      visibility: hidden;
+      transition: .3s ease;
+      z-index: 999;
+      box-shadow: 0 4px 12px rgba(235, 104, 53, 0.3);
+    }
+
+    #scrollTopBtn:hover {
+      background: #d45c28;
+      transform: translateY(-2px);
+    }
+
+    #scrollTopBtn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 992px) {
+      .footer {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .page-hero {
+        flex-direction: column;
+        padding: 36px 24px;
+      }
+      .toggle-hero-preview {
+        width: 100%;
+        min-width: 0;
+      }
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 40px 24px;
+      }
+      .footer-bottom {
+        padding: 20px 24px;
+      }
     }
   </style>
   <link rel="stylesheet" href="shared-sidebar.css">
@@ -1999,11 +2205,77 @@
     Copied to clipboard!
   </div>
 
-  <!-- FOOTER -->
+</main>
 
+  <!-- ================= FOOTER ================= -->
   <footer class="footer">
-    © 2026 UIverse — Modern UI Components
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <div class="socials">
+          <a href="https://github.com" target="_blank" title="GitHub" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://twitter.com" target="_blank" title="Twitter" aria-label="Twitter">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="button.html">Buttons</a></li>
+          <li><a href="navbar.html">Navbars</a></li>
+          <li><a href="cards.html">Cards</a></li>
+          <li><a href="inputs.html">Inputs</a></li>
+          <li><a href="forms.html">Forms</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="documentation.html">Documentation</a></li>
+          <li><a href="contribute.html">Contribute</a></li>
+          <li><a href="https://github.com/uiverse/uiverse" target="_blank">GitHub Repo</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="privacypolicy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="license.html">License</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col newsletter">
+        <h3>Stay Updated</h3>
+        <p>Get notified when new components drop.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="your@email.com" id="newsletterEmail" />
+          <button type="button" onclick="subscribe()">Subscribe</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 UIverse. Made with ❤️ for developers worldwide.</p>
+    </div>
   </footer>
+
+  <!-- ===== SCROLL TO TOP ===== -->
+  <button id="scrollTopBtn" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
 
   <!-- SCRIPT -->
 
@@ -2122,9 +2394,37 @@
 
     }
 
-  </script>
+    /* SCROLL TO TOP & SUBSCRIBE */
 
-</main>
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.add("visible");
+      } else {
+        scrollTopBtn.classList.remove("visible");
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function subscribe() {
+      const emailInput = document.getElementById("newsletterEmail");
+      const email = emailInput.value.trim();
+      if (email) {
+        alert("Thank you for subscribing: " + email);
+        emailInput.value = "";
+      } else {
+        alert("Please enter a valid email address.");
+      }
+    }
+
+  </script>
 
 </body>
 </html>
