@@ -90,6 +90,10 @@ const Bootstrap = {
       UIverse.register('Favorites', Favorites);
     }
 
+    if (typeof DevicePreview !== 'undefined') {
+      UIverse.register('DevicePreview', DevicePreview);
+    }
+
     if (typeof TutorialMode !== 'undefined') {
       UIverse.register('TutorialMode', TutorialMode);
     }

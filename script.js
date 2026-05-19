@@ -288,6 +288,33 @@ function initLegacyCardFavorites() {
   });
 }
 
+function initDevicePreviewFeature() {
+  const hasCards = document.querySelector('.component-card');
+  if (!hasCards) return;
+
+  const start = () => {
+    if (window.DevicePreview && typeof window.DevicePreview.init === 'function') {
+      window.DevicePreview.init();
+    }
+  };
+
+  if (window.DevicePreview && typeof window.DevicePreview.init === 'function') {
+    start();
+    return;
+  }
+
+  const existingScript = document.querySelector('script[src$="js/features/device-preview.js"]');
+  if (existingScript) {
+    existingScript.addEventListener('load', start, { once: true });
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.src = 'js/features/device-preview.js';
+  script.onload = start;
+  document.body.appendChild(script);
+}
+
 function updateSidebarActiveLink() {
   const currentRoute = getNormalizedRoutePath();
 
@@ -600,6 +627,7 @@ window.addEventListener("DOMContentLoaded", () => {
   initSidebar();
   initLegacyCardFavorites();
   initLiveSandboxes();
+  initDevicePreviewFeature();
   initDarkMode();
   initScrollTop();
   initProgressBar();
