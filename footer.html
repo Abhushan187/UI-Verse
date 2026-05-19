@@ -467,6 +467,14 @@
 
   </section>
 
+  <div>
+    <form>
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" name="" placeholder="Filter footers..." id="Scearch" onkeyup="SCEARCH()">
+    </form>
+  </div>
+
+
   <!-- GRID -->
   <div class="footer-grid">
     <!-- =========================================================
@@ -1254,6 +1262,17 @@
 
 <!-- SCRIPT -->
 <script>
+
+/*SCEARCH FILTER*/
+function SCEARCH() {
+  const filter = document.getElementById("Scearch").value.toLowerCase();
+  const cards = document.querySelectorAll(".footer-component-card");
+  cards.forEach(card =>{
+    const name = card.querySelector(".card-label").textContent.toLowerCase();
+    if(name.includes(filter)){card.style.display = "";}
+    else{card.style.display = "none"; }
+  });
+}
 
 window.addToCollectionFromCard = function(button, name) {
   const card = button.closest('.footer-component-card');
