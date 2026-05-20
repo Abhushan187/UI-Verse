@@ -25,6 +25,10 @@ const Bootstrap = {
       UIverse.register('ComponentsRegistry', ComponentsRegistry);
     }
 
+    if (typeof ComponentIndex !== 'undefined') {
+      UIverse.register('ComponentIndex', ComponentIndex);
+    }
+
     // Register feature modules (with optional conditional initialization)
     if (typeof Toast !== 'undefined') {
       UIverse.register('Toast', Toast);
@@ -43,7 +47,7 @@ const Bootstrap = {
     }
 
     if (typeof Search !== 'undefined') {
-      UIverse.register('Search', Search, ['ComponentsRegistry']);
+      UIverse.register('Search', Search, ['ComponentIndex']);
     }
 
     if (typeof Theme !== 'undefined') {
@@ -67,7 +71,7 @@ const Bootstrap = {
     }
 
     if (typeof CommandPalette !== 'undefined') {
-      UIverse.register('CommandPalette', CommandPalette);
+      UIverse.register('CommandPalette', CommandPalette, ['ComponentIndex']);
     }
 
     if (typeof URLStateManager !== 'undefined') {
