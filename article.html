@@ -398,6 +398,13 @@
 
 </section>
 
+<div>
+  <form class="scearch">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Filter Articles..." id="articleSearch">
+  </form>
+</div>
+
 <!-- ARTICLE -->
 <article class="article-card">
 
@@ -1210,6 +1217,26 @@ toggle.addEventListener("click", () => {
   }
 
 });
+
+
+/*==============================
+Scearch Filter
+==============================*/
+const input=document.getElementById("articleSearch");
+input.addEventListener("input",function(){
+  const filter = input.value.toLowerCase();
+  const cards=document.querySelectorAll(".article-card");
+  cards.forEach(card =>{
+    const data=card.textContent.toLowerCase();
+    if(data.includes(filter)){
+      card.style.display="";
+    }
+    else{
+      card.style.display="none";
+    }
+  });
+});
+
 
 </script>
 
