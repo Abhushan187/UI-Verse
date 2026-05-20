@@ -18,7 +18,8 @@ async function safeImport(specifier) {
 		'/components/web-components/uv-button.js',
 		'/components/web-components/uv-modal.js',
 		'/components/web-components/uv-tooltip.js',
-		'/components/web-components/uv-language-switcher.js'
+		'/components/web-components/uv-language-switcher.js',
+		'/components/web-components/uv-theme-switcher.js'
 	];
 
 	for (const spec of candidates) {
