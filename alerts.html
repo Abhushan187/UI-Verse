@@ -452,6 +452,7 @@
       </div>
     </div>
   </div>
+</div>
 
     <!-- 2. Dismissible Alerts -->
     <div class="component-card" data-name="dismissible closeable close button alert" data-cat="basic">
@@ -595,6 +596,7 @@
 
     </div>
   </div>
+</div>
 
     <!-- 6. Toast Notifications -->
     <div class="component-card" data-name="toast notification popup bottom corner" data-cat="toast">
@@ -705,7 +707,6 @@
       </div>
 
     </div>
-  </div>
 
   <p class="card-desc">AI-inspired smart assistant notifications with futuristic gradients and soft glow.</p>
 
@@ -1379,6 +1380,94 @@
         </pre>
       </div>
 
+<!-- NEW COMPONENT 1: Glassmorphism Success Alert -->
+<div class="component-card" data-cat="filled" data-name="glassmorphism success alert green">
+  <h3>Glass Success Alert</h3>
+  <div class="alert-box alert-glass-success" role="alert">
+    <div class="ag-icon"><i class="fa-solid fa-check"></i></div>
+    <div class="ag-content">
+      <strong>Action Completed</strong>
+      <p>Your profile has been updated successfully.</p>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="action-btn view-btn" onclick="toggleCode('new1', this)"><i class="fa-solid fa-code"></i> View Code</button>
+    <button class="action-btn copy-btn" onclick="copyCode('new1', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+  </div>
+  <pre id="new1" class="code-block"><code>&lt;!-- Code for Glass Success Alert --&gt;</code></pre>
+</div>
+
+<!-- NEW COMPONENT 2: Gradient Border Warning -->
+<div class="component-card" data-cat="outlined" data-name="gradient border warning alert pulse">
+  <h3>Gradient Warning Alert</h3>
+  <div class="alert-box alert-gradient-warning" role="alert">
+    <div class="ag-icon"><i class="fa-solid fa-bolt"></i></div>
+    <div class="ag-content">
+      <strong>Low Battery</strong>
+      <p>Your device is at 10%. Please plug in charger.</p>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="action-btn view-btn" onclick="toggleCode('new2', this)"><i class="fa-solid fa-code"></i> View Code</button>
+    <button class="action-btn copy-btn" onclick="copyCode('new2', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+  </div>
+  <pre id="new2" class="code-block"><code>&lt;!-- Code for Gradient Warning Alert --&gt;</code></pre>
+</div>
+
+<!-- NEW COMPONENT 3: Dark Mode Cyber Info Alert -->
+<div class="component-card" data-cat="filled" data-name="cyber dark mode info alert">
+  <h3>Cyber Info Alert</h3>
+  <div class="alert-box alert-cyber-info" role="alert">
+    <div class="ag-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+    <div class="ag-content">
+      <strong>Signal Acquired</strong>
+      <p>Connection established with orbital satellite.</p>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="action-btn view-btn" onclick="toggleCode('new3', this)"><i class="fa-solid fa-code"></i> View Code</button>
+    <button class="action-btn copy-btn" onclick="copyCode('new3', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+  </div>
+  <pre id="new3" class="code-block"><code>&lt;!-- Code for Cyber Info Alert --&gt;</code></pre>
+</div>
+
+<!-- NEW COMPONENT 4: Notification Badge Alert -->
+<div class="component-card" data-cat="toast" data-name="notification badge alert message">
+  <h3>Notification Alert</h3>
+  <div class="alert-box alert-badge-notify" role="alert">
+    <div class="abn-avatar">
+      <img src="https://i.pravatar.cc/150?img=68" alt="User">
+      <span class="abn-badge">3</span>
+    </div>
+    <div class="ag-content">
+      <strong>New Messages</strong>
+      <p>You have 3 unread messages from Sarah.</p>
+    </div>
+    <button class="abn-close">✕</button>
+  </div>
+  <div class="actions">
+    <button class="action-btn view-btn" onclick="toggleCode('new4', this)"><i class="fa-solid fa-code"></i> View Code</button>
+    <button class="action-btn copy-btn" onclick="copyCode('new4', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+  </div>
+  <pre id="new4" class="code-block"><code>&lt;!-- Code for Notification Badge Alert --&gt;</code></pre>
+</div>
+
+<!-- NEW COMPONENT 5: Simple Stripe Error Alert -->
+<div class="component-card" data-cat="basic" data-name="simple stripe error alert red">
+  <h3>Stripe Error Alert</h3>
+  <div class="alert-box alert-stripe-error" role="alert">
+    <div class="ag-content">
+      <strong>Authentication Failed</strong>
+      <p>The password you entered is incorrect.</p>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="action-btn view-btn" onclick="toggleCode('new5', this)"><i class="fa-solid fa-code"></i> View Code</button>
+    <button class="action-btn copy-btn" onclick="copyCode('new5', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+  </div>
+  <pre id="new5" class="code-block"><code>&lt;!-- Code for Stripe Error Alert --&gt;</code></pre>
+</div>
+
   </div><!-- /alertsGrid -->
 
 </main>
@@ -1418,17 +1507,17 @@
 <script src="script.js"></script>
 <script>
   /* ---------- Dark Mode ---------- */
-  const toggle = document.getElementById('darkModeToggle');
-  const icon = toggle ? toggle.querySelector('i') : null;
-  if (toggle && icon) {
+  const alertToggle = document.getElementById('darkModeToggle');
+  const alertIcon = alertToggle ? alertToggle.querySelector('i') : null;
+  if (alertToggle && alertIcon) {
     if (localStorage.getItem('theme') === 'dark') {
       document.body.classList.add('dark-mode');
-      icon.className = 'fa-solid fa-sun';
+      alertIcon.className = 'fa-solid fa-sun';
     }
-    toggle.addEventListener('click', () => {
+    alertToggle.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
-      icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      alertIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
   }
