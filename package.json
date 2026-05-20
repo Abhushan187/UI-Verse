@@ -14,8 +14,12 @@
         "images:verify": "node scripts/image-pipeline.js --check",
         "security:csp": "node scripts/csp-hardening.js",
         "security:csp:verify": "node scripts/csp-hardening.js --check",
-        "audit:a11y": "node scripts/a11y-audit.js",
+        "audit:a11y": "node scripts/a11y-remediation.js",
+        "audit:a11y:apply": "node scripts/a11y-remediation.js --apply",
+        "a11y:remediate": "node scripts/a11y-remediation.js",
+        "a11y:remediate:apply": "node scripts/a11y-remediation.js --apply",
         "a11y:dashboard": "node scripts/a11y-dashboard.js",
+        "a11y:remediation:check": "node scripts/a11y-remediation-check.js",
         "test:visual": "playwright test",
         "test:visual:ui": "playwright test --ui",
         "test:visual:update": "playwright test --update-snapshots",
@@ -40,7 +44,8 @@
         "docs:generate": "node scripts/documentation-generator.js",
         "docs:generate:check": "node scripts/documentation-generator-check.js",
         "theme:test": "playwright test tests/theme --config=playwright.theme.config.ts --reporter=list",
-        "theme:demo": "node -e \"console.log('Open components/theme/demo-theme.html in a browser served from the static server')\""
+        "theme:demo": "node -e \"console.log('Open components/theme/demo-theme.html in a browser served from the static server')\"",
+        "a11y:test": "playwright test tests/a11y --config=playwright.a11y.config.ts --reporter=list"
     },
     "devDependencies": {
         "@axe-core/playwright": "^4.0.0",
