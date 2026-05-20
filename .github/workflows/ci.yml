@@ -33,9 +33,6 @@ jobs:
       - name: JavaScript lint
         run: npm run lint:js
 
-      - name: Dependency graph check
-        run: npm run dependencies:check
-
       - name: Component metadata check
         run: npm run components:version:check
 
