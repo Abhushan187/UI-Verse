@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import threading
 import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -17,6 +18,9 @@ BASE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = BASE_DIR.parent
 DATA_PATH = BASE_DIR / "data" / "crop_history.csv"
 TRACE_DB_PATH = BASE_DIR / "data" / "produce_traceability.sqlite3"
+IOT_DB_PATH = BASE_DIR / "data" / "iot_telemetry.sqlite3"
+IOT_DEFAULT_THRESHOLD = 32.0
+IOT_WORKER_INTERVAL_SECONDS = 60
 
 PRICE_PER_TON = {
     "Corn": 320,
@@ -91,6 +95,87 @@ LEDGER_EVENTS = [
     ("Shipped", 118, "Sealed batch shipped to distribution center."),
 ]
 
+IOT_SEEDS = [
+    {
+        "device_id": "ESP32-NORTH-01",
+        "farmer_name": "Asha Patel",
+        "farm_name": "North Field",
+        "soil_moisture": 41.5,
+        "temperature": 29.8,
+        "humidity": 56.2,
+        "nitrogen": 21.0,
+        "phosphorus": 18.0,
+        "potassium": 24.0,
+        "moisture_threshold": 32.0,
+        "sample_offset_minutes": 240,
+    },
+    {
+        "device_id": "ESP32-NORTH-01",
+        "farmer_name": "Asha Patel",
+        "farm_name": "North Field",
+        "soil_moisture": 36.8,
+        "temperature": 30.4,
+        "humidity": 53.5,
+        "nitrogen": 20.2,
+        "phosphorus": 17.6,
+        "potassium": 23.4,
+        "moisture_threshold": 32.0,
+        "sample_offset_minutes": 180,
+    },
+    {
+        "device_id": "ESP32-NORTH-01",
+        "farmer_name": "Asha Patel",
+        "farm_name": "North Field",
+        "soil_moisture": 28.9,
+        "temperature": 31.7,
+        "humidity": 48.9,
+        "nitrogen": 19.5,
+        "phosphorus": 16.8,
+        "potassium": 22.1,
+        "moisture_threshold": 32.0,
+        "sample_offset_minutes": 120,
+    },
+    {
+        "device_id": "ESP32-SOUTH-07",
+        "farmer_name": "Rahul Verma",
+        "farm_name": "South Orchard",
+        "soil_moisture": 45.7,
+        "temperature": 27.9,
+        "humidity": 61.8,
+        "nitrogen": 22.4,
+        "phosphorus": 19.0,
+        "potassium": 25.7,
+        "moisture_threshold": 30.0,
+        "sample_offset_minutes": 210,
+    },
+    {
+        "device_id": "ESP32-SOUTH-07",
+        "farmer_name": "Rahul Verma",
+        "farm_name": "South Orchard",
+        "soil_moisture": 39.3,
+        "temperature": 28.6,
+        "humidity": 58.0,
+        "nitrogen": 21.8,
+        "phosphorus": 18.8,
+        "potassium": 24.9,
+        "moisture_threshold": 30.0,
+        "sample_offset_minutes": 150,
+    },
+    {
+        "device_id": "ESP32-SOUTH-07",
+        "farmer_name": "Rahul Verma",
+        "farm_name": "South Orchard",
+        "soil_moisture": 27.4,
+        "temperature": 30.1,
+        "humidity": 51.1,
+        "nitrogen": 18.9,
+        "phosphorus": 16.7,
+        "potassium": 21.6,
+        "moisture_threshold": 30.0,
+        "sample_offset_minutes": 60,
+    },
+]
+
 
 def load_model() -> Pipeline:
     data = pd.read_csv(DATA_PATH)
@@ -122,6 +207,13 @@ MODEL = load_model()
 
 def get_traceability_connection() -> sqlite3.Connection:
     connection = sqlite3.connect(TRACE_DB_PATH)
+    connection.row_factory = sqlite3.Row
+    connection.execute("PRAGMA foreign_keys = ON")
+    return connection
+
+
+def get_iot_connection() -> sqlite3.Connection:
+    connection = sqlite3.connect(IOT_DB_PATH)
     connection.row_factory = sqlite3.Row
     connection.execute("PRAGMA foreign_keys = ON")
     return connection
@@ -238,6 +330,326 @@ def ensure_traceability_db() -> None:
                 previous_hash = event_hash
 
 
+def ensure_iot_db() -> None:
+    IOT_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    with get_iot_connection() as connection:
+        connection.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS iot_telemetry (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                device_id TEXT NOT NULL,
+                farmer_name TEXT NOT NULL,
+                farm_name TEXT NOT NULL,
+                soil_moisture REAL NOT NULL,
+                temperature REAL NOT NULL,
+                humidity REAL NOT NULL,
+                nitrogen REAL,
+                phosphorus REAL,
+                potassium REAL,
+                moisture_threshold REAL NOT NULL,
+                recorded_at TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS iot_alerts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                telemetry_id INTEGER NOT NULL,
+                device_id TEXT NOT NULL,
+                farmer_name TEXT NOT NULL,
+                farm_name TEXT NOT NULL,
+                alert_type TEXT NOT NULL,
+                severity TEXT NOT NULL,
+                message TEXT NOT NULL,
+                channel TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (telemetry_id) REFERENCES iot_telemetry(id),
+                UNIQUE (telemetry_id, alert_type)
+            );
+            """
+        )
+
+        if connection.execute("SELECT COUNT(*) FROM iot_telemetry").fetchone()[0]:
+            return
+
+        now = datetime.utcnow()
+        for sample in IOT_SEEDS:
+            record_iot_telemetry(
+                connection,
+                sample,
+                recorded_at=(now - timedelta(minutes=sample["sample_offset_minutes"])).isoformat(timespec="seconds") + "Z",
+                create_alerts=False,
+            )
+
+        scan_iot_alerts(connection)
+
+
+def record_iot_telemetry(
+    connection: sqlite3.Connection,
+    payload: dict[str, object],
+    *,
+    recorded_at: str | None = None,
+    create_alerts: bool = True,
+) -> dict[str, object]:
+    timestamp = recorded_at or datetime.utcnow().isoformat(timespec="seconds") + "Z"
+
+    def optional_float(value: object) -> float | None:
+        if value in (None, ""):
+            return None
+        return float(value)
+
+    cursor = connection.execute(
+        """
+        INSERT INTO iot_telemetry (
+            device_id, farmer_name, farm_name, soil_moisture, temperature, humidity,
+            nitrogen, phosphorus, potassium, moisture_threshold, recorded_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            str(payload["device_id"]),
+            str(payload["farmer_name"]),
+            str(payload["farm_name"]),
+            float(payload["soil_moisture"]),
+            float(payload["temperature"]),
+            float(payload["humidity"]),
+            optional_float(payload.get("nitrogen")),
+            optional_float(payload.get("phosphorus")),
+            optional_float(payload.get("potassium")),
+            float(payload.get("moisture_threshold", IOT_DEFAULT_THRESHOLD)),
+            timestamp,
+        ),
+    )
+    telemetry_id = cursor.lastrowid
+
+    if create_alerts:
+        scan_iot_alerts(connection, telemetry_id=telemetry_id)
+
+    return {
+        "id": telemetry_id,
+        "recorded_at": timestamp,
+    }
+
+
+def build_iot_alert_message(row: sqlite3.Row) -> tuple[str, str, str, str]:
+    moisture = float(row["soil_moisture"])
+    threshold = float(row["moisture_threshold"])
+    deficit = threshold - moisture
+    message = (
+        f"Soil moisture is {moisture:.1f}% on {row['farm_name']} ({row['device_id']}). "
+        f"Irrigation recommended to recover the {deficit:.1f}% deficit."
+    )
+    return message, "high", "irrigation", "notification"
+
+
+def scan_iot_alerts(
+    connection: sqlite3.Connection | None = None,
+    *,
+    telemetry_id: int | None = None,
+) -> int:
+    close_connection = False
+    if connection is None:
+        connection = get_iot_connection()
+        close_connection = True
+
+    try:
+        if telemetry_id is not None:
+            rows = connection.execute(
+                """
+                SELECT * FROM iot_telemetry
+                WHERE id = ? AND soil_moisture < moisture_threshold
+                """,
+                (telemetry_id,),
+            ).fetchall()
+        else:
+            rows = connection.execute(
+                """
+                SELECT t.*
+                FROM iot_telemetry t
+                LEFT JOIN iot_alerts a
+                  ON a.telemetry_id = t.id AND a.alert_type = 'irrigation'
+                WHERE t.soil_moisture < t.moisture_threshold AND a.id IS NULL
+                ORDER BY t.recorded_at DESC
+                """
+            ).fetchall()
+
+        created = 0
+        for row in rows:
+            existing = connection.execute(
+                "SELECT 1 FROM iot_alerts WHERE telemetry_id = ? AND alert_type = 'irrigation'",
+                (row["id"],),
+            ).fetchone()
+            if existing:
+                continue
+
+            message, severity, alert_type, channel = build_iot_alert_message(row)
+            connection.execute(
+                """
+                INSERT INTO iot_alerts (
+                    telemetry_id, device_id, farmer_name, farm_name, alert_type,
+                    severity, message, channel, created_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    row["id"],
+                    row["device_id"],
+                    row["farmer_name"],
+                    row["farm_name"],
+                    alert_type,
+                    severity,
+                    message,
+                    channel,
+                    datetime.utcnow().isoformat(timespec="seconds") + "Z",
+                ),
+            )
+            created += 1
+
+        if created:
+            connection.commit()
+        return created
+    finally:
+        if close_connection:
+            connection.close()
+
+
+def get_iot_devices() -> list[dict[str, object]]:
+    with get_iot_connection() as connection:
+        rows = connection.execute(
+            """
+            SELECT device_id, farmer_name, farm_name, MAX(recorded_at) AS latest_recorded_at
+            FROM iot_telemetry
+            GROUP BY device_id, farmer_name, farm_name
+            ORDER BY latest_recorded_at DESC
+            """
+        ).fetchall()
+
+    return [
+        {
+            "device_id": row["device_id"],
+            "farmer_name": row["farmer_name"],
+            "farm_name": row["farm_name"],
+            "latest_recorded_at": row["latest_recorded_at"],
+        }
+        for row in rows
+    ]
+
+
+def get_latest_device_id() -> str | None:
+    devices = get_iot_devices()
+    return devices[0]["device_id"] if devices else None
+
+
+def get_device_telemetry(device_id: str | None, limit: int = 12) -> dict[str, object] | None:
+    if not device_id:
+        device_id = get_latest_device_id()
+        if not device_id:
+            return None
+
+    with get_iot_connection() as connection:
+        device = connection.execute(
+            """
+            SELECT device_id, farmer_name, farm_name, moisture_threshold, MAX(recorded_at) AS latest_recorded_at
+            FROM iot_telemetry
+            WHERE device_id = ?
+            GROUP BY device_id, farmer_name, farm_name, moisture_threshold
+            """,
+            (device_id,),
+        ).fetchone()
+
+        if device is None:
+            return None
+
+        rows = connection.execute(
+            """
+            SELECT id, device_id, farmer_name, farm_name, soil_moisture, temperature, humidity,
+                   nitrogen, phosphorus, potassium, moisture_threshold, recorded_at
+            FROM iot_telemetry
+            WHERE device_id = ?
+            ORDER BY recorded_at DESC, id DESC
+            LIMIT ?
+            """,
+            (device_id, limit),
+        ).fetchall()
+
+        alerts = connection.execute(
+            """
+            SELECT telemetry_id, device_id, farmer_name, farm_name, alert_type, severity,
+                   message, channel, created_at
+            FROM iot_alerts
+            WHERE device_id = ?
+            ORDER BY created_at DESC, id DESC
+            LIMIT 10
+            """,
+            (device_id,),
+        ).fetchall()
+
+    history = [
+        {
+            "id": row["id"],
+            "recorded_at": row["recorded_at"],
+            "soil_moisture": row["soil_moisture"],
+            "temperature": row["temperature"],
+            "humidity": row["humidity"],
+            "nitrogen": row["nitrogen"],
+            "phosphorus": row["phosphorus"],
+            "potassium": row["potassium"],
+            "moisture_threshold": row["moisture_threshold"],
+        }
+        for row in rows
+    ][::-1]
+
+    current = history[-1] if history else None
+    irrigation_needed = bool(current and current["soil_moisture"] < current["moisture_threshold"])
+    fertilizer_needed = bool(
+        current and min(
+            float(current["nitrogen"] or 0),
+            float(current["phosphorus"] or 0),
+            float(current["potassium"] or 0),
+        ) < 18
+    )
+
+    return {
+        "device": {
+            "device_id": device["device_id"],
+            "farmer_name": device["farmer_name"],
+            "farm_name": device["farm_name"],
+            "moisture_threshold": device["moisture_threshold"],
+            "latest_recorded_at": device["latest_recorded_at"],
+        },
+        "current": current,
+        "history": history,
+        "alerts": [
+            {
+                "telemetry_id": row["telemetry_id"],
+                "device_id": row["device_id"],
+                "farmer_name": row["farmer_name"],
+                "farm_name": row["farm_name"],
+                "alert_type": row["alert_type"],
+                "severity": row["severity"],
+                "message": row["message"],
+                "channel": row["channel"],
+                "created_at": row["created_at"],
+            }
+            for row in alerts
+        ],
+        "recommendations": {
+            "irrigation_needed": irrigation_needed,
+            "fertilizer_needed": fertilizer_needed,
+            "fertilizer_hint": "NPK levels are trending low; schedule a nutrient check." if fertilizer_needed else "NPK levels are in a healthy range.",
+        },
+    }
+
+
+def iot_alert_worker_loop(interval_seconds: int = IOT_WORKER_INTERVAL_SECONDS) -> None:
+    while True:
+        scan_iot_alerts()
+        threading.Event().wait(interval_seconds)
+
+
+def start_iot_alert_worker(interval_seconds: int = IOT_WORKER_INTERVAL_SECONDS) -> threading.Thread:
+    worker = threading.Thread(target=iot_alert_worker_loop, kwargs={"interval_seconds": interval_seconds}, daemon=True)
+    worker.start()
+    return worker
+
+
 def fetch_batch_detail(batch_id: int) -> dict[str, object] | None:
     with get_traceability_connection() as connection:
         batch = connection.execute(
@@ -311,6 +723,7 @@ def fetch_batch_detail(batch_id: int) -> dict[str, object] | None:
 
 
 ensure_traceability_db()
+ensure_iot_db()
 
 
 @app.get("/health")
@@ -407,6 +820,115 @@ def get_produce_batch(batch_id: int) -> tuple[dict[str, object], int]:
     return jsonify(detail), 200
 
 
+@app.post("/api/iot/telemetry")
+def ingest_iot_telemetry() -> tuple[dict[str, object], int]:
+    payload = request.get_json(silent=True) or {}
+    required_fields = ["device_id", "farmer_name", "farm_name", "soil_moisture", "temperature", "humidity"]
+
+    missing_fields = [field for field in required_fields if field not in payload]
+    if missing_fields:
+        return jsonify({"error": "Missing telemetry fields.", "missing_fields": missing_fields}), 400
+
+    try:
+        telemetry_payload = {
+            "device_id": str(payload["device_id"]),
+            "farmer_name": str(payload["farmer_name"]),
+            "farm_name": str(payload["farm_name"]),
+            "soil_moisture": float(payload["soil_moisture"]),
+            "temperature": float(payload["temperature"]),
+            "humidity": float(payload["humidity"]),
+            "nitrogen": float(payload["nitrogen"]) if payload.get("nitrogen") is not None else None,
+            "phosphorus": float(payload["phosphorus"]) if payload.get("phosphorus") is not None else None,
+            "potassium": float(payload["potassium"]) if payload.get("potassium") is not None else None,
+            "moisture_threshold": float(payload.get("moisture_threshold", IOT_DEFAULT_THRESHOLD)),
+        }
+    except (TypeError, ValueError):
+        return jsonify({"error": "Telemetry values must be numeric where expected."}), 400
+
+    if telemetry_payload["soil_moisture"] < 0 or telemetry_payload["humidity"] < 0:
+        return jsonify({"error": "Moisture and humidity must be non-negative."}), 400
+
+    with get_iot_connection() as connection:
+        stored = record_iot_telemetry(connection, telemetry_payload, create_alerts=False)
+        created_alerts = scan_iot_alerts(connection, telemetry_id=stored["id"])
+
+    dashboard = get_device_telemetry(telemetry_payload["device_id"])
+    return jsonify(
+        {
+            "message": "Telemetry stored.",
+            "telemetry_id": stored["id"],
+            "recorded_at": stored["recorded_at"],
+            "alerts_created": created_alerts,
+            "irrigation_alert": telemetry_payload["soil_moisture"] < telemetry_payload["moisture_threshold"],
+            "dashboard": dashboard,
+        }
+    ), 201
+
+
+@app.get("/api/iot/devices")
+def list_iot_devices() -> tuple[dict[str, object], int]:
+    return jsonify({"devices": get_iot_devices()}), 200
+
+
+@app.get("/api/iot/dashboard")
+def get_iot_dashboard() -> tuple[dict[str, object], int]:
+    device_id = request.args.get("device_id")
+    dashboard = get_device_telemetry(device_id)
+    if dashboard is None:
+        return jsonify({"error": "No telemetry found for the requested device."}), 404
+    return jsonify(dashboard), 200
+
+
+@app.get("/api/iot/alerts")
+def list_iot_alerts() -> tuple[dict[str, object], int]:
+    device_id = request.args.get("device_id")
+    limit = int(request.args.get("limit", 20))
+
+    with get_iot_connection() as connection:
+        if device_id:
+            rows = connection.execute(
+                """
+                SELECT telemetry_id, device_id, farmer_name, farm_name, alert_type, severity,
+                       message, channel, created_at
+                FROM iot_alerts
+                WHERE device_id = ?
+                ORDER BY created_at DESC, id DESC
+                LIMIT ?
+                """,
+                (device_id, limit),
+            ).fetchall()
+        else:
+            rows = connection.execute(
+                """
+                SELECT telemetry_id, device_id, farmer_name, farm_name, alert_type, severity,
+                       message, channel, created_at
+                FROM iot_alerts
+                ORDER BY created_at DESC, id DESC
+                LIMIT ?
+                """,
+                (limit,),
+            ).fetchall()
+
+    return jsonify(
+        {
+            "alerts": [
+                {
+                    "telemetry_id": row["telemetry_id"],
+                    "device_id": row["device_id"],
+                    "farmer_name": row["farmer_name"],
+                    "farm_name": row["farm_name"],
+                    "alert_type": row["alert_type"],
+                    "severity": row["severity"],
+                    "message": row["message"],
+                    "channel": row["channel"],
+                    "created_at": row["created_at"],
+                }
+                for row in rows
+            ]
+        }
+    ), 200
+
+
 @app.get("/verify-produce")
 def verify_produce_entry() -> object:
     return send_from_directory(PROJECT_ROOT, "verify-produce.html")
@@ -417,5 +939,16 @@ def trace_entry() -> object:
     return send_from_directory(PROJECT_ROOT, "trace.html")
 
 
+@app.get("/farm_dashboard.html")
+def farm_dashboard_entry() -> object:
+    return send_from_directory(PROJECT_ROOT, "farm_dashboard.html")
+
+
+@app.get("/notifications.html")
+def notifications_entry() -> object:
+    return send_from_directory(PROJECT_ROOT, "notifications.html")
+
+
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    start_iot_alert_worker()
+    app.run(host="127.0.0.1", port=5000, debug=True, use_reloader=False)
