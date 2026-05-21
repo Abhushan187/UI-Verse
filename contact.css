@@ -13,7 +13,7 @@
   flex-direction: column;
   flex: 1;
   background-color: var(--body-bg);
-  background-image: 
+  background-image:
     radial-gradient(circle at 10% 15%, rgba(108, 92, 231, 0.07) 0%, transparent 45%),
     radial-gradient(circle at 90% 85%, rgba(235, 104, 53, 0.07) 0%, transparent 45%);
   transition: margin-left var(--transition);
@@ -73,14 +73,17 @@
   --ic: rgba(235, 104, 53, 0.12);
   --icc: #eb6835;
 }
+
 .info-github {
   --ic: rgba(108, 92, 231, 0.12);
   --icc: #6c5ce7;
 }
+
 .info-discord {
   --ic: rgba(0, 184, 148, 0.12);
   --icc: #00b894;
 }
+
 .info-support {
   --ic: rgba(0, 123, 255, 0.12);
   --icc: #007bff;
@@ -359,13 +362,13 @@
   transition: all var(--transition);
 }
 
-.checkbox-label input:checked + .checkbox-box {
+.checkbox-label input:checked+.checkbox-box {
   background: var(--accent);
   border-color: var(--accent);
   box-shadow: 0 0 10px rgba(235, 104, 53, 0.3);
 }
 
-.checkbox-label input:checked + .checkbox-box::after {
+.checkbox-label input:checked+.checkbox-box::after {
   content: '';
   width: 4px;
   height: 8px;
@@ -432,7 +435,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 #btnLoader {
@@ -451,8 +456,15 @@
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .form-status.success {
@@ -510,6 +522,7 @@
     width: 100%;
   }
 }
+
 /* ============================================================
    FOOTER
    ============================================================ */
@@ -566,11 +579,30 @@
   color: #888;
   text-decoration: none;
   font-size: 14px;
-  transition: color var(--transition);
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
 }
 
 .footer-col ul li a:hover {
   color: var(--accent);
+  transform: translateX(3px);
+  text-shadow: 0 0 8px rgba(235, 104, 53, 0.4);
+}
+
+.footer-col ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.footer-col ul li a:hover::after {
+  width: 100%;
 }
 
 .socials {
@@ -595,7 +627,8 @@
 .socials a:hover {
   background: var(--accent);
   color: #fff;
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 12px rgba(235, 104, 53, 0.35);
 }
 
 .newsletter-form {
