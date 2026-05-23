@@ -637,7 +637,7 @@ window.UIVerseComponentsIndexData = {
       "id": "data-display",
       "name": "Data Display",
       "icon": "fa-chart-column",
-      "count": 17,
+      "count": 18,
       "popularityScore": 86,
       "latestUpdatedAt": "2026-05-23T00:00:00.000Z",
       "previewItems": [
@@ -656,6 +656,12 @@ window.UIVerseComponentsIndexData = {
         {
           "title": "Notes Components",
           "path": "notes-components.html",
+          "popularity": 87,
+          "updatedAt": "2026-05-23T00:00:00.000Z"
+        },
+        {
+          "title": "Breadcrumb Components",
+          "path": "breadcrumbs.html",
           "popularity": 87,
           "updatedAt": "2026-05-23T00:00:00.000Z"
         },
@@ -723,6 +729,14 @@ window.UIVerseComponentsIndexData = {
           "id": "notes-components",
           "title": "Notes Components",
           "path": "notes-components.html",
+          "categoryId": "data-display",
+          "popularity": 87,
+          "updatedAt": "2026-05-23T00:00:00.000Z"
+        },
+        {
+          "id": "breadcrumbs",
+          "title": "Breadcrumb Components",
+          "path": "breadcrumbs.html",
           "categoryId": "data-display",
           "popularity": 87,
           "updatedAt": "2026-05-23T00:00:00.000Z"
