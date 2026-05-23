@@ -7,6 +7,9 @@ const TutorialMode = {
   _state: {
     initialized: false,
     steps: [],
+    resolvedSteps: [],
+    activeSteps: [],
+    missingSteps: [],
     currentIndex: 0,
     active: false,
     pageKey: 'global',
@@ -30,6 +33,67 @@ const TutorialMode = {
     const safePage = String(pageKey || 'global').toLowerCase();
     const safeCat = String(categoryKey || 'general').toLowerCase();
     return `${this._storageKeys.completedPrefix}.${safePage}.${safeCat}`;
+  },
+
+  _resolveStepTarget(step) {
+    if (!step || !step.selector || typeof document === 'undefined') {
+      return { targetEl: null, resolvedSelector: null };
+    }
+
+    const selectors = String(step.selector)
+      .split(',')
+      .map((selector) => selector.trim())
+      .filter(Boolean);
+
+    for (const selector of selectors) {
+      const targetEl = document.querySelector(selector);
+      if (targetEl) {
+        return { targetEl, resolvedSelector: selector };
+      }
+    }
+
+    return { targetEl: null, resolvedSelector: null };
+  },
+
+  _normalizeSteps(steps) {
+    const resolvedSteps = [];
+    const activeSteps = [];
+    const missingSteps = [];
+
+    (Array.isArray(steps) ? steps : []).forEach((step, index) => {
+      const normalizedStep = step && typeof step === 'object' ? { ...step } : { selector: '' };
+      const resolved = this._resolveStepTarget(normalizedStep);
+      const resolvedStep = {
+        ...normalizedStep,
+        index,
+        targetEl: resolved.targetEl,
+        resolvedSelector: resolved.resolvedSelector,
+        missing: !resolved.targetEl,
+      };
+
+      resolvedSteps.push(resolvedStep);
+
+      if (resolvedStep.missing) {
+        missingSteps.push(resolvedStep);
+      } else {
+        activeSteps.push(resolvedStep);
+      }
+    });
+
+    return { resolvedSteps, activeSteps, missingSteps };
+  },
+
+  _warnMissingSteps({ pageKey, categoryKey, missingSteps } = {}) {
+    if (!window.UIVERSE_DEBUG || !Array.isArray(missingSteps) || !missingSteps.length) return;
+
+    console.warn('[TutorialMode] Skipped missing tutorial steps', {
+      pageKey,
+      categoryKey,
+      missingSteps: missingSteps.map((step) => ({
+        title: step.title || 'Step',
+        selector: step.selector || '',
+      })),
+    });
   },
 
   _assertUsableState({ pageKey, categoryKey, steps } = {}) {
@@ -65,16 +129,35 @@ const TutorialMode = {
 
     if (!this._assertUsableState({ pageKey: resolvedPageKey, categoryKey: resolvedCategoryKey, steps })) return;
 
+    const normalizedSteps = this._normalizeSteps(steps);
+    if (!normalizedSteps.activeSteps.length) {
+      this._warnMissingSteps({
+        pageKey: resolvedPageKey,
+        categoryKey: resolvedCategoryKey,
+        missingSteps: normalizedSteps.missingSteps,
+      });
+      return;
+    }
+
     const completionKey = this._buildCompletionKey(resolvedPageKey, resolvedCategoryKey);
 
     this._state.pageKey = resolvedPageKey;
     this._state.categoryKey = resolvedCategoryKey;
     this._state.completionKey = completionKey;
     this._state.lastOptions = { pageKey: resolvedPageKey, categoryKey: resolvedCategoryKey, steps };
+    this._state.steps = steps;
+    this._state.resolvedSteps = normalizedSteps.resolvedSteps;
+    this._state.activeSteps = normalizedSteps.activeSteps;
+    this._state.missingSteps = normalizedSteps.missingSteps;
+
+    this._warnMissingSteps({
+      pageKey: resolvedPageKey,
+      categoryKey: resolvedCategoryKey,
+      missingSteps: normalizedSteps.missingSteps,
+    });
 
     if (!force && this._isCompleted()) return;
 
-    this._state.steps = steps;
     this._state.currentIndex = 0;
     this._state.active = true;
 
@@ -225,9 +308,9 @@ const TutorialMode = {
 
     // Find next available step whose selector exists
     let idx = this._state.currentIndex;
-    while (idx < this._state.steps.length) {
-      const step = this._state.steps[idx];
-      const el = step.selector ? document.querySelector(step.selector) : null;
+    while (idx < this._state.activeSteps.length) {
+      const step = this._state.activeSteps[idx];
+      const el = step.targetEl && step.targetEl.isConnected ? step.targetEl : null;
       if (el) {
         this._state.currentIndex = idx;
         this._showStep(step, el);
@@ -244,10 +327,11 @@ const TutorialMode = {
     const title = step.title || 'Step';
     const instruction = step.instruction || '';
     const i = this._state.currentIndex;
+    const total = this._state.activeSteps.length;
 
     this._state.overlayEl.querySelector('#tutorialModeTitle').textContent = title;
     this._state.overlayEl.querySelector('#tutorialModeInstruction').textContent = instruction;
-    this._state.overlayEl.querySelector('#tutorialModeProgress').textContent = `${i + 1} of ${this._state.steps.length}`;
+    this._state.overlayEl.querySelector('#tutorialModeProgress').textContent = `${i + 1} of ${total}`;
 
     // Highlight
     this._highlightElement(el);
@@ -346,9 +430,9 @@ const TutorialMode = {
     this._state.refreshRafId = schedule(() => {
       this._state.refreshRafId = null;
       if (!this._state.active) return;
-      const currentStep = this._state.steps[this._state.currentIndex];
-      if (!currentStep || !currentStep.selector) return;
-      const target = document.querySelector(currentStep.selector);
+      const currentStep = this._state.activeSteps[this._state.currentIndex];
+      if (!currentStep || !currentStep.targetEl || !currentStep.targetEl.isConnected) return;
+      const target = currentStep.targetEl;
       if (!target) return;
       this._applyHighlightMetrics(target);
     });
@@ -358,7 +442,7 @@ const TutorialMode = {
     if (!this._state.active) return;
     this._state.currentIndex += 1;
 
-    if (this._state.currentIndex >= this._state.steps.length) {
+    if (this._state.currentIndex >= this._state.activeSteps.length) {
       this.complete();
       return;
     }
