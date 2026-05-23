@@ -1318,6 +1318,60 @@
       <i class="fa-solid fa-copy"></i> Copy
     </button>
   </div>
+  
+  <div class="container">
+
+    <!-- Gradient Button -->
+    <button class="btn gradient-btn">
+      Gradient Button
+    </button>
+
+    <!-- Neon Button -->
+    <button class="btn neon-btn">
+      Neon Glow
+    </button>
+
+    <!-- Outline Hover Fill -->
+    <button class="btn outline-btn">
+      Hover Fill
+    </button>
+
+    <!-- 3D Button -->
+    <button class="btn three-d-btn">
+      3D Button
+    </button>
+
+    <!-- Glass Button -->
+    <button class="btn glass-btn">
+      Glass Effect
+    </button>
+
+    <!-- Slide Arrow Button -->
+    <button class="btn arrow-btn">
+      <span>Explore</span>
+    </button>
+
+    <!-- Pulse Button -->
+    <button class="btn pulse-btn">
+      Pulse Button
+    </button>
+
+    <!-- Dark Mode Toggle -->
+    <button class="btn toggle-btn" id="themeBtn">
+      🌙 Dark Mode
+    </button>
+
+    <!-- Shine Effect -->
+    <button class="btn shine-btn">
+      Shine Button
+    </button>
+
+    <!-- Floating Button -->
+    <button class="btn floating-btn">
+      +
+    </button>
+
+  </div>
 
   <pre id="c27" class="code-block"><code>&lt;button class="underline-btn"&gt;Learn More&lt;/button&gt;
 
@@ -1771,6 +1825,26 @@
     document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 400);
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
   });
+
+  // buttons.js
+
+const themeBtn = document.getElementById("themeBtn");
+
+let darkMode = true;
+
+themeBtn.addEventListener("click", () => {
+
+  darkMode = !darkMode;
+
+  if(darkMode){
+    document.body.style.background = "#111827";
+    themeBtn.innerHTML = "🌙 Dark Mode";
+  }else{
+    document.body.style.background = "#f3f4f6";
+    themeBtn.innerHTML = "☀️ Light Mode";
+  }
+
+});
 
   /* ---------- Code Toggle ---------- */
   function getCodeBlock(id, btn) {
