@@ -418,7 +418,20 @@
     const link = document.createElement('link');
     link.id = 'uiverse-compare-styles';
     link.rel = 'stylesheet';
-    link.href = 'css/compare.css';
+
+    const scriptSource = (() => {
+      if (document.currentScript && document.currentScript.src) {
+        return document.currentScript.src;
+      }
+
+      const scriptEl = document.querySelector('script[src*="js/features/compare.js"]');
+      return scriptEl ? scriptEl.src : '';
+    })();
+
+    link.href = scriptSource
+      ? new URL('../../compare.css', scriptSource).href
+      : 'compare.css';
+
     document.head.appendChild(link);
   }
 
