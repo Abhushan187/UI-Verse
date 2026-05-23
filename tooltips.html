@@ -1,308 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tooltips — UIverse</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Tooltip Components | UIverse</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="home.css">
-  <link rel="stylesheet" href="shared-page.css">
-  <link rel="stylesheet" href="shared-sidebar.css">
-  <link rel="stylesheet" href="tooltips.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Shared UIverse Styles -->
+  <link rel="stylesheet" href="shared-sidebar.css" />
+  <link rel="stylesheet" href="shared-page.css" />
+  <link rel="stylesheet" href="tooltips.css" />
 </head>
-<body data-playground-type="tooltip">
 
-  <aside class="sidebar" id="sidebar">
+<body data-page="tooltips">
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
     <div class="sidebar-brand">
-      <span class="brand-icon">⬡</span>
-      <span class="brand-text">UIverse <span class="brand-badge">V2</span></span>
+      <span class="brand-icon">?</span>
+      <div>
+        <span class="brand-text">UIverse</span>
+        <small class="brand-note">Premium UI Library</small>
+      </div>
     </div>
 
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav" aria-label="Primary navigation">
       <ul>
         <li><a href="index.html"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
-        <li><a href="breadcrumbs.html"><i class="fa-solid fa-angles-right"></i><span>Breadcrumbs</span></a></li>
+        <li><a href="hover.html"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Hover Effects</span></a></li>
         <li><a href="button.html"><i class="fa-solid fa-hand-pointer"></i><span>Buttons</span></a></li>
-        <li><a href="cards.html"><i class="fa-solid fa-table-cells-large"></i><span>Cards</span></a></li>
         <li><a href="inputs.html"><i class="fa-solid fa-keyboard"></i><span>Inputs</span></a></li>
         <li class="active"><a href="tooltips.html"><i class="fa-solid fa-comment-dots"></i><span>Tooltips</span></a></li>
-        <li><a href="hover.html"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Hover Effects</span></a></li>
       </ul>
     </nav>
 
     <div class="sidebar-footer">
-      <a href="#" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="#" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="#" aria-label="Twitter" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="#" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
     </div>
   </aside>
 
-  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
-
-  <header class="navbar" id="navbar">
-    <button type="button" class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar Navigation">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-    <div class="logo">UIverse</div>
-    <div class="search-bar">
-      <i class="fa-solid fa-magnifying-glass search-icon"></i>
-      <input type="text" id="searchInput" placeholder="Search tooltips..." oninput="liveFilter(this.value)">
-      <kbd class="search-kbd">⌘K</kbd>
-    </div>
-    <div class="nav-right">
-      <button type="button" class="nav-btn outline-nav-btn"><i class="fa-solid fa-plus"></i> Add Component</button>
-      <a href="MyCollection.html" class="nav-btn primary-nav-btn"><i class="fa-solid fa-bookmark"></i> My Collection</a>
-      <button type="button" id="darkModeToggle" class="theme-toggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
-    </div>
-  </header>
-
-  <main class="main-home">
-    <section class="page-hero tooltip-hero">
-      <div class="page-hero-left">
-        <div class="breadcrumb">
-          <a href="index.html">Home</a>
-          <i class="fa-solid fa-chevron-right"></i>
-          <span>Tooltips</span>
-        </div>
-        <h1 class="page-title">Tooltip Components</h1>
-        <p class="page-desc">Five reusable tooltip patterns for labels, icon actions, helper hints, and rich hover content. Each component is optimized for clean interaction states and easy reuse across modern interfaces.</p>
-        <div class="page-meta">
-          <span class="meta-badge"><i class="fa-solid fa-layer-group"></i> 5 Components</span>
-          <span class="meta-badge"><i class="fa-solid fa-bolt"></i> Hover Ready</span>
-          <span class="meta-badge"><i class="fa-solid fa-comment-dots"></i> Accessible UI</span>
-        </div>
-      </div>
-      <div class="page-hero-right tooltip-hero-art">
-        <div class="tooltip-mini tooltip-mini-one">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="tooltip-mini tooltip-mini-two">
-          <i class="fa-solid fa-info"></i>
-        </div>
-      </div>
-    </section>
-
-    <section class="tooltips-section">
-      <div class="section-header-row">
-        <h2 class="inputs-section-title">Tooltip Gallery</h2>
-        <span class="section-count">5 components</span>
+  <div class="page-shell">
+    <!-- Top Navbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button type="button" class="topbar-menu" aria-label="Open sidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="index.html" class="topbar-brand">
+          <span class="brand-icon">?</span>
+          <span>UIverse</span>
+        </a>
       </div>
 
-      <div class="tooltips-grid">
-        <article class="component-card tooltip-card" data-name="top tooltip" data-sec="placement">
-          <div class="card-top">
-            <span class="card-label">Top Tooltip</span>
-            <span class="card-tag tag-popular">Popular</span>
-          </div>
-          <div class="card-preview tooltip-preview tooltip-stage top-stage">
-            <div class="tooltip-anchor">
-              <button type="button" class="tooltip-demo-btn">Hover me</button>
-              <span class="floating-tooltip top">Top tooltip message</span>
-            </div>
-          </div>
-          <p class="card-desc">Appears above the trigger and works well for compact action hints.</p>
-          <div class="actions">
-            <button type="button" class="action-btn view-btn" onclick="toggleCode('t1', this)"><i class="fa-solid fa-code"></i> View Code</button>
-            <button type="button" class="action-btn copy-btn" onclick="copyCode('t1', this)"><i class="fa-solid fa-copy"></i> Copy</button>
-          </div>
-          <pre id="t1" class="code-block"><code>&lt;div class="tooltip-anchor"&gt;
-  &lt;button class="tooltip-demo-btn"&gt;Hover me&lt;/button&gt;
-  &lt;span class="floating-tooltip top"&gt;Top tooltip message&lt;/span&gt;
-&lt;/div&gt;</code></pre>
-        </article>
+      <div class="topbar-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" placeholder="Search tooltips..." aria-label="Search tooltip components" />
+        <span class="search-key">?K</span>
+      </div>
 
-        <article class="component-card tooltip-card" data-name="bottom tooltip" data-sec="placement">
-          <div class="card-top">
-            <span class="card-label">Bottom Tooltip</span>
-            <span class="card-tag tag-essential">Essential</span>
-          </div>
-          <div class="card-preview tooltip-preview tooltip-stage bottom-stage">
-            <div class="tooltip-anchor">
-              <button type="button" class="tooltip-demo-btn dark">Project Structure</button>
-              <span class="floating-tooltip bottom">Bottom tooltip message</span>
-            </div>
-          </div>
-          <p class="card-desc">Useful for forms, buttons, and inline helper content near controls.</p>
-          <div class="actions">
-            <button type="button" class="action-btn view-btn" onclick="toggleCode('t2', this)"><i class="fa-solid fa-code"></i> View Code</button>
-            <button type="button" class="action-btn copy-btn" onclick="copyCode('t2', this)"><i class="fa-solid fa-copy"></i> Copy</button>
-          </div>
-          <pre id="t2" class="code-block"><code>&lt;div class="tooltip-anchor"&gt;
-  &lt;button class="tooltip-demo-btn dark"&gt;Project Structure&lt;/button&gt;
-  &lt;span class="floating-tooltip bottom"&gt;Bottom tooltip message&lt;/span&gt;
-&lt;/div&gt;</code></pre>
-        </article>
+      <div class="topbar-actions">
+        <button type="button" class="theme-toggle" aria-label="Toggle theme">
+          <i class="fa-solid fa-swatchbook"></i>
+        </button>
+        <button type="button" class="action-btn premium-btn">
+          <i class="fa-solid fa-gem"></i>
+          Upgrade
+        </button>
+      </div>
+    </header>
 
-        <article class="component-card tooltip-card" data-name="left tooltip" data-sec="placement">
-          <div class="card-top">
-            <span class="card-label">Left Tooltip</span>
-            <span class="card-tag tag-trending">Trending</span>
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-copy">
+          <span class="badge badge-premium">Premium</span>
+          <h1>Modern Tooltip Components</h1>
+          <p>Explore a polished set of tooltip interaction patterns designed for SaaS dashboards, fintech workflows, and productivity tools.</p>
+          <div class="hero-badges">
+            <span class="badge badge-pill">Hover Interactive</span>
+            <span class="badge badge-pill">Animated UI</span>
+            <span class="badge badge-pill">Responsive Design</span>
           </div>
-          <div class="card-preview tooltip-preview tooltip-stage left-stage">
-            <div class="tooltip-anchor">
-              <button type="button" class="tooltip-demo-icon"><i class="fa-solid fa-circle-question"></i></button>
-              <span class="floating-tooltip left">Left aligned tooltip</span>
-            </div>
-          </div>
-          <p class="card-desc">A clean side placement for icons, action chips, and constrained layouts.</p>
-          <div class="actions">
-            <button type="button" class="action-btn view-btn" onclick="toggleCode('t3', this)"><i class="fa-solid fa-code"></i> View Code</button>
-            <button type="button" class="action-btn copy-btn" onclick="copyCode('t3', this)"><i class="fa-solid fa-copy"></i> Copy</button>
-          </div>
-          <pre id="t3" class="code-block"><code>&lt;div class="tooltip-anchor"&gt;
-  &lt;button class="tooltip-demo-icon"&gt;&lt;i class="fa-solid fa-circle-question"&gt;&lt;/i&gt;&lt;/button&gt;
-  &lt;span class="floating-tooltip left"&gt;Left aligned tooltip&lt;/span&gt;
-&lt;/div&gt;</code></pre>
-        </article>
+        </div>
 
-        <article class="component-card tooltip-card" data-name="right tooltip" data-sec="placement">
-          <div class="card-top">
-            <span class="card-label">Right Tooltip</span>
-            <span class="card-tag tag-new">New</span>
-          </div>
-          <div class="card-preview tooltip-preview tooltip-stage right-stage">
-            <div class="tooltip-anchor">
-              <button type="button" class="tooltip-demo-chip">Info Label</button>
-              <span class="floating-tooltip right">Right aligned tooltip</span>
+        <div class="hero-preview">
+          <div class="preview-card">
+            <div class="preview-header">
+              <div>
+                <span class="label">Notification preview</span>
+                <h2>Real-time helper text</h2>
+              </div>
+              <span class="status-badge">Live</span>
             </div>
-          </div>
-          <p class="card-desc">Great for labels, badges, and compact callouts beside UI controls.</p>
-          <div class="actions">
-            <button type="button" class="action-btn view-btn" onclick="toggleCode('t4', this)"><i class="fa-solid fa-code"></i> View Code</button>
-            <button type="button" class="action-btn copy-btn" onclick="copyCode('t4', this)"><i class="fa-solid fa-copy"></i> Copy</button>
-          </div>
-          <pre id="t4" class="code-block"><code>&lt;div class="tooltip-anchor"&gt;
-  &lt;button class="tooltip-demo-chip"&gt;Info Label&lt;/button&gt;
-  &lt;span class="floating-tooltip right"&gt;Right aligned tooltip&lt;/span&gt;
-&lt;/div&gt;</code></pre>
-        </article>
 
-        <article class="component-card tooltip-card" data-name="glass tooltip rich info" data-sec="rich">
-          <div class="card-top">
-            <span class="card-label">Glass Tooltip</span>
-            <span class="card-tag tag-warning">Featured</span>
-          </div>
-          <div class="card-preview tooltip-preview tooltip-stage glass-stage">
-            <div class="tooltip-anchor glass-anchor">
-              <button type="button" class="tooltip-demo-btn glass">Hover for Info</button>
-              <div class="rich-tooltip">
-                <strong>Build faster</strong>
-                <span>Use compact helper content with icon, title, and a short note.</span>
+            <div class="preview-body">
+              <div class="preview-row">
+                <button class="tooltip-trigger btn-pill">Hover for tip</button>
+                <span class="floating-tooltip">Quick overview for dashboard widgets</span>
+              </div>
+              <div class="preview-row">
+                <button class="icon-trigger"><i class="fa-solid fa-circle-info"></i></button>
+                <span class="floating-tooltip tooltip-info">Security level indicator</span>
+              </div>
+              <div class="preview-notification">
+                <div class="notification-icon"><i class="fa-solid fa-bell"></i></div>
+                <div>
+                  <p class="notification-title">Verification ready</p>
+                  <p class="notification-copy">Tap the icon to reveal the secure OTP helper text.</p>
+                </div>
               </div>
             </div>
-          </div>
-          <p class="card-desc">A richer glassmorphism tooltip for onboarding, previews, and guided actions.</p>
-          <div class="actions">
-            <button type="button" class="action-btn view-btn" onclick="toggleCode('t5', this)"><i class="fa-solid fa-code"></i> View Code</button>
-            <button type="button" class="action-btn copy-btn" onclick="copyCode('t5', this)"><i class="fa-solid fa-copy"></i> Copy</button>
-          </div>
-          <pre id="t5" class="code-block"><code>&lt;div class="tooltip-anchor glass-anchor"&gt;
-  &lt;button class="tooltip-demo-btn glass"&gt;Hover for Info&lt;/button&gt;
-  &lt;div class="rich-tooltip"&gt;
-    &lt;strong&gt;Build faster&lt;/strong&gt;
-    &lt;span&gt;Use compact helper content with icon, title, and a short note.&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-        </article>
-      </div>
-    </section>
-  </main>
 
-  <button type="button" id="scrollTopBtn" onclick="scrollToTop()" title="Back to top">
-    <i class="fa-solid fa-chevron-up"></i>
-  </button>
-
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-col brand">
-        <h2 class="footer-logo">⬡ UIverse</h2>
-        <p>Build modern reusable UI components with clean HTML, CSS, and JavaScript.</p>
-        <div class="socials">
-          <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <div class="preview-actions">
+              <button type="button" class="secondary-btn">Resend code</button>
+              <button type="button" class="primary-btn">Verify now</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 UIverse. Made with ❤️ for developers worldwide.</p>
-    </div>
-  </footer>
+      </section>
 
-  <script>
-    const toggle = document.getElementById('darkModeToggle');
-    const icon = toggle.querySelector('i');
+      <!-- Filter Bar -->
+      <section class="filter-bar" aria-label="Tooltip filters">
+        <button class="filter-btn active" type="button">All</button>
+        <button class="filter-btn" type="button">Glassmorphism</button>
+        <button class="filter-btn" type="button">Minimal</button>
+        <button class="filter-btn" type="button">Neon</button>
+        <button class="filter-btn" type="button">Interactive</button>
+        <button class="filter-btn" type="button">Dark Mode</button>
+      </section>
 
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark-mode');
-      icon.className = 'fa-solid fa-sun';
-    }
+      <!-- Components Grid -->
+      <section class="components-section">
+        <div class="section-header">
+          <div>
+            <h2>Tooltip Components</h2>
+            <p>Browse the premium tooltip library built for advanced UI and verification workflows.</p>
+          </div>
+          <button class="secondary-btn">Browse all</button>
+        </div>
 
-    toggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
+        <div class="components-grid">
 
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('sidebarBackdrop').classList.toggle('visible');
-    }
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">Minimal tooltip</span>
+              <span class="card-tag">Classic</span>
+            </div>
+            <div class="card-preview tooltip-preview">
+              <button class="tooltip-anchor">Hover</button>
+              <span class="tooltip-label">Quick tip for inline actions</span>
+            </div>
+            <p>Clean tooltip styling for dashboard labels, micro interactions, and compact helper text.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Copy</button>
+            </div>
+          </article>
 
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">Glassmorphism tooltip</span>
+              <span class="card-tag">Neomorphism</span>
+            </div>
+            <div class="card-preview tooltip-preview glass-preview">
+              <button class="tooltip-anchor btn-glass">Hover info</button>
+              <span class="tooltip-label">Trusted details with soft blur</span>
+            </div>
+            <p>Premium glass-style hints that blend into modern SaaS surfaces and secure panels.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Use</button>
+            </div>
+          </article>
 
-    window.addEventListener('scroll', () => {
-      document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 400);
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
-    });
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">Neon glow tooltip</span>
+              <span class="card-tag">Energy</span>
+            </div>
+            <div class="card-preview tooltip-preview neon-preview">
+              <button class="tooltip-anchor btn-neon"><i class="fa-solid fa-lightbulb"></i></button>
+              <span class="tooltip-label">Highlight urgent verification tips</span>
+            </div>
+            <p>Vibrant neon interactions for finance dashboards and standout notification flows.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Embed</button>
+            </div>
+          </article>
 
-    function toggleCode(id, btn) {
-      const block = document.getElementById(id);
-      const isOpen = block.classList.toggle('open');
-      btn.innerHTML = isOpen ? '<i class="fa-solid fa-eye-slash"></i> Hide Code' : '<i class="fa-solid fa-code"></i> View Code';
-    }
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">Interactive hover tooltip</span>
+              <span class="card-tag">Dynamic</span>
+            </div>
+            <div class="card-preview tooltip-preview interactive-preview">
+              <button class="tooltip-anchor btn-interactive">Hover me</button>
+              <span class="tooltip-label">Tap for keyboard shortcut help</span>
+            </div>
+            <p>Tooltip system built for actions, key commands, and guided onboarding experiences.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Copy</button>
+            </div>
+          </article>
 
-    function copyCode(id, btn) {
-      navigator.clipboard.writeText(document.getElementById(id).innerText).then(() => {
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
-          btn.classList.remove('copied');
-        }, 1600);
-      });
-    }
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">Directional tooltip</span>
+              <span class="card-tag">Placement</span>
+            </div>
+            <div class="card-preview tooltip-preview directional-preview">
+              <button class="tooltip-anchor btn-directional">Hint</button>
+              <span class="tooltip-label">Supports top, bottom, left, right placement</span>
+            </div>
+            <p>Reliable directional hints for complex panels and data-heavy layouts.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Use</button>
+            </div>
+          </article>
 
-    function liveFilter(val) {
-      const q = val.toLowerCase();
-      document.querySelectorAll('.component-card').forEach(card => {
-        const name = card.dataset.name.toLowerCase();
-        const label = card.querySelector('.card-label')?.textContent.toLowerCase() || '';
-        const match = name.includes(q) || label.includes(q);
-        card.style.display = match ? '' : 'none';
-      });
-    }
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">Dark premium tooltip</span>
+              <span class="card-tag">Pro</span>
+            </div>
+            <div class="card-preview tooltip-preview dark-preview">
+              <button class="tooltip-anchor btn-dark"><i class="fa-solid fa-shield-halved"></i></button>
+              <span class="tooltip-label">Secure verification hint</span>
+            </div>
+            <p>Rich dark mode tooltip for fintech and admin experiences with premium polish.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Copy</button>
+            </div>
+          </article>
 
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
-      }, { threshold: 0.08 });
-      document.querySelectorAll('.component-card').forEach(el => observer.observe(el));
-      setTimeout(() => {
-        document.querySelectorAll('.component-card').forEach(el => el.classList.add('in-view'));
-      }, 300);
-    } else {
-      document.querySelectorAll('.component-card').forEach(el => el.classList.add('in-view'));
-    }
-  </script>
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">Floating action tooltip</span>
+              <span class="card-tag">Utility</span>
+            </div>
+            <div class="card-preview tooltip-preview floating-preview">
+              <button class="tooltip-anchor btn-float"><i class="fa-solid fa-rocket"></i></button>
+              <span class="tooltip-label">Floating helper for quick actions</span>
+            </div>
+            <p>Action-oriented tooltip designed for toolbars, mobile widgets, and quick access panels.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Embed</button>
+            </div>
+          </article>
+
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">Notification tooltip</span>
+              <span class="card-tag">Alert</span>
+            </div>
+            <div class="card-preview tooltip-preview notification-preview">
+              <button class="tooltip-anchor btn-notice">Alert</button>
+              <span class="tooltip-label">New verification update available</span>
+            </div>
+            <p>Notification-style tooltip with status markers for fast app feedback.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Use</button>
+            </div>
+          </article>
+
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">AI assistant tooltip</span>
+              <span class="card-tag">Smart</span>
+            </div>
+            <div class="card-preview tooltip-preview ai-preview">
+              <button class="tooltip-anchor btn-ai"><i class="fa-solid fa-robot"></i></button>
+              <span class="tooltip-label">Smart assistant hints in context</span>
+            </div>
+            <p>AI-driven helper text for workflow suggestions, verification tips, and onboarding cues.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Copy</button>
+            </div>
+          </article>
+
+          <article class="component-card">
+            <div class="card-top">
+              <span class="card-label">Dashboard analytics tooltip</span>
+              <span class="card-tag">Insight</span>
+            </div>
+            <div class="card-preview tooltip-preview analytics-preview">
+              <button class="tooltip-anchor btn-analytics">Stats</button>
+              <span class="tooltip-label">Contextual KPI explanation</span>
+            </div>
+            <p>Insight tooltips suited for data visualizations and admin analytic cards.</p>
+            <div class="card-actions">
+              <button class="action-btn">Preview</button>
+              <button class="action-btn">Embed</button>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Premium UI Features -->
+      <section class="premium-features">
+        <div class="features-header">
+          <div>
+            <h2>Premium UI Features</h2>
+            <p>Every tooltip pattern includes advanced UI elements for modern product experiences.</p>
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <i class="fa-solid fa-arrow-up-right-dots"></i>
+            <h3>Tooltip arrows</h3>
+            <p>Intuitive pointers for directional hints and precise placement in complex layouts.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-hand-pointer"></i>
+            <h3>Hover triggers</h3>
+            <p>Delicate hover states that reveal helper text without disrupting the main dashboard flow.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-circle-info"></i>
+            <h3>Icon tooltips</h3>
+            <p>Compact info badges and keyboard hint markers for refined productivity interfaces.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-wave-square"></i>
+            <h3>Animated labels</h3>
+            <p>Smooth entrance motion and fade transitions for premium interactive experiences.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-keyboard"></i>
+            <h3>Shortcut hints</h3>
+            <p>Keyboard tooltips and shortcut labels tailored for power users and admin workflows.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-shield-alt"></i>
+            <h3>Secure badges</h3>
+            <p>Verified UI states for authentication, finance, and secure verification contexts.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="page-footer">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <span class="brand-icon">?</span>
+            <div>
+              <h2>UIverse</h2>
+              <p>Modern component system for premium web apps and dashboard experiences.</p>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <div>
+              <h3>Navigation</h3>
+              <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="hover.html">Hover Effects</a></li>
+                <li><a href="button.html">Buttons</a></li>
+                <li><a href="inputs.html">Inputs</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3>Resources</h3>
+              <ul>
+                <li><a href="#">Docs</a></li>
+                <li><a href="#">Guidelines</a></li>
+                <li><a href="#">Changelog</a></li>
+                <li><a href="#">Support</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3>Community</h3>
+              <ul>
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">Dribbble</a></li>
+                <li><a href="#">Twitter</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="footer-newsletter">
+            <h3>Stay updated</h3>
+            <p>Get premium UI updates, component launches, and design system news.</p>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Your email address" aria-label="Email for newsletter" />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>� 2026 UIverse. Crafted for modern dashboards and fintech experiences.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
 </body>
+
 </html>
