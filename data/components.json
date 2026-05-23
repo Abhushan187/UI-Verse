@@ -88,6 +88,14 @@
     "description": "Sticky note, memo and note-taking UI components"
   },
   {
+    "id": "breadcrumbs",
+    "title": "Breadcrumb Components",
+    "path": "breadcrumbs.html",
+    "tags": ["navigation", "breadcrumbs", "components"],
+    "aliases": ["breadcrumb", "crumbs"],
+    "description": "Breadcrumb navigation styles for apps and dashboards"
+  },
+  {
     "id": "pricing",
     "title": "Pricing",
     "path": "pricing.html",
