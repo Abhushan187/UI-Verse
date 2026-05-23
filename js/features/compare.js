@@ -32,6 +32,102 @@
     cachedOverlayGrid = document.getElementById(OVERLAY_GRID_ID);
   }
 
+  function loadSelectionFromStorage(storage = sessionStorage) {
+    try {
+      const raw = storage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.slice(0, MAX_COMPARE).filter((x) => typeof x === 'string' && x.length > 0);
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function persistSelectionToStorage(selectedIds, storage = sessionStorage) {
+    try {
+      storage.setItem(STORAGE_KEY, JSON.stringify(selectedIds));
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  function toggleSelected(selectedIds, compareId, max = MAX_COMPARE) {
+    if (!compareId) return selectedIds.slice();
+
+    if (selectedIds.includes(compareId)) {
+      return selectedIds.filter((id) => id !== compareId);
+    }
+
+    if (selectedIds.length >= max) {
+      return selectedIds.slice();
+    }
+
+    return [...selectedIds, compareId];
+  }
+
+  function getSelectedCardsById(cards, ids, resolveId) {
+    if (!Array.isArray(cards) || !Array.isArray(ids) || !ids.length) return [];
+    const byId = new Map();
+
+    cards.forEach((cardEl) => {
+      const id = resolveId(cardEl);
+      if (id) byId.set(id, cardEl);
+    });
+
+    return ids.map((id) => byId.get(id)).filter(Boolean);
+  }
+
+  function renderCompareCell(cardEl, onActivate) {
+    const cell = document.createElement('div');
+    cell.className = 'uiverse-compare-cell';
+    cell.tabIndex = 0;
+    cell.setAttribute('aria-current', 'false');
+
+    const label = document.createElement('div');
+    label.className = 'uiverse-compare-cell-label';
+
+    const name = cardEl.getAttribute('data-name') || '';
+    const cat = cardEl.getAttribute('data-cat') || '';
+    label.textContent = `${name}${cat ? ' · ' + cat : ''}`;
+
+    const preview = cardEl.querySelector('.card-preview');
+
+    const previewWrap = document.createElement('div');
+    previewWrap.className = 'uiverse-compare-cell-preview';
+
+    // Clone ONLY preview area if possible
+    if (preview) {
+      previewWrap.appendChild(preview.cloneNode(true));
+    } else {
+      // fallback: clone whole card
+      previewWrap.appendChild(cardEl.cloneNode(true));
+      // remove checkbox from clone if present
+      const cloned = previewWrap.querySelector('.uiverse-compare-checkbox-wrap');
+      if (cloned) cloned.remove();
+    }
+
+    cell.appendChild(label);
+    cell.appendChild(previewWrap);
+
+    if (typeof onActivate === 'function') {
+      cell.addEventListener('mouseenter', () => onActivate(cell));
+      cell.addEventListener('focus', () => onActivate(cell));
+      cell.addEventListener('focusin', () => onActivate(cell));
+    }
+
+    return cell;
+  }
+
+  function renderOverlayGrid(gridEl, selectedCards, onActivate) {
+    if (!gridEl) return;
+
+    gridEl.innerHTML = '';
+    selectedCards.slice(0, MAX_COMPARE).forEach((cardEl) => {
+      gridEl.appendChild(renderCompareCell(cardEl, onActivate));
+    });
+  }
+
   function ensureCompareId(cardEl) {
     if (!cardEl || !(cardEl instanceof HTMLElement)) return null;
     if (cardEl.getAttribute(CARD_ID_ATTR)) return cardEl.getAttribute(CARD_ID_ATTR);
@@ -55,37 +151,6 @@
     return id;
   }
 
-  function loadSelection() {
-    try {
-      const raw = sessionStorage.getItem(STORAGE_KEY);
-      if (!raw) return [];
-      const parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed)) return [];
-      return parsed.slice(0, MAX_COMPARE).filter((x) => typeof x === 'string' && x.length > 0);
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function persistSelection() {
-    try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state.selectedIds));
-    } catch (e) {
-      // ignore
-    }
-  }
-
-  function getSelectedCards() {
-    if (!state.selectedIds.length) return [];
-    const byId = new Map();
-    (cachedCards.length ? cachedCards : getCardElements()).forEach((el) => {
-      const id = ensureCompareId(el);
-      if (id) byId.set(id, el);
-    });
-
-    return state.selectedIds.map((id) => byId.get(id)).filter(Boolean);
-  }
-
   function createCheckbox(cardEl) {
     const checkboxWrap = document.createElement('div');
     checkboxWrap.className = 'uiverse-compare-checkbox-wrap';
@@ -107,17 +172,14 @@
       const compareId = input.dataset.compareId;
       if (!compareId) return;
 
-      if (input.checked) {
-        if (state.selectedIds.length >= MAX_COMPARE) {
-          input.checked = false;
-          return;
-        }
-        if (!state.selectedIds.includes(compareId)) state.selectedIds.push(compareId);
-      } else {
-        state.selectedIds = state.selectedIds.filter((x) => x !== compareId);
+      const nextSelectedIds = toggleSelected(state.selectedIds, compareId);
+      if (nextSelectedIds === state.selectedIds || nextSelectedIds.length === state.selectedIds.length && nextSelectedIds.every((id, index) => id === state.selectedIds[index])) {
+        input.checked = state.selectedIds.includes(compareId);
+        return;
       }
 
-      persistSelection();
+      state.selectedIds = nextSelectedIds;
+      persistSelectionToStorage(state.selectedIds);
       refreshCheckboxStates();
 
       // open overlay automatically once we have at least 2 selections
@@ -151,45 +213,7 @@
   }
 
   function buildPreviewCell(cardEl) {
-    const cell = document.createElement('div');
-    cell.className = 'uiverse-compare-cell';
-    cell.tabIndex = 0;
-    cell.setAttribute('aria-current', 'false');
-
-    const label = document.createElement('div');
-    label.className = 'uiverse-compare-cell-label';
-
-    const name = cardEl.getAttribute('data-name') || '';
-    const cat = cardEl.getAttribute('data-cat') || '';
-    label.textContent = `${name}${cat ? ' · ' + cat : ''}`;
-
-    const preview = cardEl.querySelector('.card-preview');
-
-    const previewWrap = document.createElement('div');
-    previewWrap.className = 'uiverse-compare-cell-preview';
-
-    // Clone ONLY preview area if possible
-    if (preview) {
-      previewWrap.appendChild(preview.cloneNode(true));
-    } else {
-      // fallback: clone whole card
-      previewWrap.appendChild(cardEl.cloneNode(true));
-      // remove checkbox from clone if present
-      const cloned = previewWrap.querySelector('.uiverse-compare-checkbox-wrap');
-      if (cloned) cloned.remove();
-    }
-
-    cell.appendChild(label);
-    cell.appendChild(previewWrap);
-
-    // Sync hover/focus
-    // - mouseenter: for pointer users
-    // - focus/focusin: for keyboard + focus within cloned content
-    cell.addEventListener('mouseenter', () => syncActive(cell));
-    cell.addEventListener('focus', () => syncActive(cell));
-    cell.addEventListener('focusin', () => syncActive(cell));
-
-    return cell;
+    return renderCompareCell(cardEl, syncActive);
   }
 
   function syncActive(activeCell) {
@@ -232,7 +256,7 @@
   }
 
   function openOverlay() {
-    const selectedCards = getSelectedCards();
+    const selectedCards = getSelectedCardsById(cachedCards.length ? cachedCards : getCardElements(), state.selectedIds, ensureCompareId);
     if (selectedCards.length < 2) return;
 
     let overlay = document.getElementById(OVERLAY_ID);
@@ -281,12 +305,7 @@
 
     const grid = cachedOverlayGrid || document.getElementById(OVERLAY_GRID_ID);
     cachedOverlayGrid = grid;
-    if (grid) {
-      grid.innerHTML = '';
-      selectedCards.slice(0, MAX_COMPARE).forEach((cardEl) => {
-        grid.appendChild(buildPreviewCell(cardEl));
-      });
-    }
+    renderOverlayGrid(grid, selectedCards, syncActive);
 
     overlay.classList.add('uiverse-compare-overlay--open');
     state.overlayOpen = true;
@@ -333,7 +352,7 @@
 
   function closeOverlayClearSelection() {
     state.selectedIds = [];
-    persistSelection();
+    persistSelectionToStorage(state.selectedIds);
     refreshCheckboxStates();
     closeOverlayKeepSelection();
   }
@@ -350,12 +369,12 @@
     const cards = getCardElements();
     if (!cards.length) return;
 
-    const restoredIds = loadSelection();
+    const restoredIds = loadSelectionFromStorage();
 
     // Keep only IDs that are present on this page load.
     const validIds = new Set(cards.map((card) => ensureCompareId(card)).filter(Boolean));
     state.selectedIds = restoredIds.filter((id) => validIds.has(id)).slice(0, MAX_COMPARE);
-    persistSelection();
+    persistSelectionToStorage(state.selectedIds);
 
     // Inject checkboxes once
     cards.forEach((card) => {
