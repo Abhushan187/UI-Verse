@@ -980,6 +980,23 @@ body.dark-mode .feature-card:hover {
   color: #888;
   text-decoration: none;
   font-size: 14px;
+  position: relative;
+}
+
+.footer-col ul li a:hover {
+  color: var(--accent);
+}
+
+.footer-col ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+  transition: color var(--transition);
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
@@ -1015,7 +1032,27 @@ body.dark-mode .feature-card:hover {
   box-shadow: 0 0 12px rgba(235, 104, 53, 0.35);
 }
 
+.footer-col ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: var(--accent);
+}
+
+.footer-col ul li a:hover::after {
+  width: 100%;
+}
+
 .socials {
+  margin-top: 12px;
   display: flex;
   gap: 12px;
 }
@@ -1032,12 +1069,15 @@ body.dark-mode .feature-card:hover {
   text-decoration: none;
   margin-right: 12px;
   font-size: 14px;
+  transition: all 0.3s ease;
   transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .socials a:hover {
   background: var(--accent);
   color: #fff;
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 0 8px var(--accent);
   transform: scale(1.1);
 }
 

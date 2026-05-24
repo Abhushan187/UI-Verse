@@ -46,6 +46,35 @@
   gap: 16px;
 }
 
+.faq-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.faq-action-btn {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.faq-action-btn:hover,
+.faq-action-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent);
+}
+
+.faq-action-btn:focus-visible {
+  outline: 3px solid rgba(255, 140, 0, 0.35);
+  outline-offset: 4px;
+}
+
 /* FAQ CARD */
 .faq-item {
   position: relative;
@@ -75,12 +104,8 @@
 
 /* FAQ QUESTION ROW */
 .faq-question {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  gap: 16px;
-  user-select: none;
+  display: block;
+  cursor: default;
 }
 
 .faq-question h3 {
@@ -92,13 +117,33 @@
   font-family: var(--font-heading);
 }
 
-.faq-question i {
+.faq-question-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-question-button:focus-visible {
+  outline: 3px solid rgba(255, 140, 0, 0.35);
+  outline-offset: 4px;
+}
+
+.faq-question-icon {
   font-size: 0.95rem;
   color: var(--text-secondary);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s;
 }
 
-.faq-item.active .faq-question i {
+.faq-item.active .faq-question-icon {
   transform: rotate(180deg);
   color: var(--accent);
 }
@@ -106,13 +151,15 @@
 /* FAQ ANSWER CONTAINER */
 .faq-answer {
   max-height: 0;
+  padding-top: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, padding-top 0.25s ease;
 }
 
 .faq-item.active .faq-answer {
-  max-height: 500px;
+  max-height: 999px;
+  padding-top: 14px;
   opacity: 1;
 }
 

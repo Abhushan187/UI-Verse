@@ -1,7 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-// Very small extractor: finds t('key') or t("key") occurrences in src/ and stories/
+const DEFAULT_ROOTS = ['src', 'components/WebComponents'];
+const DEFAULT_OUTPUT = path.join('locales', 'extracted-keys.json');
+const SOURCE_EXTENSIONS = new Set(['.js', '.mjs', '.cjs', '.ts', '.html']);
+
+const TRANSLATION_CALL_RE = /(?:\bI18n\.)?\bt\(\s*['"]([a-zA-Z0-9_.:-]+)['"]\s*(?:,|\))/g;
+const DATA_I18N_RE = /data-i18n\s*=\s*['"]([^'"]+)['"]/g;
+
 function walk(dir, files = []) {
   const list = fs.readdirSync(dir);
   list.forEach((file) => {
@@ -15,27 +21,44 @@ function walk(dir, files = []) {
 
 function extractFromFile(file) {
   const content = fs.readFileSync(file, 'utf8');
-  const re = /t\(\s*['\"]([a-zA-Z0-9_.-]+)['\"]\s*[,)]/g;
   const keys = new Set();
   let m;
-  while ((m = re.exec(content))) keys.add(m[1]);
+  while ((m = DATA_I18N_RE.exec(content))) keys.add(m[1]);
+  while ((m = TRANSLATION_CALL_RE.exec(content))) keys.add(m[1]);
   return Array.from(keys);
 }
 
-function main() {
-  const roots = ['src', 'stories'];
+function collectTranslationKeys(rootDirs = DEFAULT_ROOTS) {
   const keys = new Set();
-  roots.forEach((r) => {
-    if (!fs.existsSync(r)) return;
-    const files = walk(r).filter((f) => /\.(js|ts|mjs|html)$/.test(f));
+  rootDirs.forEach((rootDir) => {
+    if (!fs.existsSync(rootDir)) return;
+    const files = walk(rootDir).filter((file) => SOURCE_EXTENSIONS.has(path.extname(file).toLowerCase()));
     files.forEach((f) => {
       extractFromFile(f).forEach((k) => keys.add(k));
     });
   });
-  const out = path.join('locales', 'extracted-keys.json');
-  fs.mkdirSync('locales', { recursive: true });
-  fs.writeFileSync(out, JSON.stringify(Array.from(keys).sort(), null, 2));
-  console.log('Extracted', keys.size, 'keys to', out);
+  return Array.from(keys).sort();
+}
+
+function writeExtractedKeys(outputFile, keys) {
+  fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+  fs.writeFileSync(outputFile, JSON.stringify(keys, null, 2));
+}
+
+function main() {
+  const keys = collectTranslationKeys();
+  const out = DEFAULT_OUTPUT;
+  writeExtractedKeys(out, keys);
+  console.log('Extracted', keys.length, 'keys to', out);
 }
 
 if (require.main === module) main();
+
+module.exports = {
+  DEFAULT_ROOTS,
+  DEFAULT_OUTPUT,
+  collectTranslationKeys,
+  extractFromFile,
+  writeExtractedKeys,
+  walk
+};

@@ -503,6 +503,14 @@ DATES
   transition:var(--transition);
 }
 
+.date:nth-child(7n+1):not(.inactive) {
+  color: #ff6b6b;
+}
+
+.date:nth-child(7n+1).inactive {
+  color: rgba(255, 107, 107, 0.3);
+}
+
 .date:hover{
 
   transform:
@@ -520,14 +528,13 @@ DATES
 }
 
 .today{
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--accent),
-      var(--accent2)
-    );
-
+  background: #ffffff13;
+  border: 2px solid #ffffffe2;
+  color:white;
+}
+.today:hover{
+  background: rgba(172, 172, 172, 0.201);
+  border: 2px solid #ffffff;
   color:white;
 }
 
