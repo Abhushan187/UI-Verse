@@ -324,3 +324,90 @@ window.addEventListener("scroll",()=>{
   });
 
 });
+
+/* ================= DIRECTION PICKER ================= */
+
+const directionButtons =
+document.querySelectorAll(".direction-grid button");
+
+directionButtons.forEach((btn) => {
+
+  btn.addEventListener("click", () => {
+
+    const angle =
+    btn.textContent.replace("°","");
+
+    angleRange.value = angle;
+
+    angleValue.textContent =
+    `${angle}°`;
+
+    updateGradient();
+
+  });
+
+});
+
+/* ================= SHUFFLE BUTTON ================= */
+
+const shuffleBtn =
+document.querySelector(".action-buttons button");
+
+shuffleBtn.addEventListener("click", () => {
+
+  const random1 =
+  "#" + Math.floor(Math.random()*16777215)
+  .toString(16);
+
+  const random2 =
+  "#" + Math.floor(Math.random()*16777215)
+  .toString(16);
+
+  color1.value = random1;
+  color2.value = random2;
+
+  updateGradient();
+
+});
+
+/* ================= COPY EXPORT ================= */
+
+document.querySelectorAll(".export-card button")
+.forEach((btn) => {
+
+  btn.addEventListener("click", () => {
+
+    navigator.clipboard.writeText(
+      cssCode.innerText
+    );
+
+    btn.innerText = "Copied!";
+
+    setTimeout(() => {
+
+      btn.innerText = "Copy CSS";
+
+    },1500);
+
+  });
+
+});
+
+/* ================= PRESET ACTIVE EFFECT ================= */
+
+const presetCards =
+document.querySelectorAll(".preset-card");
+
+presetCards.forEach((card) => {
+
+  card.addEventListener("click", () => {
+
+    presetCards.forEach(c =>
+      c.classList.remove("active")
+    );
+
+    card.classList.add("active");
+
+  });
+
+});
