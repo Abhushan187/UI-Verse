@@ -51,6 +51,10 @@ jobs:
         run: |
           npm run test:registry:check
 
+      - name: Component discovery ranking tests
+        run: |
+          npm run test:search:rank
+
       - name: Link validation (linkinator)
         run: |
           npm run link-check

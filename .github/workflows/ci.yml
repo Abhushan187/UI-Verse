@@ -45,6 +45,9 @@ jobs:
       - name: Component registry validator unit tests
         run: npm run test:registry:check
 
+      - name: Component discovery ranking tests
+        run: npm run test:search:rank
+
       - name: Package smoke test
         run: npm run package:check
 

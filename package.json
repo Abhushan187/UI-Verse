@@ -74,6 +74,7 @@
         "components:registry:check": "node scripts/component-registry-check.js",
         "components:version:bump": "node scripts/component-metadata.js",
         "test:registry:check": "node --test tests/registry/component-registry-check.test.js",
+        "test:search:rank": "node --test tests/search/component-discovery-rank.test.js",
         "state:test": "playwright test tests/state --reporter=list",
         "i18n:extract": "node scripts/i18n-extract.js",
         "i18n:validate": "node scripts/i18n-validate.js",
