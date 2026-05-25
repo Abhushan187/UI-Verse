@@ -83,6 +83,10 @@ jobs:
         run: |
           npm run link-check
 
+      - name: Security assets verification
+        run: |
+          npm run security:assets:verify
+
       - name: Accessibility audit (WCAG baseline)
         run: |
           npm run audit:a11y
