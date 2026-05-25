@@ -39,9 +39,37 @@ jobs:
         run: |
           npm run dependencies:check
 
+      - name: Dependency graph regression tests
+        run: |
+          npm run test:dependencies:graph
+
       - name: Component versioning metadata check
         run: |
           npm run components:version:check
+
+      - name: Component versioning regression tests
+        run: |
+          npm run test:versioning:check
+
+      - name: Component registry consistency check
+        run: |
+          npm run components:registry:check
+
+      - name: Component registry validator unit tests
+        run: |
+          npm run test:registry:check
+
+      - name: i18n locale validation
+        run: |
+          npm run i18n:validate
+
+      - name: i18n dist sync check
+        run: |
+          npm run i18n:sync:check
+
+      - name: Component discovery ranking tests
+        run: |
+          npm run test:search:rank
 
       - name: Link validation (linkinator)
         run: |
