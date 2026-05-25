@@ -31,10 +31,10 @@
 
   <nav class="sidebar-nav">
     <ul>
-      <li class="active">
-        <a href="index.html">
-          <i class="fa-solid fa-house"></i>
-          <span>Home</span>
+      <li>
+        <a href="component-discovery.html">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore All</span>
         </a>
       </li>
       <li>
@@ -786,6 +786,17 @@
   document.addEventListener('DOMContentLoaded', () => {
     if (window.Search && typeof Search.init === 'function') {
       Search.init();
+    }
+
+    // Navbar Enter key → go to discovery page with query pre-filled
+    const navSearch = document.getElementById('searchInput');
+    if (navSearch) {
+      navSearch.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && this.value.trim()) {
+          const q = encodeURIComponent(this.value.trim());
+          window.location.href = 'components/Discovery/component-discovery.html?q=' + q;
+        }
+      });
     }
   });
 
