@@ -10,6 +10,7 @@ const TutorialMode = {
     resolvedSteps: [],
     activeSteps: [],
     missingSteps: [],
+    renderedStepCount: 0,
     currentIndex: 0,
     active: false,
     pageKey: 'global',
@@ -160,6 +161,7 @@ const TutorialMode = {
 
     this._state.currentIndex = 0;
     this._state.active = true;
+    this._state.renderedStepCount = 0;
 
     this._ensureUI();
     this._bindUIEvents();
@@ -313,6 +315,7 @@ const TutorialMode = {
       const el = step.targetEl && step.targetEl.isConnected ? step.targetEl : null;
       if (el) {
         this._state.currentIndex = idx;
+        this._state.renderedStepCount += 1;
         this._showStep(step, el);
         return;
       }
@@ -320,7 +323,7 @@ const TutorialMode = {
     }
 
     // If we reach here, all remaining steps have missing selectors
-    this.complete();
+    this.complete(false, this._state.renderedStepCount > 0);
   },
 
   _showStep(step, el) {
@@ -459,9 +462,12 @@ const TutorialMode = {
     this.complete(true);
   },
 
-  complete(skip = false) {
+  complete(skip = false, shouldMarkCompleted = true) {
     this._state.active = false;
-    this._setCompleted();
+
+    if (shouldMarkCompleted) {
+      this._setCompleted();
+    }
 
     if (this._state.refreshHandler) {
       window.removeEventListener('scroll', this._state.refreshHandler);
