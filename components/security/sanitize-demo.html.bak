@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+  <link rel="stylesheet" href="../../dist/shared.css">
+  <meta charset="utf-8" />
     <title>Sanitize Demo</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <style>body{font-family:system-ui,Arial;padding:20px}</style>
@@ -15,5 +16,6 @@
     <div id="output"></div>
 
     <script type="module" src="./sanitize-demo.js"></script>
-  </body>
+      <script src="../../dist/shared.js"></script>
+</body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <link rel="stylesheet" href="dist/shared.css">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Skeletons — UIverse</title>
@@ -12,12 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <!-- Page Styles -->
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="home.css" />
-    <link rel="stylesheet" href="shared-page.css" />
     <link rel="stylesheet" href="skeletons.css" />
-    <link rel="stylesheet" href="css/url-state.css" />
-
     <!-- UIverse Runtime Loader -->
     <script src="js/loader.js" defer></script>
   </head>
@@ -399,5 +395,6 @@
         </footer>
       </main>
     </div>
-  </body>
+    <script src="dist/shared.js"></script>
+</body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,8 +19,7 @@
 
   <link rel="stylesheet" href="flipcards.css">
 
-  <link rel="stylesheet" href="shared-sidebar.css">
-</head>
+  </head>
 
 <body>
 
@@ -1280,5 +1280,6 @@
   </div>
 </footer>
 
+  <script src="dist/shared.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8" />
   <meta
     name="viewport"
@@ -25,9 +26,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   />
 
-  <link rel="stylesheet" href="shared-sidebar.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="home.css">
   <link rel="stylesheet" href="analysis-card.css" />
 </head>
 
@@ -391,7 +389,7 @@
 <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
 
 
-  <div class="analytics-card">
+  <div class="analytics-card" role="main">
 
     <!-- HEADER -->
     <div class="card-header">
@@ -980,5 +978,6 @@
 
   <script src="analysis-card.js"></script>
 
+  <script src="dist/shared.js"></script>
 </body>
 </html>

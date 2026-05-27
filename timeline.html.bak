@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; connect-src 'self' https:; img-src 'self' data: https:; font-src 'self' data: https:; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,10 +15,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="home.css" />
   <link rel="stylesheet" href="timeline.css" />
-  <link rel="stylesheet" href="shared-sidebar.css">
-</head>
+  </head>
 
 <body>
 
@@ -1183,5 +1182,6 @@
 
   <!-- JAVASCRIPT -->
   <script src="timeline.js"></script>
+  <script src="dist/shared.js"></script>
 </body>
 </html>

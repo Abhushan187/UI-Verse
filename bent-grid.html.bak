@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8" />
 
   <meta
@@ -22,11 +23,7 @@
     
   />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-   <link rel="stylesheet" href="shared-sidebar.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="home.css">
-  
-  <link rel="stylesheet" href="bent-grid.css" />
+   <link rel="stylesheet" href="bent-grid.css" />
 </head>
 
 <body>
@@ -409,7 +406,7 @@
   <section class="bento-container">
 
     <!-- Dashboard -->
-    <div class="box box1">
+    <div class="box box1" role="region" aria-label="Dashboard Metrics">
       <div>
         <span class="tag">Overview</span>
 
@@ -600,7 +597,7 @@
       </button>
     </div>
 
-  </section>
+
   <!-- =========================
      FINANCE ANALYTICS CARD
 ========================= -->
@@ -839,6 +836,7 @@
 
   </div>
 </div>
+  </section>
   <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-container">
@@ -893,5 +891,6 @@
 
   <script src="bent-grid.js"></script>
 
+  <script src="dist/shared.js"></script>
 </body>
 </html>

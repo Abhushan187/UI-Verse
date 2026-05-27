@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+  <link rel="stylesheet" href="../dist/shared.css">
   <meta charset="UTF-8" />
 
   <meta name="viewport"
@@ -423,6 +423,7 @@
 
   <script src="video-editing-studio.js"></script>
 
+    <script src="../dist/shared.js"></script>
 </body>
 
 </html>

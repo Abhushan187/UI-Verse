@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Command Palette Components | UIverse</title>
@@ -19,12 +20,7 @@
   />
 
   <!-- CSS Placeholder -->
-   <link rel="stylesheet" href="home.css">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="command-palette.css" />
-   
-   <link rel="stylesheet" href="shared-sidebar.css" />
-</head>
+   </head>
 
 <body>
   <!-- ================= SIDEBAR ================= -->
@@ -1047,6 +1043,7 @@
     <p>© 2026 UIverse. Made with ❤️ for developers worldwide.</p>
   </div>
 </footer>
+  <script src="dist/shared.js"></script>
 </body>
 
 </html>

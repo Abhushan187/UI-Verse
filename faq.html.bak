@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8">
 
   <!-- Improved CSP -->
@@ -39,11 +40,6 @@
   >
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="home.css">
-  <link rel="stylesheet" href="shared-sidebar.css">
-  <link rel="stylesheet" href="shared-page.css">
-  <link rel="stylesheet" href="cards.css">
   <link rel="stylesheet" href="playground.css">
   <link rel="stylesheet" href="faq.css">
 </head>
@@ -449,7 +445,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
+        <details class="faq-item">
           <div class="faq-question">
             <h3>
               <button id="faq-question-2" class="faq-question-button" type="button" aria-expanded="false" aria-controls="faq-answer-2">
@@ -466,7 +462,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
+        <details class="faq-item">
           <div class="faq-question">
             <h3>
               <button id="faq-question-3" class="faq-question-button" type="button" aria-expanded="false" aria-controls="faq-answer-3">
@@ -483,7 +479,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
+        <details class="faq-item">
           <div class="faq-question">
             <h3>
               <button id="faq-question-4" class="faq-question-button" type="button" aria-expanded="false" aria-controls="faq-answer-4">
@@ -500,7 +496,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
+        <details class="faq-item">
           <div class="faq-question">
             <h3>
               <button id="faq-question-5" class="faq-question-button" type="button" aria-expanded="false" aria-controls="faq-answer-5">
@@ -517,7 +513,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
+        <details class="faq-item">
           <div class="faq-question">
             <h3>
               <button id="faq-question-6" class="faq-question-button" type="button" aria-expanded="false" aria-controls="faq-answer-6">
@@ -534,7 +530,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
+        <details class="faq-item">
           <div class="faq-question">
             <h3>
               <button id="faq-question-7" class="faq-question-button" type="button" aria-expanded="false" aria-controls="faq-answer-7">
@@ -551,7 +547,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
+        <details class="faq-item">
           <div class="faq-question">
             <h3>
               <button id="faq-question-8" class="faq-question-button" type="button" aria-expanded="false" aria-controls="faq-answer-8">
@@ -569,7 +565,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
+        <details class="faq-item">
           <div class="faq-question">
             <h3>
               <button id="faq-question-9" class="faq-question-button" type="button" aria-expanded="false" aria-controls="faq-answer-9">
@@ -586,7 +582,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
+        <details class="faq-item">
           <div class="faq-question">
             <h3>
               <button id="faq-question-10" class="faq-question-button" type="button" aria-expanded="false" aria-controls="faq-answer-10">
@@ -655,7 +651,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 UIverse. Made with ❤️ for developers worldwide.</p>
+    <p>© 2026 UIverse. Made with <i class="fa-solid fa-heart" style="color: #ff4757;"></i> for developers worldwide.</p>
   </div>
 </footer>
 
@@ -712,6 +708,9 @@
     });
   </script>
 
+  <script src="dist/shared.js"></script>
 </body>
 
 </html>
+
+<!-- improved by script -->

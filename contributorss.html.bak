@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+  <link rel="stylesheet" href="dist/shared.css">
     <meta charset="utf-8">
     <meta http-equiv="refresh" content="0; url=contributors.html">
     <meta name="robots" content="noindex">
@@ -9,7 +10,8 @@
   </head>
   <body>
     Redirecting to <a href="contributors.html">contributors.html</a>
-  </body>
+    <script src="dist/shared.js"></script>
+</body>
   </html>
 <!doctype html>
 <html>

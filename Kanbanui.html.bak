@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
 
   <meta charset="UTF-8">
 
@@ -500,6 +501,9 @@ MAIN
         <div
           class="task-card"
           draggable="true"
+          tabindex="0"
+          aria-grabbed="false"
+          role="listitem"
         >
 
           <div class="task-top">
@@ -882,5 +886,6 @@ MAIN
 
 <script src="Kanbanui.js"></script>
 
+  <script src="dist/shared.js"></script>
 </body>
 </html>

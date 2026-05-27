@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Components — UIverse</title>
@@ -11,9 +12,6 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="home.css" />
-  <link rel="stylesheet" href="shared-sidebar.css" />
   <link rel="stylesheet" href="ai-components.css" />
 </head>
 
@@ -91,9 +89,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
 
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="home.css" />
-    <link rel="stylesheet" href="shared-sidebar.css" />
     <link rel="stylesheet" href="ai-components.css" />
   </head>
 
@@ -669,7 +664,7 @@
       </div>
       <div class="ai-component-section">
         <div class="section-header">
-          <h2>AI Voice Assistant</h2>
+          <h2 aria-label="AI Voice Assistant">AI Voice Assistant</h2>
           <span class="section-badge">Voice</span>
         </div>
 
@@ -764,6 +759,7 @@
   <button id="scrollTopBtn" onclick="scrollToTop()">
     <i class="fa-solid fa-chevron-up"></i>
   </button>
+  <script src="dist/shared.js"></script>
 </body>
 <!-- FOOTER -->
 <footer class="footer">

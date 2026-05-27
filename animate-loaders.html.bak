@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8" />
   <meta
     name="viewport"
@@ -22,11 +23,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   />
 
-   <link rel="stylesheet" href="shared-sidebar.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="home.css">
-  
-  <link rel="stylesheet" href="animate-loaders.css" />
+   <link rel="stylesheet" href="animate-loaders.css" />
 </head>
 <body>
   <!-- =========================================================
@@ -384,7 +381,7 @@
 
   <div class="background-glow"></div>
 
-  <div class="loader-wrapper">
+  <div class="loader-wrapper" aria-live="polite" aria-label="Loading assets">
 
     <!-- Top Badge -->
     <div class="status-badge">
@@ -711,5 +708,6 @@
 
   <script src="animate-loaders.js"></script>
 
+  <script src="dist/shared.js"></script>
 </body>
 </html>

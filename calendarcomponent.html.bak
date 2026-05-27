@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
 
   <meta charset="UTF-8" />
 
@@ -28,12 +29,6 @@
   <link rel="stylesheet" href="calendarcomponent.css" />
 
 
-  <link rel="stylesheet" href="shared-sidebar.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="home.css">
-
-  <link rel="stylesheet" href="shared-page.css">
-  <link rel="stylesheet" href="cards.css">
   <link rel="stylesheet" href="playground.css">
 </head>
 
@@ -449,7 +444,7 @@
   </section>
 
     <!-- =========================================
-     PROJECT MANAGEMENT CALENDAR
+     PROJECT MANAGEMENT CALENDAR -->
 <div class="component-card">
 
   <div class="card-top">
@@ -504,7 +499,7 @@
 </div>
 
 <!-- =========================================
-     MEETING ROOM BOOKING
+     MEETING ROOM BOOKING -->
 <div class="component-card">
 
   <div class="card-top">
@@ -548,7 +543,7 @@
 </div>
 
 <!-- =========================================
-     DARK EVENT SCHEDULER
+     DARK EVENT SCHEDULER -->
 <div class="component-card">
 
   <div class="card-top">
@@ -609,7 +604,7 @@
 </div>
 
 <!-- =========================================
-     MINIMAL DAY PLANNER
+     MINIMAL DAY PLANNER -->
 <div class="component-card">
 
   <div class="card-top">
@@ -664,7 +659,7 @@
 </div>
 
 <!-- =========================================
-     AI SMART ASSISTANT
+     AI SMART ASSISTANT -->
 <div class="component-card">
 
   <div class="card-top">
@@ -712,7 +707,7 @@
 </div>
 
 <!-- =========================================
-     DEADLINE TRACKER
+     DEADLINE TRACKER -->
 <div class="component-card">
 
   <div class="card-top">
@@ -2012,5 +2007,6 @@
 
 <script src="calendarcomponent.js"></script>
 
+  <script src="dist/shared.js"></script>
 </body>
 </html>

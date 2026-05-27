@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
 
   <meta charset="UTF-8">
 
@@ -38,8 +39,7 @@
     href="notification.css"
   >
 
-  <link rel="stylesheet" href="shared-sidebar.css">
-</head>
+  </head>
 
 <body>
 <!-- ================= SIDEBAR ================= -->
@@ -904,5 +904,6 @@ MAIN
 
 <script src="notification.js"></script>
 
+  <script src="dist/shared.js"></script>
 </body>
 </html>

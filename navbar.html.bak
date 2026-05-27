@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cards — UIverse</title>
@@ -14,12 +15,8 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="home.css">
   <link rel="stylesheet" href="navbar.css">
-  <link rel="stylesheet" href="cards.css">
-  <link rel="stylesheet" href="command-palette.css">
-</head>
+  </head>
 
 <body>
 
@@ -2216,7 +2213,6 @@
   </div>
 </footer>
 
-<script src="js/features/search.js"></script>
 <script src="js/features/command-palette.js"></script>
 
 <script>
@@ -2286,5 +2282,6 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.component-card').forEach(el => observer.observe(el));
 </script>
+  <script src="dist/shared.js"></script>
 </body>
 </html>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+  <link rel="stylesheet" href="../dist/shared.css">
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Advanced Clock UI</title>
 
@@ -715,11 +716,13 @@ timerSeconds = 0;
 
 updateTimerDisplay();
 
+
 });
 
 updateTimerDisplay();
 
 </script>
 
+    <script src="../dist/shared.js"></script>
 </body>
 </html>

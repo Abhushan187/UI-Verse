@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Premium Admin Panel Components — UIverse</title>
@@ -17,12 +18,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <link rel="stylesheet" href="admin-panel.css">
-  <link rel="stylesheet" href="shared-sidebar.css">
-</head>
+  </head>
 
 <body>
 
-  <div class="main-content">
+  <div class="main-content" role="main">
 
     <!-- TOPBAR -->
     <header class="topbar">
@@ -711,8 +711,8 @@ tr:hover {
 
   </div>
 
-  <script src="script.js"></script>
   <script src="admin-panel.js"></script>
+  <script src="dist/shared.js"></script>
 </body>
 
 </html>
