@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Subscription & Billing — UIverse</title>
@@ -12,12 +13,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="home.css">
-  <link rel="stylesheet" href="shared-sidebar.css">
   <link rel="stylesheet" href="subscription.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
 
 <!-- ================= SIDEBAR ================= -->
 <aside class="sidebar" id="sidebar">
@@ -337,12 +337,78 @@
     </ul>
   </nav>
 
-  <div class="sidebar-footer">
-    <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
-    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-    <a href="#" title="Twitter"><i class="fab fa-x-twitter"></i></a>
-  </div>
 </aside>
+
+<div class="pricing-toggle">
+  <button class="toggle active" onclick="setBilling('monthly')" data-a11y-remediation="button-label-needed">Monthly</button>
+  <button class="toggle" onclick="setBilling('annual')">
+    Annual <span>Save 20%</span>
+  </button>
+</div>
+
+<div class="pricing-grid">
+
+  <!-- Starter -->
+  <div class="pricing-card">
+    <h3>Starter</h3>
+    <p>For individuals exploring the platform</p>
+
+    <div class="price">
+      <span id="starter-price" data-month="$19" data-year="$15">$19</span>
+      <small>/mo</small>
+    </div>
+
+    <ul>
+      <li>✔ 5 Projects</li>
+      <li>✔ Community Support</li>
+      <li>✔ Basic Analytics</li>
+    </ul>
+
+    <button class="btn secondary">Get Started</button>
+  </div>
+
+  <!-- Pro (Highlighted) -->
+  <div class="pricing-card featured">
+    <div class="badge">Most Popular</div>
+
+    <h3>Professional</h3>
+    <p>Perfect for growing teams</p>
+
+    <div class="price">
+      <span id="pro-price" data-month="$49" data-year="$39">$49</span>
+      <small>/mo</small>
+    </div>
+
+    <ul>
+      <li>✔ Unlimited Projects</li>
+      <li>✔ Priority Support</li>
+      <li>✔ Advanced Analytics</li>
+      <li>✔ Custom Branding</li>
+    </ul>
+
+    <button class="btn primary">Choose Plan</button>
+  </div>
+
+  <!-- Enterprise -->
+  <div class="pricing-card">
+    <h3>Enterprise</h3>
+    <p>For large scale systems</p>
+
+    <div class="price">
+      <span id="enterprise-price" data-month="$99" data-year="$79">$99</span>
+      <small>/mo</small>
+    </div>
+
+    <ul>
+      <li>✔ Dedicated Engineer</li>
+      <li>✔ SLA Guarantee</li>
+      <li>✔ Custom Infrastructure</li>
+    </ul>
+
+    <button class="btn secondary">Contact Sales</button>
+  </div>
+
+</div>
 
 <!-- ================= SIDEBAR BACKDROP ================= -->
 <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
@@ -356,7 +422,7 @@
   
   <div class="search-bar">
     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-    <input type="text" placeholder="Search components..." id="searchInput" onkeydown="handleSearch(event)" />
+    <input type="text" placeholder="Search components..." id="searchInput" onkeydown="handleSearch(event)" / data-a11y-remediation="label-needed">
     <kbd class="search-kbd">⌘K</kbd>
   </div>
 
@@ -933,47 +999,81 @@
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
   <div class="footer-container">
+
     <div class="footer-col brand">
-      <h2 class="footer-logo"><i class="fa-solid fa-cube"></i> UIverse</h2>
+      <h2 class="footer-logo">⬡ UIverse</h2>
       <p>Build modern, reusable UI components with clean HTML, CSS, and JavaScript.</p>
       <div class="socials">
-        <a href="#"><i class="fab fa-github"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-        <a href="#"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="#" title="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="#" title="Twitter">
+          <i class="fab fa-x-twitter"></i>
+        </a>
       </div>
     </div>
+
     <div class="footer-col">
       <h3>Explore</h3>
       <ul>
-        <li><a href="button.html">Buttons</a></li>
-        <li><a href="navbar.html">Navbars</a></li>
-        <li><a href="cards.html">Cards</a></li>
-        <li><a href="inputs.html">Inputs</a></li>
-        <li><a href="forms.html">Forms</a></li>
+        <li><a href="button.html">Buttons</a>
+        </li>
+        <li><a href="navbar.html">Navbars</a>
+        </li>
+        <li><a href="cards.html">Cards</a>
+        </li>
+        <li><a href="inputs.html">Inputs</a>
+        </li>
+        <li><a href="forms.html">Forms</a>
+        </li>
       </ul>
     </div>
+
     <div class="footer-col">
       <h3>Resources</h3>
       <ul>
-        <li><a href="#">Documentation</a></li>
-        <li><a href="#">GitHub Repo</a></li>
-        <li><a href="#">Community</a></li>
+        <li><a href="#">Documentation</a>
+        </li>
+        <li><a href="#">Contribute</a>
+        </li>
+        <li><a href="#">GitHub Repo</a>
+        </li>
+        <li><a href="#">Community</a>
+        </li>
       </ul>
     </div>
+
     <div class="footer-col">
       <h3>Legal</h3>
       <ul>
-        <li><a href="privacypolicy.html">Privacy Policy</a></li>
-        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="privacypolicy.html">Privacy Policy</a>
+        </li>
+        <li><a href="terms.html">Terms of Service</a>
+        </li>
+        <li><a href="#">License</a>
+        </li>
       </ul>
     </div>
+
+    <div class="footer-col newsletter">
+      <h3>Stay Updated</h3>
+      <p>Get notified when new components drop.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="your@email.com" />
+        <button type="button" onclick="subscribe()">Subscribe</button>
+      </div>
+    </div>
+
   </div>
+
   <div class="footer-bottom">
     <p>© 2026 UIverse. Made with ❤️ for developers worldwide.</p>
   </div>
 </footer>
 
-<script src="script.js"></script>
 <script>
   /* Local scripts supporting dynamic showcase interactions */
 
@@ -1065,7 +1165,26 @@
       closeUpgradeModal();
     }
   }
+
+  function setBilling(type) {
+  const isAnnual = type === "annual";
+
+  document.querySelectorAll("[id$='-price']").forEach(el => {
+    el.textContent = isAnnual
+      ? el.dataset.year
+      : el.dataset.month;
+  });
+
+  document.querySelectorAll(".toggle").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  event.target.classList.add("active");
+
+  showToast(isAnnual ? "Annual plan selected 🎉" : "Monthly plan selected");
+}
 </script>
 
+    <script src="dist/shared.js"></script>
 </body>
 </html>
