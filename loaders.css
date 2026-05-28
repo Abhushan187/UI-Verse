@@ -1449,7 +1449,7 @@ body.dark-mode .skeleton-card{
   font-family: var(--font-heading);
   font-size: 13px;
   font-weight: 700;
-  color: #fff;
+  color: black;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -1466,14 +1466,31 @@ body.dark-mode .skeleton-card{
 
 .footer-col ul li a {
   color: #888;
-  text-decoration: none;
+  text-decoration: none;   /* no underline by default */
   font-size: 14px;
+  position: relative;      /* needed for custom underline */
   transition: color var(--transition);
+}
+
+.footer-col ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;            /* adjust underline position */
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width var(--transition);
 }
 
 .footer-col ul li a:hover {
   color: var(--accent);
 }
+
+.footer-col ul li a:hover::after {
+  width: 100%;             /* underline expands smoothly */
+}
+
 
 .socials {
   display: flex;
