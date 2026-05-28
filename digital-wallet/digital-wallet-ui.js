@@ -310,3 +310,74 @@ const counter = setInterval(() => {
   balance.innerText = `$${count.toLocaleString()}`;
 
 }, 20);
+
+// ===============================
+// Notification Button Animation
+// ===============================
+
+const notificationBtn = document.querySelector(".notification-btn");
+
+notificationBtn.addEventListener("click", () => {
+
+  notificationBtn.classList.toggle("active");
+
+  notificationBtn.innerHTML =
+    notificationBtn.classList.contains("active")
+      ? '<i class="fa-solid fa-check"></i>'
+      : '<i class="fa-solid fa-bell"></i>';
+
+});
+
+// ===============================
+// Fake Search Interaction
+// ===============================
+
+const searchInput = document.querySelector(".search-box input");
+
+searchInput.addEventListener("focus", () => {
+  searchInput.parentElement.style.borderColor = "#7c3aed";
+});
+
+searchInput.addEventListener("blur", () => {
+  searchInput.parentElement.style.borderColor =
+    "rgba(255,255,255,0.12)";
+});
+
+// ===============================
+// Animated Chart Bars
+// ===============================
+
+const bars = document.querySelectorAll(".chart-bar");
+
+bars.forEach((bar, index) => {
+
+  const finalHeight = bar.offsetHeight;
+
+  bar.style.height = "0px";
+
+  setTimeout(() => {
+    bar.style.transition = "1s ease";
+    bar.style.height = finalHeight + "px";
+  }, index * 150);
+
+});
+
+// ===============================
+// Smooth Hover Effect
+// ===============================
+
+const cards = document.querySelectorAll(
+  ".stat-card, .transaction-card, .analytics-card, .contacts-card, .security-card, .wallet-card"
+);
+
+cards.forEach(card => {
+
+  card.addEventListener("mouseenter", () => {
+    card.style.transform = "translateY(-6px)";
+  });
+
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "translateY(0)";
+  });
+
+});
