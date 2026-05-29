@@ -14,6 +14,7 @@
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="traceability.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -21,6 +22,14 @@
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <main class="trace-shell">
+    <div class="back-home">
+      <a href="index.html" class="back-home-btn">
+        <i class="fa-solid fa-house">
+        </i>
+        Back to Home
+      </a>
+    </div>
+
     <section class="trace-hero">
       <div>
         <span class="eyebrow">Blockchain-verified produce traceability</span>
@@ -117,6 +126,19 @@
       <p>© 2026 UIverse. Made with ❤️ for developers worldwide.</p>
     </div>
   </footer>
+
+  <style>
+    :root {
+      --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    }
+
+    .footer {
+      margin-left: 0;
+      /* full width */
+      background: #ffffff;
+      /* or use same as page: linear-gradient(135deg, #ecfdf5, #d1fae5) */
+      padding: 60px 40px 30px;
+      border-top: 1px solid rgba(15, 118, 110, 0.2);
   <style>
     .footer {
       background: #090c15 !important;
@@ -132,6 +154,8 @@
       top: 0;
       left: 0;
       right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.4), transparent);
       height: 1px;
       background: linear-gradient(90deg, transparent, rgb(235 104 53 / 20%), transparent);
     }
@@ -149,6 +173,19 @@
       font-family: var(--font-heading);
       font-weight: 800;
       letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #0f766e, #14b8a6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #0f766e;
+      /* fallback */
+      margin-bottom: 16px;
+    }
+
+
+
+    .footer-col p {
+      color: #065f46;
+      /* deep green text */
       background: linear-gradient(135deg, var(--accent), #ff8e53);
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -168,6 +205,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
+      color: var(--primary-dark);
       color: #fff;
       margin-bottom: 24px;
     }
@@ -183,6 +221,8 @@
     }
 
     .footer-col ul li a {
+      color: #065f46;
+      /* deep green or your theme color */
       color: #8a9bc0;
       text-decoration: none;
       font-size: 14px;
@@ -190,6 +230,10 @@
     }
 
     .footer-col ul li a:hover {
+      color: var(--primary-light);
+      padding-left: 4px;
+    }
+
       color: var(--accent);
       padding-left: 4px;
     }
@@ -204,6 +248,9 @@
       flex: 1;
       padding: 10px 16px;
       border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(15, 118, 110, 0.2);
+      color: var(--text-main);
       background: rgb(255 255 255 / 2%);
       border: 1px solid rgb(255 255 255 / 8%);
       color: #fff;
@@ -213,6 +260,18 @@
     }
 
     .footer-col.newsletter input[type="email"]:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 10px rgba(20, 184, 166, 0.3);
+    }
+
+    .footer-col.newsletter button {
+      background: var(--accent);
+      /* or your primary green */
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 20px;
       border-color: var(--accent);
       background: rgb(255 255 255 / 4%);
       box-shadow: 0 0 10px rgb(235 104 53 / 20%);
@@ -231,6 +290,17 @@
     }
 
     .footer-col.newsletter button:hover {
+      background: var(--primary-dark);
+    }
+
+
+    .socials a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(20, 184, 166, 0.1);
+      border: 1px solid rgba(20, 184, 166, 0.2);
+      color: var(--primary-dark);
       background: #d45c28;
       box-shadow: 0 4px 12px rgb(235 104 53 / 30%);
     }
@@ -254,6 +324,8 @@
     }
 
     .socials a:hover {
+      background: var(--primary);
+      color: #fff;
       background: var(--accent);
       color: #fff;
       border-color: var(--accent);
@@ -261,6 +333,9 @@
     }
 
     .footer-bottom {
+      border-top: 1px solid rgba(15, 118, 110, 0.2);
+      margin-top: 40px;
+      padding-top: 20px;
       border-top: 1px solid rgb(255 255 255 / 4%);
       margin-top: 60px;
       padding-top: 24px;
@@ -268,6 +343,42 @@
     }
 
     .footer-bottom p {
+      color: #065f46;
+      font-size: 13px;
+    }
+
+    .back-home {
+      margin: 20px 0;
+      display: flex;
+      justify-content: flex-start;
+      /* aligns left */
+    }
+
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 10px 18px;
+      border-radius: 999px;
+      /* oval pill shape */
+
+      background: #22c55e;
+      /* green accent */
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+
+      transition: all 0.3s ease;
+    }
+
+    .back-home-btn:hover {
+      background: #16a34a;
+      /* darker green on hover */
+      color: #fff;
+      /* keep text white */
+    }
       color: #6a7a94;
       font-size: 13px;
     }
