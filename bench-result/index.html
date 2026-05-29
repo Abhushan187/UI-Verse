@@ -91,6 +91,81 @@
 
   </div>
 
+  <script>
+    const results = [
+      { name: "Aman Verma", score: 92 },
+      { name: "Priya Singh", score: 76 },
+      { name: "Rahul Das", score: 45 },
+      { name: "Sneha Roy", score: 88 },
+      { name: "Rohit Kumar", score: 39 },
+      { name: "Anjali Sharma", score: 81 },
+      { name: "Vikash Gupta", score: 57 },
+      { name: "Neha Kapoor", score: 63 },
+      { name: "Karan Mehta", score: 28 },
+      { name: "Pooja Jain", score: 71 }
+    ];
+
+    const table = document.getElementById("resultTable");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderTable(data) {
+      table.innerHTML = "";
+
+      data.forEach((candidate, index) => {
+        const status = candidate.score >= 50 ? "Passed" : "Failed";
+
+        table.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${candidate.name}</td>
+            <td>
+  <div class="progress-wrap">
+    <div
+      class="progress-bar"
+      style="width:${candidate.score}%"
+    ></div>
+    <span class="score-text">${candidate.score}%</span>
+  </div>
+</td>
+              <span class="badge ${status === "Passed" ? "pass" : "fail"}">
+                ${status}
+              </span>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function updateStats(data) {
+      const total = data.length;
+      const passed = data.filter(c => c.score >= 50).length;
+      const failed = total - passed;
+
+      const average = (
+        data.reduce((sum, c) => sum + c.score, 0) / total
+      ).toFixed(1);
+
+      document.getElementById("total").textContent = total;
+      document.getElementById("passed").textContent = passed;
+      document.getElementById("failed").textContent = failed;
+      document.getElementById("average").textContent = average + "%";
+    }
+
+    searchInput.addEventListener("input", (e) => {
+      const value = e.target.value.toLowerCase();
+
+      const filtered = results.filter(candidate =>
+        candidate.name.toLowerCase().includes(value)
+      );
+
+      renderTable(filtered);
+      updateStats(filtered);
+    });
+
+    renderTable(results);
+    updateStats(results);
+  </script>
+
         <script src="../dist/shared.js"></script>
 </body>
 </html>
