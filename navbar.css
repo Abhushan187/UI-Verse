@@ -11,6 +11,8 @@
   border: 1px solid var(--card-border);
   color: var(--text-primary);
   position: relative;
+  padding: 32px 40px; /* reduced top/bottom spacing */
+  margin-top: 0; 
   overflow: hidden;
   border-radius: 26px;
   padding: 48px;
@@ -161,7 +163,7 @@
   transition: all var(--transition);
 }
 .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 8px var(--accent-glow); }
 
 .filter-search {
   display: flex;
@@ -217,7 +219,7 @@
   gap: 16px;
   transition: all var(--transition);
   opacity: 0;
-  transform: translateY(16px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: cardFadeIn 0.5s ease forwards;
 }
 
@@ -248,7 +250,7 @@
 
 .component-card:hover {
   border-color: rgba(235,104,53,0.3);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.07);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   transform: translateY(-4px);
 }
 
@@ -2560,8 +2562,12 @@ body.dark-mode .dashboard-search input {
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 24px;
   margin-left: 270px;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 24px;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--card-border);
 }
 
 .logo {
@@ -2574,13 +2580,15 @@ body.dark-mode .dashboard-search input {
   flex: 1;
   max-width: 520px;
   margin: 0 24px;
+  gap: 10px;
 
   display: flex;
   align-items: center;
 
-  background: #f3f4f6;
-  border-radius: 12px;
-  padding: 10px 14px;
+  background: var(--body-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 40px;
+  padding: 8px 16px;
 }
 
 .search-bar input {
@@ -2665,6 +2673,7 @@ body.dark-mode .dashboard-search input {
   color: var(--text-color);
 }
 
+/* Remove unwanted gap below navbar */
 body {
   background: var(--bg-color);
   color: var(--text-color);
@@ -2672,8 +2681,8 @@ body {
 
 
 .main-home {
-  margin-left: 270px;
-  padding: 100px 24px 40px;
+  margin-top: 4px;
+  padding-top: 0;
 }
 
 @media (max-width: 991px) {
