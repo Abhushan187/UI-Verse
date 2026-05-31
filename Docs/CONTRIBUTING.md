@@ -55,7 +55,10 @@ You can contribute in several ways:
 - **💡 Suggest Features:** Propose new ideas or improvements.
 - **📖 Improve Documentation:** Enhance clarity, grammar, or structure.
 - **⚡ Add Code:** Fix bugs, build new features, or optimize existing ones.
-- **🧪 Test:** Help us find issues by testing code in different environments.
+- **🧪 Test:** Help us find issues by testing code in different environments. Run local verification gates before submitting PRs:
+  - Verify metadata JSON schema files: `npm run components:version:check`
+  - Perform static analysis styling check: `npm run lint:css`
+  - Verify layout schema constraints: `npm run lint:html`
 
 ![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
 
