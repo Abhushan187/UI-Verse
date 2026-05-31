@@ -124,7 +124,7 @@ body{
    MAIN CONTENT
 ========================================================= */
 
-.main-home{
+/*.main-home{
   margin-left:250px;
   padding:42px;
 }
@@ -145,11 +145,83 @@ body{
   font-size: 18px;
   max-width: 600px;
 }
+*/
+.main-home {
+  margin-left: 20px;
+  padding: 42px;
+}
+
+.page-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 10px;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+.breadcrumb a {
+  color: #38bdf8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.breadcrumb a:hover {
+  color: #0ea5e9;
+}
+.breadcrumb i {
+  margin: 0 8px;
+  color: #94a3b8;
+}
+
+.page-header h1 {
+  font-size: 52px;
+  margin-bottom: 16px;
+  font-family: "Syne", sans-serif;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.page-header p {
+  color: #94a3b8;
+  font-size: 18px;
+  max-width: 540px;
+  line-height: 1.6;
+}
+
+.page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  color: #334155;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+.meta-badge i {
+  color: #38bdf8;
+}
+.meta-badge:hover {
+  background: #e2e8f0;
+}
 
 .widgets-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
+  margin-left: 300px;
 }
 
 .widget-wrapper {
@@ -170,7 +242,52 @@ body{
   font-size: 14px;
   color: #64748b;
 }
+body.light {
+      background: #ffffff;
+      color: #000000;
+      transition: background 0.3s, color 0.3s;
+    }
 
+    body.dark {
+      background: #0f172a;
+      color: #ffffff;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #e2e8f0;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: #cbd5e1;
+    }
+
+    .theme-toggle i {
+      font-size: 20px;
+      color: #333;
+      transition: color 0.3s;
+    }
+
+    body.dark .theme-toggle {
+      background: #1e293b;
+    }
+
+    body.dark .theme-toggle i {
+      color: #facc15; /* yellow for moon */
+    }
 /* =========================================================
    1. GITHUB STATS WIDGET
 ========================================================= */
@@ -2393,3 +2510,432 @@ body{
   font-weight: 500;
 }
  
+.mood-widget{
+  padding:35px;
+  border-radius:30px;
+  background:#111827;
+  text-align:center;
+}
+
+.mood-orb{
+  width:90px;
+  height:90px;
+  margin:auto;
+  border-radius:50%;
+  background:radial-gradient(circle,#8b5cf6,#4338ca);
+  box-shadow:0 0 40px #8b5cf6;
+  animation:pulseMood 3s infinite;
+}
+
+@keyframes pulseMood{
+  50%{
+    transform:scale(1.1);
+  }
+}
+
+.mood-meter{
+  margin:20px 0;
+  height:10px;
+  background:#1f2937;
+  border-radius:20px;
+}
+
+.mood-fill{
+  width:87%;
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#8b5cf6,#ec4899);
+}
+.planet-widget{
+  padding:35px;
+  border-radius:32px;
+  background:#09090b;
+  text-align:center;
+  overflow:hidden;
+}
+
+.planet{
+  width:120px;
+  height:120px;
+  margin:auto;
+  border-radius:50%;
+  background:
+  linear-gradient(145deg,#06b6d4,#3b82f6);
+  position:relative;
+}
+
+.planet::before{
+  content:'';
+  position:absolute;
+  width:160px;
+  height:25px;
+  border:3px solid rgba(255,255,255,.4);
+  border-radius:50%;
+  left:-20px;
+  top:45px;
+  transform:rotate(-15deg);
+}
+
+.planet-stats{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
+}
+
+.planet-stats span{
+  padding:8px 14px;
+  border-radius:20px;
+  background:#18181b;
+}
+.potion-widget{
+  padding:35px;
+  text-align:center;
+  border-radius:30px;
+  background:#140f1d;
+}
+
+.bottle{
+  width:80px;
+  height:120px;
+  margin:auto;
+  border-radius:25px 25px 18px 18px;
+  border:4px solid white;
+  position:relative;
+  overflow:hidden;
+}
+
+.liquid{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:70%;
+  background:linear-gradient(#ec4899,#8b5cf6);
+  animation:bubble 4s infinite alternate;
+}
+
+@keyframes bubble{
+  from{height:65%;}
+  to{height:78%;}
+}
+.scanner-widget{
+  padding:35px;
+  border-radius:32px;
+  text-align:center;
+  background:#030712;
+}
+
+.scanner-circle{
+  width:140px;
+  height:140px;
+  margin:auto;
+  border-radius:50%;
+  border:3px solid #10b981;
+  position:relative;
+  overflow:hidden;
+}
+
+.scan-line{
+  position:absolute;
+  width:100%;
+  height:3px;
+  background:#10b981;
+  top:0;
+  animation:scan 3s linear infinite;
+}
+
+@keyframes scan{
+  from{top:0;}
+  to{top:100%;}
+}
+.egg-widget{
+  padding:35px;
+  text-align:center;
+  border-radius:30px;
+  background:#1c1917;
+}
+
+.dragon-egg{
+  width:90px;
+  height:120px;
+  margin:auto;
+  border-radius:50% 50% 45% 45%;
+  background:
+  linear-gradient(145deg,#fb923c,#ef4444);
+}
+
+.egg-progress{
+  height:10px;
+  background:#292524;
+  margin-top:20px;
+  border-radius:20px;
+}
+
+.egg-progress div{
+  width:74%;
+  height:100%;
+  border-radius:20px;
+  background:#f97316;
+}
+.journey-widget{
+  padding:35px;
+  border-radius:30px;
+  background:#0f172a;
+  text-align:center;
+}
+
+.journey-line{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.journey-line span{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#334155;
+}
+
+.journey-line span.active{
+  background:#38bdf8;
+  box-shadow:0 0 15px #38bdf8;
+}
+.hacker-widget,
+.galaxy-widget,
+.kingdom-widget,
+.treasure-widget,
+.crystal-widget{
+  padding:28px;
+  border-radius:30px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* HACKER */
+
+.hacker-widget{
+  background:#050505;
+  border:1px solid #00ff88;
+}
+
+.terminal-screen{
+  font-family:monospace;
+  margin:20px 0;
+}
+
+.success{
+  color:#00ff88;
+}
+
+.terminal-dots{
+  display:flex;
+  gap:8px;
+}
+
+.terminal-dots span{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#00ff88;
+}
+
+/* GALAXY */
+
+.galaxy-widget{
+  background:#070b1a;
+}
+
+.galaxy-map{
+  height:220px;
+  position:relative;
+}
+
+.orbit{
+  position:absolute;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:50%;
+}
+
+.orbit1{
+  width:120px;
+  height:120px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
+
+.orbit2{
+  width:180px;
+  height:180px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
+
+.planet{
+  position:absolute;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+}
+
+.p1{
+  background:#06b6d4;
+  top:20px;
+  left:50%;
+}
+
+.p2{
+  background:#8b5cf6;
+  top:90px;
+  left:80%;
+}
+
+.p3{
+  background:#f59e0b;
+  top:50%;
+  left:20%;
+  box-shadow:0 0 20px #f59e0b;
+}
+
+.p4{
+  background:#ef4444;
+  bottom:25px;
+  left:50%;
+}
+
+.warp-btn{
+  width:100%;
+  margin-top:15px;
+}
+
+/* KINGDOM */
+
+.kingdom-widget{
+  background:
+  linear-gradient(135deg,#291c0d,#4b2e11);
+}
+
+.kingdom-header{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.kingdom-header i{
+  font-size:2rem;
+  color:#fbbf24;
+}
+
+.kingdom-resources{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:20px 0;
+}
+
+.kingdom-resources div{
+  text-align:center;
+  padding:14px;
+  border-radius:16px;
+  background:rgba(255,255,255,.05);
+}
+
+.happiness-bar{
+  height:10px;
+  border-radius:20px;
+  background:rgba(255,255,255,.08);
+  margin-top:10px;
+}
+
+.happiness-bar div{
+  width:84%;
+  height:100%;
+  border-radius:20px;
+  background:#fbbf24;
+}
+
+/* TREASURE */
+
+.treasure-widget{
+  background:#0f172a;
+}
+
+.treasure-chest{
+  font-size:4rem;
+  text-align:center;
+}
+
+.loot-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:20px 0;
+}
+
+.loot{
+  padding:18px;
+  text-align:center;
+  border-radius:15px;
+  font-size:1.5rem;
+}
+
+.legendary{
+  background:rgba(251,191,36,.15);
+}
+
+.epic{
+  background:rgba(168,85,247,.15);
+}
+
+.rare{
+  background:rgba(59,130,246,.15);
+}
+
+.common{
+  background:rgba(148,163,184,.15);
+}
+
+/* CRYSTAL */
+
+.crystal-widget{
+  background:#140b23;
+  text-align:center;
+}
+
+.crystal-ball{
+  width:140px;
+  height:140px;
+  margin:auto;
+  border-radius:50%;
+  background:
+  radial-gradient(circle,#8b5cf6,#4c1d95);
+  position:relative;
+}
+
+.orb-glow{
+  position:absolute;
+  inset:-15px;
+  border-radius:50%;
+  background:inherit;
+  filter:blur(25px);
+  opacity:.7;
+}
+
+.prediction{
+  margin:20px 0;
+  padding:16px;
+  border-radius:16px;
+  background:rgba(255,255,255,.05);
+}
+
+.fortune-actions{
+  display:flex;
+  gap:10px;
+}
+
+.fortune-actions button{
+  flex:1;
+}
