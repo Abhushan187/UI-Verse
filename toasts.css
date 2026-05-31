@@ -164,10 +164,12 @@ body {
   padding: 18px 40px;
 
   background:
-    rgba(255,255,255,0.95);
+   rgba(255,255,255,0.85);
 
   backdrop-filter:
-    blur(10px);
+   blur(12px);
+
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
 
   border-bottom:
     1px solid var(--border);
@@ -176,12 +178,12 @@ body {
 
 .logo {
 
-  font-size: 24px;
+  font-size: 22px;
 
-  font-weight: 700;
+  font-weight: 800;
 
   color:
-    var(--text);
+    var(--primary);
 
 }
 
@@ -296,8 +298,9 @@ body {
 
 .primary-nav-btn {
 
-  background:
-    var(--accent);
+background: linear-gradient(90deg, #6366f1, #8b5cf6);
+border-radius: 999px;
+padding: 10px 20px;
 
   color: white;
 
@@ -307,6 +310,9 @@ body {
 
   background:
     #d97706;
+
+  transform: scale(1.05);
+  opacity: .9;
 
 }
 
@@ -334,7 +340,12 @@ body {
   padding:
     100px 8%;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
   text-align: center;
+  background: linear-gradient(135deg, #f9fafb, #ffffff);
 
 }
 
@@ -354,6 +365,8 @@ body {
 
   font-size: 14px;
 
+  font-weight: 600;
+
 }
 
 .hero h1 {
@@ -362,11 +375,13 @@ body {
 
   font-size:
     clamp(48px, 8vw, 72px);
+    
+  font-weight: 800;
 
   line-height: 1.1;
 
   color:
-    #4c1d95;
+    #1f2937;
 
 }
 
@@ -504,6 +519,15 @@ body {
 
 }
 
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 20px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* =========================================================
    CARD
 ========================================================= */
@@ -512,7 +536,7 @@ body {
 
   padding: 24px;
 
-  border-radius: 24px;
+  border-radius: 16px;
 
   background:
     var(--card-bg);
@@ -521,10 +545,12 @@ body {
     1px solid var(--border);
 
   box-shadow:
-    0 4px 20px rgba(0,0,0,0.04);
+    0 4px 12px rgba(0,0,0,0.08);
 
   transition:
-    var(--transition);
+    transform .2s ease, box-shadow .2s ease;
+
+  animation: fadeUp .4s ease;
 
 }
 
@@ -700,6 +726,13 @@ body {
       #fee2e2,
       #fef2f2
     );
+}
+
+.preview {
+  margin: 16px 0;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f9fafb;
 }
 
 .warning-preview{
