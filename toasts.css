@@ -176,6 +176,24 @@ body {
 
 }
 
+.nav-links {
+  display: flex;
+  gap: 24px;
+  margin-left: 40px;
+}
+
+.nav-links a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+
 .logo {
 
   font-size: 22px;
