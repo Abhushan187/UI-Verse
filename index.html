@@ -650,6 +650,10 @@
       input.value = '';
     }
   }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  } 
 </script>
     <script src="dist/shared.js"></script>
 </body>
