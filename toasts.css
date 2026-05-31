@@ -20,6 +20,14 @@
 
 }
 
+<<<<<<< HEAD
+
+body{
+  font-family:'Inter',sans-serif;
+  background:white;
+  color:whitesmoke;
+  min-height:100vh;
+=======
 /* =========================================================
    RESET
 ========================================================= */
@@ -31,6 +39,7 @@
 
   box-sizing: border-box;
 
+>>>>>>> origin/main
 }
 
 body {
