@@ -14,7 +14,8 @@
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home.css">
   <!-- CSS -->
   <link rel="stylesheet" href="widgets.css">
 </head>
@@ -379,7 +380,7 @@
   </header>
 
   <!-- ================= MAIN CONTENT ================= -->
-  <div class="main-content">
+  <!--<div class="main-content">
 
     <div class="page-hero">
       <div class="page-hero-left">
@@ -397,7 +398,39 @@
           <span class="meta-badge"><i class="fa-solid fa-mobile-screen-button"></i> Responsive</span>
         </div>
       </div>
+    </div>-->
+    <div class="main-content">
+
+  <!-- HERO SECTION -->
+  <section class="page-hero">
+    <div class="page-hero-left">
+      
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Widgets</span>
+      </nav>
+
+      <!-- Title & Description -->
+      <header class="page-header">
+        <h1 class="page-title">Developer Widgets</h1>
+        <p class="page-desc">
+          Modern reusable developer-focused UI widgets with interactive styling and clean structures.
+        </p>
+      </header>
+
+      <!-- Meta Badges -->
+      <div class="page-meta">
+        <span class="meta-badge"><i class="fa-solid fa-tags"></i> 15 Components</span>
+        <span class="meta-badge"><i class="fa-solid fa-bolt"></i> Pure HTML/CSS/JS</span>
+        <span class="meta-badge"><i class="fa-solid fa-mobile-screen-button"></i> Responsive</span>
+      </div>
     </div>
+  </section>
+
+</div>
+
 
     <section class="widgets-grid">
 
@@ -781,17 +814,8 @@
         </div>
       </div>
 
-    # Additional Developer Widget Components for `widgets.html`
-
-Add these components inside your existing `<section class="widgets-grid">...</section>`.
-
----
-
-## 11. LIVE DEPLOYMENT STATUS WIDGET
-
-```html
-<!-- 11. LIVE DEPLOYMENT STATUS WIDGET -->
-<div class="widget-wrapper">
+    
+   <div class="widget-wrapper">
   <div class="widget-info">
     <h2>Deployment Status</h2>
     <p>Track recent production deployments and environments.</p>
@@ -830,14 +854,8 @@ Add these components inside your existing `<section class="widgets-grid">...</se
       <span><i class="fa-solid fa-server"></i> AWS eu-central</span>
     </div>
   </div>
-</div>
-```
+  </div>
 
----
-
-## 12. TEAM CHAT WIDGET
-
-```html
 <!-- 12. TEAM CHAT WIDGET -->
 <div class="widget-wrapper">
   <div class="widget-info">
@@ -877,13 +895,7 @@ Add these components inside your existing `<section class="widgets-grid">...</se
     </div>
   </div>
 </div>
-```
 
----
-
-## 13. AI ASSISTANT WIDGET
-
-```html
 <!-- 13. AI ASSISTANT WIDGET -->
 <div class="widget-wrapper">
   <div class="widget-info">
@@ -914,13 +926,8 @@ Add these components inside your existing `<section class="widgets-grid">...</se
     </div>
   </div>
 </div>
-```
 
----
 
-## 14. ANALYTICS OVERVIEW WIDGET
-
-```html
 <!-- 14. ANALYTICS OVERVIEW WIDGET -->
 <div class="widget-wrapper">
   <div class="widget-info">
@@ -950,13 +957,7 @@ Add these components inside your existing `<section class="widgets-grid">...</se
     </div>
   </div>
 </div>
-```
 
----
-
-## 15. SECURITY ALERT WIDGET
-
-```html
 <!-- 15. SECURITY ALERT WIDGET -->
 <div class="widget-wrapper">
   <div class="widget-info">
@@ -994,11 +995,7 @@ Add these components inside your existing `<section class="widgets-grid">...</se
   </div>
 </div>
 
-    <!-- 8. INTERACTIVE SQL CONSOLE WIDGET -->
-    <div class="widget-wrapper">
-      <div class="widget-info">
-        <h2>SQL Console</h2>
-        <p>Interactive playground to run mock database queries.</p>
+    
       <!-- 12. MUSIC PLAYER WIDGET -->
       <div class="widget-wrapper">
         <div class="widget-info">
@@ -1468,8 +1465,390 @@ Add these components inside your existing `<section class="widgets-grid">...</se
             </div>
           </div>
         </div>
-</div>
+      </div>
+      <div class="widget-wrapper">
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>AI Mood Analyzer</h2>
+      <p>Detect emotional energy from user activity.</p>
+    </div>
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+  
 
+  <div class="mood-widget">
+    <div class="mood-orb"></div>
+
+    <h4>Creative Energy</h4>
+
+    <div class="mood-meter">
+      <div class="mood-fill"></div>
+    </div>
+
+    <span>87% Inspired Today</span>
+  </div>
+</div>
+<div class="widget-wrapper">
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Planet Explorer</h2>
+      <p>Interactive sci-fi destination card.</p>
+    </div>
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="planet-widget">
+
+    <div class="planet"></div>
+
+    <h4>Kepler-X9</h4>
+
+    <div class="planet-stats">
+      <span>Gravity 1.4x</span>
+      <span>Habitable</span>
+    </div>
+
+  </div>
+</div>
+<div class="widget-wrapper">
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Potion Generator</h2>
+      <p>Fantasy inspired potion crafting card.</p>
+    </div>
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="potion-widget">
+
+    <div class="bottle">
+      <div class="liquid"></div>
+    </div>
+
+    <h4>Dream Essence</h4>
+
+    <p>Rarity: Legendary</p>
+
+  </div>
+</div>
+<div class="widget-wrapper">
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Threat Scanner</h2>
+      <p>Cyberpunk security monitoring interface.</p>
+    </div>
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="scanner-widget">
+
+    <div class="scanner-circle">
+      <div class="scan-line"></div>
+    </div>
+
+    <h4>System Safe</h4>
+
+    <span>0 Threats Found</span>
+
+  </div>
+</div>
+<div class="widget-wrapper">
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Dragon Incubator</h2>
+      <p>Fantasy creature growth tracker.</p>
+    </div>
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="egg-widget">
+
+    <div class="dragon-egg"></div>
+
+    <div class="egg-progress">
+      <div></div>
+    </div>
+
+    <span>Hatching 74%</span>
+
+  </div>
+</div>
+<div class="widget-wrapper">
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Dream Journey</h2>
+      <p>Track milestones like an RPG quest.</p>
+    </div>
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="journey-widget">
+
+    <div class="journey-line">
+      <span class="active"></span>
+      <span class="active"></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <h4>Quest Progress</h4>
+
+    <p>2 / 4 Dreams Completed</p>
+
+  </div>
+</div>
+<!-- 29. CYBERPUNK HACKER TERMINAL -->
+<div class="widget-wrapper">
+
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Cyberpunk Terminal</h2>
+      <p>Neural network infiltration dashboard.</p>
+    </div>
+
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="hacker-widget">
+
+    <div class="terminal-top">
+
+      <div class="terminal-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <span>ROOT_ACCESS.exe</span>
+
+    </div>
+
+    <div class="terminal-screen">
+
+      <p>> Initializing neural bridge...</p>
+      <p>> Firewall bypassed</p>
+      <p>> Accessing satellite grid...</p>
+      <p class="success">ACCESS GRANTED</p>
+
+    </div>
+
+    <div class="terminal-stats">
+
+      <div>
+        <strong>98%</strong>
+        <span>Signal</span>
+      </div>
+
+      <div>
+        <strong>42</strong>
+        <span>Nodes</span>
+      </div>
+
+      <div>
+        <strong>7ms</strong>
+        <span>Ping</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- 30. GALAXY MAP NAVIGATOR -->
+<div class="widget-wrapper">
+
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Galaxy Navigator</h2>
+      <p>Explore distant star systems.</p>
+    </div>
+
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="galaxy-widget">
+
+    <div class="galaxy-map">
+
+      <span class="planet p1"></span>
+      <span class="planet p2"></span>
+      <span class="planet p3 active"></span>
+      <span class="planet p4"></span>
+
+      <div class="orbit orbit1"></div>
+      <div class="orbit orbit2"></div>
+
+    </div>
+
+    <div class="galaxy-info">
+
+      <h4>Andromeda IX</h4>
+      <span>Distance: 4.2 LY</span>
+
+    </div>
+
+    <button class="warp-btn">
+      Warp Jump
+    </button>
+
+  </div>
+
+</div>
+<!-- 31. KINGDOM MANAGEMENT -->
+<div class="widget-wrapper">
+
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Kingdom Manager</h2>
+      <p>Rule and expand your empire.</p>
+    </div>
+
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="kingdom-widget">
+
+    <div class="kingdom-header">
+
+      <i class="fa-solid fa-crown"></i>
+
+      <div>
+        <h4>Eldoria</h4>
+        <span>Prosperous Realm</span>
+      </div>
+
+    </div>
+
+    <div class="kingdom-resources">
+
+      <div>
+        <i class="fa-solid fa-coins"></i>
+        <span>14.2k</span>
+      </div>
+
+      <div>
+        <i class="fa-solid fa-wheat-awn"></i>
+        <span>8.7k</span>
+      </div>
+
+      <div>
+        <i class="fa-solid fa-shield"></i>
+        <span>5.4k</span>
+      </div>
+
+    </div>
+
+    <div class="kingdom-happiness">
+
+      <span>Citizen Happiness</span>
+
+      <div class="happiness-bar">
+        <div></div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<!-- 32. TREASURE CHEST INVENTORY -->
+<div class="widget-wrapper">
+
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Treasure Inventory</h2>
+      <p>Rare loot collection system.</p>
+    </div>
+
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="treasure-widget">
+
+    <div class="treasure-chest">
+
+      <i class="fa-solid fa-box-open"></i>
+
+    </div>
+
+    <div class="loot-grid">
+
+      <div class="loot legendary">💎</div>
+
+      <div class="loot epic">⚔️</div>
+
+      <div class="loot rare">🛡️</div>
+
+      <div class="loot common">🪙</div>
+
+    </div>
+
+    <button class="open-btn">
+      Open Chest
+    </button>
+
+  </div>
+
+</div>
+<!-- 33. MAGIC CRYSTAL BALL -->
+<div class="widget-wrapper">
+
+  <div class="widget-info">
+    <div class="widget-info-text">
+      <h2>Crystal Ball</h2>
+      <p>Mystical future prediction orb.</p>
+    </div>
+
+    <button class="widget-copy-btn">
+      <i class="fa-solid fa-copy"></i> Copy Code
+    </button>
+  </div>
+
+  <div class="crystal-widget">
+
+    <div class="crystal-ball">
+
+      <div class="orb-glow"></div>
+
+    </div>
+
+    <div class="prediction">
+
+      ✨ Great opportunities await ahead.
+
+    </div>
+
+    <div class="fortune-actions">
+
+      <button>Reveal Future</button>
+
+      <button>Ask Again</button>
+
+    </div>
+
+  </div>
+
+</div>
     </section>
   </div>
 

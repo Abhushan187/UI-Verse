@@ -224,6 +224,7 @@
     <div class="featured-cards">
 
       <div class="feature-card">
+        <!-- Lazy loaded component asset block -->
         <div class="feature-icon-wrap" style="--icon-color: #ff6b6b;"><i class="fa-solid fa-bullseye"></i></div>
         <div class="feature-card-body">
           <h3>Gradient Button</h3>
@@ -650,6 +651,10 @@
       input.value = '';
     }
   }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  } 
 </script>
     <script src="dist/shared.js"></script>
 </body>

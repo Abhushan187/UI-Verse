@@ -1546,7 +1546,7 @@ body.dark-mode .skeleton-card{
   background: var(--accent);
   color: #fff;
   border: none;
-  border-radius: var(--radius-sm);
+  border-rùadius: var(--radius-sm);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -1563,4 +1563,174 @@ body.dark-mode .skeleton-card{
   text-align: center;
   font-size: 13px;
   color: #555;
+}
+
+/* ================= HEXAGON LOADER ================= */
+
+.hex-loader {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  animation: rotateHex 2s linear infinite;
+}
+
+.hex-loader::before,
+.hex-loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 4px solid #2563eb;
+  clip-path: polygon(
+    25% 5%,75% 5%,100% 50%,
+    75% 95%,25% 95%,0 50%
+  );
+}
+
+.hex-loader::after {
+  transform: scale(.7);
+  border-color: #7c3aed;
+}
+
+@keyframes rotateHex {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================= DNA LOADER ================= */
+
+.dna-loader {
+  display: flex;
+  gap: 6px;
+}
+
+.dna-loader span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2563eb;
+  animation: dna 1s infinite ease-in-out;
+}
+
+.dna-loader span:nth-child(even){
+  background:#8b5cf6;
+}
+
+.dna-loader span:nth-child(2){animation-delay:.1s}
+.dna-loader span:nth-child(3){animation-delay:.2s}
+.dna-loader span:nth-child(4){animation-delay:.3s}
+.dna-loader span:nth-child(5){animation-delay:.4s}
+.dna-loader span:nth-child(6){animation-delay:.5s}
+
+@keyframes dna{
+  50%{
+    transform: translateY(-25px);
+  }
+}
+
+/* ================= GLASS SPINNER ================= */
+
+.glass-loader{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  border:6px solid rgba(255,255,255,.2);
+  border-top-color:#38bdf8;
+  backdrop-filter: blur(10px);
+  animation:spin 1s linear infinite;
+}
+
+/* ================= AI THINKING LOADER ================= */
+
+.ai-loader{
+  display:flex;
+  gap:12px;
+}
+
+.ai-loader span{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:#06b6d4;
+  animation:aiPulse 1.2s infinite;
+}
+
+.ai-loader span:nth-child(2){
+  animation-delay:.2s;
+}
+
+.ai-loader span:nth-child(3){
+  animation-delay:.4s;
+}
+
+@keyframes aiPulse{
+  50%{
+    transform:scale(1.8);
+    box-shadow:0 0 20px #06b6d4;
+  }
+}
+
+/* ================= CUBE LOADER ================= */
+
+.cube-loader{
+  width:50px;
+  height:50px;
+  background:#2563eb;
+  animation:cubeRotate 1.2s infinite ease;
+}
+
+@keyframes cubeRotate{
+  50%{
+    transform:rotate(180deg) scale(.5);
+  }
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+.loader-filters{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:30px;
+}
+
+.filter-btn{
+  border:none;
+  padding:12px 20px;
+  border-radius:999px;
+  cursor:pointer;
+  background:#fff;
+  box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.filter-btn.active{
+  background:#2563eb;
+  color:white;
+}
+
+.loader-search{
+  margin-bottom:25px;
+}
+
+.loader-search input{
+  width:100%;
+  max-width:500px;
+  padding:16px 20px;
+  border-radius:14px;
+  border:1px solid #dbeafe;
+}
+
+.favorite-btn{
+  position:absolute;
+  top:18px;
+  right:18px;
+  border:none;
+  background:none;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.favorite-btn.active{
+  color:#ef4444;
 }

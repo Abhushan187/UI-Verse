@@ -237,3 +237,81 @@ newChatBtn.addEventListener("click", () => {
   location.reload();
 
 });
+
+const input = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
+const chatBox = document.getElementById("chatBox");
+
+function currentTime() {
+  return new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+function addUserMessage(text) {
+  const row = document.createElement("div");
+  row.className = "message-row user-row";
+
+  row.innerHTML = `
+    <div class="message user">
+      <div class="message-content">${text}</div>
+      <div class="message-time">${currentTime()}</div>
+    </div>
+  `;
+
+  chatBox.appendChild(row);
+}
+
+function addAssistantMessage(text) {
+  const row = document.createElement("div");
+  row.className = "message-row assistant-row";
+
+  row.innerHTML = `
+    <div class="message-avatar">🤖</div>
+    <div class="message assistant">
+      <div class="message-content">${text}</div>
+      <div class="message-time">${currentTime()}</div>
+    </div>
+  `;
+
+  chatBox.appendChild(row);
+}
+
+function sendMessage() {
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  addUserMessage(text);
+  input.value = "";
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  setTimeout(() => {
+    addAssistantMessage(
+      "Thanks for your message. This is a demo AI response. Connect an API like OpenAI, Gemini, or Claude to make it fully functional."
+    );
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 1000);
+}
+
+sendBtn.addEventListener("click", sendMessage);
+
+input.addEventListener("keypress", e => {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
+
+document.querySelectorAll(".quick-actions button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    input.value = btn.textContent;
+    sendMessage();
+  });
+});
+
+document.querySelector(".new-chat-btn").addEventListener("click", () => {
+  location.reload();
+});

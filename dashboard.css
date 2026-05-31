@@ -737,6 +737,16 @@ body{
     left:0;
   }
 
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
 }
 
 @media(max-width:768px){
@@ -2414,6 +2424,24 @@ HERO
   box-shadow: 0 8px 24px rgba(123,92,255,0.35);
 }
 
+.footer-bottom {
+  border-top: 1px solid #1e1e1e;
+  padding: 20px 48px;
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+}
+
+.analytics-chart {
+  width: 100%;
+  height: 220px;
+  margin-top: 20px;
+}
+
+.analytics-chart svg {
+  width: 100%;
+  height: 100%;
+}
 /* Hide secret textarea */
 .nc-code-storage {
   display: none;
@@ -2449,7 +2477,6 @@ HERO
 
 /* =========================================================
    1. CRYPTO WALLET
-========================================================= */
 
 .nc-badge {
   padding: 6px 14px;
@@ -2567,7 +2594,6 @@ HERO
 
 /* =========================================================
    2. NOTIFICATION CENTER
-========================================================= */
 
 .notif-count {
   padding: 6px 12px;
@@ -2658,7 +2684,6 @@ HERO
 
 /* =========================================================
    3. USER ACQUISITION DONUT
-========================================================= */
 
 .donut-wrapper {
   position: relative;
@@ -2741,7 +2766,6 @@ HERO
 
 /* =========================================================
    4. WEATHER WIDGET
-========================================================= */
 
 .weather-card {
   background:
@@ -2860,7 +2884,6 @@ HERO
 
 /* =========================================================
    5. QUICK NOTES
-========================================================= */
 
 .add-note-btn {
   width: 36px;
@@ -2974,7 +2997,6 @@ HERO
 
 /* =========================================================
    COPY CODE FUNCTIONALITY
-========================================================= */
 
 .nc-code-storage {
   display: none !important;
