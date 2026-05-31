@@ -168,6 +168,7 @@ function writeToClipboard(text, toastMsg, btn, doneHTML, origHTML, resetMs = 150
     })
     .catch(() => showToast("Failed to copy ❌"));
 }
+// Clipboard utilities extracted successfully.
 
 /**
  * Copy the full content of a code element (textarea, input, or any element).
