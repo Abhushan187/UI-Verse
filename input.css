@@ -864,6 +864,7 @@ select.demo-input option {
 .floating-field input:focus + label,
 .floating-field input:not(:placeholder-shown)+label{
   top:-10px;
+  font-size:}
   font-size:12px;
 }
 
