@@ -344,6 +344,31 @@
   </div>
 </aside>
 
+<div class="search-filters">
+  <button class="filter-chip active" data-filter="all">All</button>
+  <button class="filter-chip" data-filter="minimal">Minimal</button>
+  <button class="filter-chip" data-filter="animated">Animated</button>
+  <button class="filter-chip" data-filter="premium">Premium</button>
+  <button class="filter-chip" data-filter="experimental">Experimental</button>
+</div>
+
+<div class="search-stats">
+  <div class="stat">
+    <span>20</span>
+    <small>Components</small>
+  </div>
+
+  <div class="stat">
+    <span>12</span>
+    <small>Animated</small>
+  </div>
+
+  <div class="stat">
+    <span>8</span>
+    <small>Minimal</small>
+  </div>
+</div>
+
 <!-- ================= SIDEBAR BACKDROP ================= -->
 <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
 <!-- ================= MAIN CONTENT ================= -->
@@ -385,6 +410,21 @@
         </label>
       </div>
     </div>
+
+    <section class="featured-search">
+  <div class="featured-content">
+    <span class="badge">Featured Component</span>
+
+    <h2>AI Search Interface</h2>
+
+    <p>
+      Modern search experience with command palette,
+      voice search and smart suggestions.
+    </p>
+
+    <button>View Component</button>
+  </div>
+</section>
 
     <span class="results-count" id="resultsCount">20 components</span>
   </div>
@@ -975,6 +1015,27 @@
       });
     });
   });
+
+  function highlightText(element, query) {
+  const title = element.querySelector("h2");
+
+  const original = title.dataset.original ||
+                   title.textContent;
+
+  title.dataset.original = original;
+
+  if (!query) {
+    title.innerHTML = original;
+    return;
+  }
+
+  const regex = new RegExp(`(${query})`, "gi");
+
+  title.innerHTML = original.replace(
+    regex,
+    '<mark>$1</mark>'
+  );
+}
 </script>
 
     <script src="dist/shared.js"></script>
