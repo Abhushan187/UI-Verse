@@ -39,6 +39,37 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
   />
+  <div class="cookie-settings-panel">
+  <h3>Manage Cookie Preferences</h3>
+
+  <div class="cookie-toggle">
+    <label>
+      Essential Cookies
+      <input type="checkbox" checked disabled>
+    </label>
+    <span>Required for website functionality.</span>
+  </div>
+
+  <div class="cookie-toggle">
+    <label>
+      Analytics Cookies
+      <input type="checkbox" id="analyticsCookie">
+    </label>
+    <span>Help us improve performance.</span>
+  </div>
+
+  <div class="cookie-toggle">
+    <label>
+      Marketing Cookies
+      <input type="checkbox" id="marketingCookie">
+    </label>
+    <span>Used for personalized campaigns.</span>
+  </div>
+
+  <button class="save-preferences">
+    Save Preferences
+  </button>
+</div>
 
   <!-- CSS -->
   <link rel="stylesheet" href="cookies.css" />
@@ -96,6 +127,23 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelector(".accept-btn")
     ?.addEventListener("click", dismissBanner);
 });
+document.querySelectorAll(".counter").forEach(counter => {
+  const target = +counter.dataset.target;
+
+  const update = () => {
+    const value = +counter.innerText;
+
+    if (value < target) {
+      counter.innerText = Math.ceil(value + target / 30);
+      requestAnimationFrame(update);
+    } else {
+      counter.innerText = target;
+    }
+  };
+
+  update();
+});
+
   </script>
 </head>
 
@@ -331,6 +379,36 @@ document.addEventListener("DOMContentLoaded", () => {
           <span>Subscription</span>
         </a>
       </li>
+
+      <table class="cookie-table">
+  <thead>
+    <tr>
+      <th>Cookie</th>
+      <th>Purpose</th>
+      <th>Duration</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>session_id</td>
+      <td>User authentication</td>
+      <td>Session</td>
+    </tr>
+
+    <tr>
+      <td>theme</td>
+      <td>Dark mode preference</td>
+      <td>1 Year</td>
+    </tr>
+
+    <tr>
+      <td>analytics</td>
+      <td>Anonymous usage tracking</td>
+      <td>90 Days</td>
+    </tr>
+  </tbody>
+</table>
       <li>
         <a href="auth.html">
           <i class="fa-solid fa-user-shield"></i>
