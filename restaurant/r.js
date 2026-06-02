@@ -111,3 +111,10 @@ document.querySelector(".checkout-btn").addEventListener("click", () => {
   cart = [];
   renderCart();
 });
+
+document.querySelectorAll(".add-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const count = document.querySelector(".cart-count");
+    count.textContent = Number(count.textContent) + 1;
+  });
+});

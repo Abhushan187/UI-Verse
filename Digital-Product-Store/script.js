@@ -96,3 +96,25 @@ const observer = new IntersectionObserver((entries) => {
 revealElements.forEach((el) => {
   observer.observe(el);
 });
+
+
+const searchInput =
+document.getElementById("search-products");
+
+searchInput.addEventListener("input", e => {
+  const value = e.target.value.toLowerCase();
+
+  document
+    .querySelectorAll(".product-card")
+    .forEach(card => {
+      const title =
+      card.querySelector("h3")
+      .textContent
+      .toLowerCase();
+
+      card.style.display =
+      title.includes(value)
+      ? "block"
+      : "none";
+    });
+});
