@@ -41,6 +41,25 @@
             <i class="fa-solid fa-fill-drip"></i>
           </button>
         </div>
+        <div class="shape-picker-wrapper" id="shapePickerWrapper">
+          <button type="button" id="shapeBtn" class="tool-btn shape-trigger" title="Shapes" aria-pressed="false" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-regular fa-square" id="shapeBtnIcon"></i>
+          </button>
+          <div class="shape-popover" id="shapePopover" role="menu" aria-label="Shape tools">
+            <button type="button" class="shape-opt" data-shape="line" title="Line" role="menuitem">
+              <i class="fa-solid fa-minus"></i>
+              <span>Line</span>
+            </button>
+            <button type="button" class="shape-opt" data-shape="rect" title="Rectangle" role="menuitem">
+              <i class="fa-regular fa-square"></i>
+              <span>Rect</span>
+            </button>
+            <button type="button" class="shape-opt" data-shape="ellipse" title="Ellipse" role="menuitem">
+              <i class="fa-regular fa-circle"></i>
+              <span>Ellipse</span>
+            </button>
+          </div>
+        </div>
         <button id="clearBtn">
           Clear
         </button>

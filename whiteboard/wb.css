@@ -111,6 +111,76 @@ body{
   animation: ring-pop 0.4s ease-out;
 }
 
+#shapeBtn {
+  border-radius: 32px;
+}
+
+.shape-picker-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.shape-trigger {
+  background: #1e2a3a;
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 50%;
+  color: #94a3b8;
+  font-size: 15px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.shape-trigger.active {
+  color: #fff;
+  border-color: #94a3b8;
+}
+
+.shape-popover {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 8px;
+  gap: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  z-index: 100;
+  flex-direction: column;
+  min-width: 110px;
+}
+
+.shape-popover.open {
+  display: flex;
+}
+
+.shape-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 13px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.shape-opt:hover {
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+}
+
+.shape-opt.active {
+  background: rgba(37,99,235,0.2);
+  color: #60a5fa;
+}
+
 #clearBtn{
   background: #ef4444;
 }
