@@ -13,7 +13,7 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <!-- UIverse Modular CSS Architecture -->
-  <link rel="stylesheet" href="css/main.css">
+  <!-- <link rel="stylesheet" href="css/main.css"> -->
 
   <!-- CSS -->
   <link rel="stylesheet" href="article.css">
@@ -1160,6 +1160,16 @@
     <p>© 2026 UIverse. Made with ❤️ for developers worldwide.</p>
   </div>
 </footer>
+
+ <!-- ================= SCROLL TOP ================= -->
+  <button
+    id="scrollTopBtn"
+    onclick="scrollToTop()"
+    title="Back to top"
+  >
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
 <!-- ================= SCRIPT ================= -->
 <script>
 
@@ -1197,6 +1207,30 @@ input.addEventListener("input",function(){
     }
   });
 });
+
+</script>
+
+<script>
+
+function scrollToTop() {
+
+  window.scrollTo({ top: 0, behavior: 'smooth' }
+
+  );
+
+}
+
+window.addEventListener('scroll', () => {
+
+  const btn = document.getElementById('scrollTopBtn');
+
+  if (btn) {
+
+    btn.classList.toggle('visible', window.scrollY > 50);
+    
+  }
+});
+
 
 
 </script>
