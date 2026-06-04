@@ -7154,3 +7154,34 @@ body{
   transform: translateY(-8px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+body.dark-mode ::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background: #3a3a44;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #50505b;
+}
