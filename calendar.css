@@ -1178,6 +1178,53 @@ RESPONSIVE
     padding: 16px;
   }
 }
+
+/* Monthly Planner Grid */
+.dates-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Date Box Styling */
+.dates-grid span,
+.dates-grid div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
+  color: #f0f4ff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+/* Hover & Active States */
+.dates-grid span:hover,
+.dates-grid div:hover {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #ffffff;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* Current Day Highlight */
+.current-day {
+  background: linear-gradient(135deg, #7b61ff, #38bdf8);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(123,97,255,0.6);
+}
+
+.empty-cell {
+  background: transparent;
+  border: none;
+}
 /* =====================================================
 ACCESSIBILITY IMPROVEMENTS
 
