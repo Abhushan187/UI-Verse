@@ -11,7 +11,95 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- UIverse Modular CSS Architecture -->
   <!-- UIverse Runtime Loader -->
-  <script src="js/loader.js" defer></script>
+  <script>
+    <section class="badges-grid" id="badgesGrid"></section>
+
+<script>
+const badgesData = [
+  {
+    tag: "Enterprise",
+    title: "Enterprise Badge",
+    description: "Corporate-grade badge designed for enterprise software and SaaS tools.",
+    icon: "fa-building-shield",
+    badgeClass: "enterprise-badge",
+    text: "ENTERPRISE",
+    dark: true,
+    saved: true
+  },
+  {
+    tag: "Verified Pro",
+    title: "Verified Pro Badge",
+    description: "Professional verified badge for agencies, creators and premium businesses.",
+    icon: "fa-badge-check",
+    badgeClass: "verified-pro-badge",
+    text: "VERIFIED PRO",
+    dark: false,
+    saved: false
+  },
+  {
+    tag: "Startup",
+    title: "Startup Badge",
+    description: "Energetic launch-style badge built for startup products and innovation platforms.",
+    icon: "fa-rocket",
+    badgeClass: "startup-badge",
+    text: "STARTUP READY",
+    dark: true,
+    saved: true
+  }
+  // Continue moving the remaining badge definitions here
+];
+
+const badgesGrid = document.getElementById("badgesGrid");
+
+function renderBadges(data) {
+  badgesGrid.innerHTML = data.map(badge => `
+    <div class="badge-card">
+      <div class="card-top">
+        <span class="card-tag">${badge.tag}</span>
+        <button
+          class="save-btn ${badge.saved ? "active-save" : ""}"
+          aria-label="Save ${badge.title}">
+          <i class="fa-${badge.saved ? "solid" : "regular"} fa-bookmark"></i>
+        </button>
+      </div>
+
+      <div class="badge-preview ${badge.dark ? "dark-preview" : ""}">
+        <span class="${badge.badgeClass}">
+          <i class="fa-solid ${badge.icon}"></i>
+          ${badge.text}
+        </span>
+      </div>
+
+      <h2>${badge.title}</h2>
+      <p>${badge.description}</p>
+
+      <div class="card-actions">
+        <button type="button">Preview</button>
+        <button type="button">Copy</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+renderBadges(badgesData);
+
+const searchInput = document.getElementById("badgesSearch");
+
+if (searchInput) {
+  searchInput.addEventListener("input", (e) => {
+    const value = e.target.value.toLowerCase();
+
+    renderBadges(
+      badgesData.filter(badge =>
+        badge.title.toLowerCase().includes(value) ||
+        badge.tag.toLowerCase().includes(value) ||
+        badge.description.toLowerCase().includes(value)
+      )
+    );
+  });
+}
+</script>
+  </script>
 </head>
 
 <body>
