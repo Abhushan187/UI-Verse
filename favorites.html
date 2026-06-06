@@ -3,6 +3,7 @@
 <head>
   <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; connect-src 'self' https:; img-src 'self' data: https:; font-src 'self' data: https:; script-src 'self' https: 'unsafe-hashes' sha256-4idOpfcVGcf1JIcDr6s5pmLauAMO9auB0wLw0b1hd9Y= sha256-VSlcfSxh44Sp0fBP5UsuqMDy9YmsH67Av1zKMK6uJS0=; script-src-attr 'unsafe-hashes' sha256-4idOpfcVGcf1JIcDr6s5pmLauAMO9auB0wLw0b1hd9Y= sha256-VSlcfSxh44Sp0fBP5UsuqMDy9YmsH67Av1zKMK6uJS0=; style-src 'self' https: 'unsafe-hashes' sha256-UURs4At+4ylzrbWFQHXOFodf+e07eIsuhEbPfjafUhA=; style-src-attr 'unsafe-hashes' sha256-UURs4At+4ylzrbWFQHXOFodf+e07eIsuhEbPfjafUhA=">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Favorites | UIverse</title>
   <meta name="description" content="Saved UIverse favorite components from your personal collection.">
@@ -401,6 +402,99 @@
           <li><a href="forms.html">Forms</a></li>
         </ul>
       </div>
+
+
+      <section class="favorites-stats">
+  <div class="stat-card">
+    <span class="stat-value" id="totalFavorites">0</span>
+    <span class="stat-label">Saved Components</span>
+  </div>
+
+  <div class="stat-card">
+    <span class="stat-value" id="categoriesCount">0</span>
+    <span class="stat-label">Categories</span>
+  </div>
+
+  <div class="stat-card">
+    <span class="stat-value" id="latestSaved">Today</span>
+    <span class="stat-label">Last Saved</span>
+  </div>
+
+  <div class="stat-card">
+    <span class="stat-value">∞</span>
+    <span class="stat-label">Inspiration</span>
+  </div>
+</section>
+
+<section class="favorites-toolbar">
+  <div class="search-box">
+    <i class="fa-solid fa-search"></i>
+    <input
+      type="search"
+      id="favoriteSearch"
+      placeholder="Search saved components..."
+    >
+  </div>
+</section>
+
+<section class="favorites-filters">
+
+  <button class="filter active" data-filter="all">
+    All
+  </button>
+
+  <button class="filter" data-filter="button">
+    Buttons
+  </button>
+
+  <button class="filter" data-filter="card">
+    Cards
+  </button>
+
+  <button class="filter" data-filter="navbar">
+    Navbar
+  </button>
+
+  <button class="filter" data-filter="form">
+    Forms
+  </button>
+
+</section>
+
+<div class="sort-controls">
+
+  <label for="favoritesSort">
+    Sort By
+  </label>
+
+  <select id="favoritesSort">
+    <option value="newest">Newest First</option>
+    <option value="oldest">Oldest First</option>
+    <option value="az">A-Z</option>
+    <option value="category">Category</option>
+  </select>
+
+</div>
+
+<section class="recently-added">
+
+  <h2>Recently Saved</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <span class="date">Today</span>
+      <p>Gradient Button saved</p>
+    </div>
+
+    <div class="timeline-item">
+      <span class="date">Yesterday</span>
+      <p>Glassmorphism Card saved</p>
+    </div>
+
+  </div>
+
+</section>
 
       <div class="footer-col">
         <h3>Resources</h3>

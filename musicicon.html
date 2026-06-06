@@ -4,6 +4,7 @@
 <head>
   <link rel="stylesheet" href="dist/shared.css">
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; connect-src 'self' https:; img-src 'self' data: https:; font-src 'self' data: https:; script-src 'self' https: 'unsafe-hashes' sha256-ncFSUuPkfg4UnE+IXK3teNRE30r5r1yNxPhdgmUWLpc=; script-src-attr 'unsafe-hashes' sha256-ncFSUuPkfg4UnE+IXK3teNRE30r5r1yNxPhdgmUWLpc=; style-src 'self' https: 'unsafe-hashes'; style-src-attr 'unsafe-hashes'">
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -361,6 +362,114 @@
 
 </aside>
 
+<div class="component-card" data-cat="podcast" data-name="podcast player">
+  <div class="card-top">
+    <span class="card-label">Podcast Player</span>
+    <span class="card-tag tag-new">New</span>
+  </div>
+
+  <div class="card-preview">
+    <div class="podcast-player">
+      <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200" alt="Podcast">
+      <h3>Tech Weekly</h3>
+      <p>Episode #128</p>
+      <button><i class="fa-solid fa-play"></i></button>
+    </div>
+  </div>
+
+  <p class="card-desc">
+    Podcast inspired player with episode progress and playback controls.
+  </p>
+</div>
+
+<div class="component-card" data-cat="streaming" data-name="spotify now playing">
+  <div class="card-top">
+    <span class="card-label">Now Playing Bar</span>
+    <span class="card-tag tag-popular">Popular</span>
+  </div>
+
+  <div class="card-preview dark-preview">
+    <div class="spotify-bar">
+      <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800" alt="">
+      <div>
+        <h4>Dreamscape</h4>
+        <p>Nova Beats</p>
+      </div>
+      <i class="fa-solid fa-heart"></i>
+    </div>
+  </div>
+</div>
+
+<div class="component-card" data-cat="cards">
+  <div class="card-top">
+    <span class="card-label">Circular Progress</span>
+    <span class="card-tag tag-modern">Modern</span>
+  </div>
+
+  <div class="card-preview">
+    <div class="circle-player">
+      <div class="circle-progress">72%</div>
+    </div>
+  </div>
+</div>
+
+<div class="component-card" data-cat="vinyl">
+  <div class="card-top">
+    <span class="card-label">DJ Mixer</span>
+    <span class="card-tag tag-premium">Premium</span>
+  </div>
+
+  <div class="card-preview dark-preview">
+    <div class="dj-deck">
+      <div class="disc"></div>
+      <div class="disc"></div>
+    </div>
+  </div>
+</div>
+
+<section class="featured-playlists">
+
+  <div class="section-header">
+    <h2>Featured Playlists</h2>
+    <a href="#">View All</a>
+  </div>
+
+  <div class="playlist-row">
+
+    <div class="featured-playlist">
+      <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200" alt="">
+      <h4>Late Night Coding</h4>
+    </div>
+
+    <div class="featured-playlist">
+      <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1200" alt="">
+      <h4>Lo-Fi Focus</h4>
+    </div>
+
+    <div class="featured-playlist">
+      <img src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200" alt="">
+      <h4>Podcast Collection</h4>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="visualizer-showcase">
+
+  <h2>Audio Visualizers</h2>
+
+  <div class="visualizer-grid">
+
+    <div class="visualizer-circle"></div>
+
+    <div class="visualizer-wave"></div>
+
+    <div class="visualizer-spectrum"></div>
+
+  </div>
+
+</section>
 <!-- =========================================================
    NAVBAR
 ========================================================= -->

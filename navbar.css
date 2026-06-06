@@ -654,6 +654,33 @@ body.dark-mode .filter-summary {
   gap: 10px;
 }
 
+.page-hero{
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.25;
+}
+
+.hero-glow-1{
+  width:280px;
+  height:280px;
+  background:#eb6835;
+  top:-100px;
+  right:-80px;
+}
+
+.hero-glow-2{
+  width:240px;
+  height:240px;
+  background:#7b61ff;
+  bottom:-100px;
+  left:-60px;
+}
 .notify-actions span:first-child {
   position: relative;
   width: 32px;
@@ -823,6 +850,27 @@ body.dark-mode .filter-summary {
     color 0.3s ease;
 }
 
+
+.filter-btn{
+  position:relative;
+  overflow:hidden;
+}
+
+.filter-btn::before{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:2px;
+  background:#eb6835;
+  transform:scaleX(0);
+  transition:.3s;
+}
+
+.filter-btn.active::before{
+  transform:scaleX(1);
+}
 .demo-mobile-nav a i {
 
   font-size: 20px;
@@ -2574,6 +2622,10 @@ body.dark-mode .dashboard-search input {
   font-size: 1.4rem;
   font-weight: 800;
   color: #111827;
+}
+
+body.dark-mode .logo {
+  color: #ffffff;
 }
 
 .search-bar {

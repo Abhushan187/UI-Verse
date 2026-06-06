@@ -212,6 +212,15 @@ body.dark-mode {
   color: var(--rec-primary);
 }
 
+
+.validation-match-badge {
+  display: none;
+}
+
+.validation-match-badge.visible {
+  display: flex;
+}
+
 /* Premium Buttons */
 .rec-submit-btn {
   width: 100%;
