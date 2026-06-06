@@ -399,408 +399,62 @@ Premium glassmorphism layouts.
 MAIN BENTO GRID
 ========================= -->
 
-<section
-class="bento-grid"
-id="layouts">
+<section class="bento-grid" id="layouts">
 
-<!-- LARGE DASHBOARD -->
-
-<div class="bento-card dashboard-card">
-
-<span class="card-tag">
-
-Overview
-
-</span>
-
-<h2>
-
-Dashboard
-
-</h2>
-
-<p>
-
-Track analytics, revenue,
-users and performance
-in a single workspace.
-
-</p>
-
-<div class="mini-stats">
-
-<div>
-
-<h3>12K</h3>
-
-<span>Users</span>
-
-</div>
-
-<div>
-
-<h3>89%</h3>
-
-<span>Growth</span>
-
-</div>
-
-<div>
-
-<h3>4.9</h3>
-
-<span>Rating</span>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ANALYTICS -->
-
-<div class="bento-card analytics-card">
-
-<span class="card-tag">
-
-Analytics
-
-</span>
-
-<h2>
-
-Statistics
-
-</h2>
-
-<p>
-
-Real-time data
-visualization.
-
-</p>
-
-</div>
-
-<!-- PROJECTS -->
-
-<div class="bento-card projects-card">
-
-<span class="card-tag">
-
-Projects
-
-</span>
-
-<h2>
-
-Project Hub
-
-</h2>
-
-<p>
-
-Manage active
-workspaces.
-
-</p>
-
-</div>
-<!-- TEAM -->
-
-<div class="bento-card team-card">
-
-<span class="card-tag">
-
-Team
-
-</span>
-
-<h2>
-
-Team Workspace
-
-</h2>
-
-<p>
-
-Collaborate with your
-team members in real time.
-
-</p>
-
-<div class="team-avatars">
-
-<div class="avatar">A</div>
-<div class="avatar">J</div>
-<div class="avatar">M</div>
-<div class="avatar">+</div>
-
-</div>
-
-</div>
-
-<!-- REVENUE -->
-
-<div class="bento-card revenue-card">
-
-<span class="card-tag">
-
-Revenue
-
-</span>
-
-<h2>
-
-$84,250
-
-</h2>
-
-<p>
-
-Monthly recurring revenue.
-
-</p>
-
-<div class="mini-chart">
-
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-
-</div>
-
-</div>
-
-<!-- AI ASSISTANT -->
-
-<div class="bento-card ai-card">
-
-<span class="card-tag">
-
-AI Assistant
-
-</span>
-
-<h2>
-
-AI Workspace
-
-</h2>
-
-<p>
-
-Generate ideas, code,
-design systems and content.
-
-</p>
-
-<button class="card-btn">
-
-Launch AI
-
-</button>
-
-</div>
-
-<!-- NOTIFICATIONS -->
-
-<div class="bento-card notifications-card">
-
-<span class="card-tag">
-
-Activity
-
-</span>
-
-<h2>
-
-Recent Updates
-
-</h2>
-
-<ul class="activity-list">
-
-<li>
-Project updated
-</li>
-
-<li>
-New component added
-</li>
-
-<li>
-User joined workspace
-</li>
-
-</ul>
-
-</div>
-
-<!-- SMART HOME -->
-
-<div class="bento-card smart-card">
-
-<span class="card-tag">
-
-Devices
-
-</span>
-
-<h2>
-
-Smart Control
-
-</h2>
-
-<div class="device-grid">
-
-<div class="device active">
-💡
-</div>
-
-<div class="device">
-📺
-</div>
-
-<div class="device">
-🔊
-</div>
-
-<div class="device active">
-🌡️
-</div>
-
-</div>
-
-</div>
-
-<!-- CRYPTO -->
-
-<div class="bento-card crypto-card">
-
-<span class="card-tag">
-
-Market
-
-</span>
-
-<h2>
-
-Crypto Tracker
-
-</h2>
-
-<p>
-
-BTC +5.2%
-
-</p>
-
-<p>
-
-ETH +2.7%
-
-</p>
-
-<p>
-
-SOL +8.1%
-
-</p>
-
-</div>
-
-<!-- WEATHER -->
-
-<div class="bento-card weather-card">
-
-<span class="card-tag">
-
-Weather
-
-</span>
-
-<div class="weather-icon">
-
-☀️
-
-</div>
-
-<h2>
-
-27°C
-
-</h2>
-
-<p>
-
-Mumbai, India
-
-</p>
-
-</div>
-
-<!-- MUSIC -->
-
-<div class="bento-card music-card">
-
-<span class="card-tag">
-
-Music
-
-</span>
-
-<div class="album-cover">
-
-🎵
-
-</div>
-
-<h2>
-
-Night Drive
-
-</h2>
-
-<p>
-
-Lo-Fi Playlist
-
-</p>
-
-</div>
-
-<!-- SECURITY -->
-
-<div class="bento-card security-card">
-
-<span class="card-tag">
-
-Security
-
-</span>
-
-<h2>
-
-System Secure
-
-</h2>
-
-<div class="security-status">
-
-<div class="pulse"></div>
-
-Protected
-
-</div>
-
-</div>
+	<div id="bento-container"></div>
 
 </section>
+
+<script>
+// Data-driven bento card renderer to reduce repetitive markup
+const bentoCards = [
+	{
+		class: 'dashboard-card',
+		tag: 'Overview',
+		title: 'Dashboard',
+		desc: `Track analytics, revenue, users and performance in a single workspace.`,
+		extra: `<div class="mini-stats"><div><h3>12K</h3><span>Users</span></div><div><h3>89%</h3><span>Growth</span></div><div><h3>4.9</h3><span>Rating</span></div></div>`
+	},
+	{ class: 'analytics-card', tag: 'Analytics', title: 'Statistics', desc: 'Real-time data visualization.' },
+	{ class: 'projects-card', tag: 'Projects', title: 'Project Hub', desc: 'Manage active workspaces.' },
+	{ class: 'team-card', tag: 'Team', title: 'Team Workspace', desc: 'Collaborate with your team members in real time.', extra: `<div class="team-avatars"><div class="avatar">A</div><div class="avatar">J</div><div class="avatar">M</div><div class="avatar">+</div></div>` },
+	{ class: 'revenue-card', tag: 'Revenue', title: '$84,250', desc: 'Monthly recurring revenue.', extra: `<div class="mini-chart"><span></span><span></span><span></span><span></span><span></span><span></span></div>` },
+	{ class: 'ai-card', tag: 'AI Assistant', title: 'AI Workspace', desc: 'Generate ideas, code, design systems and content.', extra: `<button class="card-btn">Launch AI</button>` },
+	{ class: 'notifications-card', tag: 'Activity', title: 'Recent Updates', extra: `<ul class="activity-list"><li>Project updated</li><li>New component added</li><li>User joined workspace</li></ul>` },
+	{ class: 'smart-card', tag: 'Devices', title: 'Smart Control', extra: `<div class="device-grid"><div class="device active">💡</div><div class="device">📺</div><div class="device">🔊</div><div class="device active">🌡️</div></div>` },
+	{ class: 'crypto-card', tag: 'Market', title: 'Crypto Tracker', extra: `<p>BTC +5.2%</p><p>ETH +2.7%</p><p>SOL +8.1%</p>` },
+	{ class: 'weather-card', tag: 'Weather', extra: `<div class="weather-icon">☀️</div><h2>27°C</h2><p>Mumbai, India</p>` },
+	{ class: 'music-card', tag: 'Music', extra: `<div class="album-cover">🎵</div><h2>Night Drive</h2><p>Lo-Fi Playlist</p>` },
+	{ class: 'security-card', tag: 'Security', extra: `<h2>System Secure</h2><div class="security-status"><div class="pulse"></div>Protected</div>` }
+];
+
+function renderBentoCards() {
+	const container = document.getElementById('bento-container');
+	if (!container) return;
+	const fragment = document.createDocumentFragment();
+
+	bentoCards.forEach(card => {
+		const el = document.createElement('div');
+		el.className = `bento-card ${card.class || ''}`.trim();
+		el.innerHTML = `
+			${card.tag ? `<span class="card-tag">${card.tag}</span>` : ''}
+			${card.title ? `<h2>${card.title}</h2>` : ''}
+			${card.desc ? `<p>${card.desc}</p>` : ''}
+			${card.extra || ''}
+		`;
+		fragment.appendChild(el);
+	});
+
+	container.appendChild(fragment);
+}
+
+// Render on DOM ready
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', renderBentoCards);
+} else {
+	renderBentoCards();
+}
+</script>
 
 <!-- =========================
 COMPONENT GALLERY
