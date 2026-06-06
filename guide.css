@@ -252,6 +252,7 @@
   cursor: pointer;
   font-weight: 700;
 }
+
 .gl-toc-link.active .gl-toc-num { color: var(--accent); }
 
 /* ============================================================

@@ -65,6 +65,69 @@
           </label>
         </div>
 
+        <section class="hero-panel" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <span class="eyebrow">Peer-to-peer equipment sharing</span>
+
+    <h1 id="hero-title">
+      Rent idle tractors and machinery to nearby farms
+    </h1>
+
+    <p>
+      List equipment for rent, match by pincode, and allow farmers to
+      reserve machinery with blocked rental dates and automated
+      notifications.
+    </p>
+  </div>
+
+  <nav class="hero-actions" aria-label="Quick navigation">
+    <a href="notifications.html" class="ghost-link">
+      Open notifications
+    </a>
+
+    <a href="index.html" class="ghost-link secondary">
+      Back to UIverse
+    </a>
+  </nav>
+</section>
+
+<label
+  class="full-width file-picker"
+  for="equipment-photo"
+>
+  Upload photo
+</label>
+
+<input
+  id="equipment-photo"
+  name="photo"
+  type="file"
+  accept="image/png,image/jpeg,image/webp,image/gif"
+>
+
+<div id="marketplaceGrid" class="marketplace-grid">
+
+  <article class="empty-card">
+    <h3>No listings yet</h3>
+
+    <p>
+      Publish your first equipment listing to make it
+      available for nearby farmers.
+    </p>
+  </article>
+
+</div>
+
+<div class="marketplace-grid loading">
+
+  <div class="equipment-skeleton"></div>
+
+  <div class="equipment-skeleton"></div>
+
+  <div class="equipment-skeleton"></div>
+
+</div>
+
         <label class="full-width">
           Description
           <textarea name="description" rows="4" placeholder="Add a short description of the machinery and attachments." required></textarea>

@@ -439,6 +439,32 @@
         </div>
       </div>
 
+      <section class="faq-stats">
+  <div class="stat-card">
+    <i class="fa-solid fa-circle-question"></i>
+    <h2>150+</h2>
+    <p>Questions Answered</p>
+  </div>
+
+  <div class="stat-card">
+    <i class="fa-solid fa-users"></i>
+    <h2>20K+</h2>
+    <p>Developers</p>
+  </div>
+
+  <div class="stat-card">
+    <i class="fa-solid fa-code"></i>
+    <h2>500+</h2>
+    <p>Components</p>
+  </div>
+
+  <div class="stat-card">
+    <i class="fa-solid fa-bolt"></i>
+    <h2>100%</h2>
+    <p>Open Source</p>
+  </div>
+</section>
+
       <!-- FAQ ITEMS -->
       <section class="faq-section" aria-label="Frequently asked questions">
 
@@ -718,6 +744,37 @@
         }
       });
     });
+
+
+
+document.addEventListener("keydown",e=>{
+
+if(e.key==="/"){
+
+e.preventDefault();
+
+document.getElementById("faqSearch").focus();
+
+}
+
+});
+
+const searchInput=document.getElementById("faqSearch");
+
+searchInput.addEventListener("input",()=>{
+
+const keyword=searchInput.value.toLowerCase();
+
+document.querySelectorAll(".faq-item").forEach(item=>{
+
+const text=item.innerText.toLowerCase();
+
+item.style.display=text.includes(keyword)?"block":"none";
+
+});
+
+});
+
 
     expandAllBtn.addEventListener('click', () => {
       faqItems.forEach(item => setFaqState(item, true));

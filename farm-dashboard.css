@@ -110,6 +110,32 @@ label {
   font-weight: 800;
 }
 
+
+.gauge-wrap{
+    position:relative;
+    height:280px;
+}
+
+.metric-card{
+    min-height:170px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.controls-row{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:1.25rem;
+    align-items:end;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:.5rem;
+}
 select,
 input {
   width: 100%;
