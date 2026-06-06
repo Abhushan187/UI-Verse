@@ -7157,34 +7157,58 @@ body{
   transform: translateY(-8px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+/* ── Category Filter Search ── */
+.cat-search-wrap {
+  position: relative;
+  max-width: 420px;
+  margin: 0 auto 1.75rem;
+  display: flex;
+  align-items: center;
 }
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+.cat-search-icon {
+  position: absolute;
+  left: 1rem;
+  color: #9ca3af;
+  font-size: .85rem;
+  pointer-events: none;
 }
-
-::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 5px;
+#catSearch {
+  width: 100%;
+  padding: .7rem 2.5rem .7rem 2.75rem;
+  border: 1.5px solid #e4e7ec;
+  border-radius: 10px;
+  font-size: .9rem;
+  font-family: inherit;
+  background: #f8f9fb;
+  color: #111827;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+#catSearch:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,.12);
+  background: #fff;
 }
-
-body.dark-mode ::-webkit-scrollbar-track {
-  background: #1e1e24;
+.dark-mode #catSearch {
+  background: #1a1d27;
+  border-color: #2d3249;
+  color: #f1f5f9;
 }
-
-body.dark-mode ::-webkit-scrollbar-thumb {
-  background: #3a3a44;
+.cat-clear {
+  position: absolute;
+  right: .85rem;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: .85rem;
+  display: none;
 }
-
-body.dark-mode ::-webkit-scrollbar-thumb:hover {
-  background: #50505b;
+.cat-clear:hover { color: #6366f1; }
+.cat-no-result {
+  text-align: center;
+  color: #9ca3af;
+  font-size: .9rem;
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
 }
+.hidden { display: none; }
+.cat-card.hide { display: none; }
