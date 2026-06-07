@@ -27,6 +27,12 @@
     <span class="brand-text">UIverse <span style="font-size: 9px; background: linear-gradient(135deg, #eb6835, #7b61ff); color: white; padding: 1px 6px; border-radius: 10px; font-weight: 800; margin-left: 4px; letter-spacing: 0.5px; vertical-align: middle; box-shadow: 0 0 8px rgba(235,104,53,0.3);">V2</span></span>
   </div>
 
+  <div id="emptySearchState" class="empty-search" style="display:none;">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <h3>No maintenance components found</h3>
+  <p>Try another keyword.</p>
+</div>
+
   <nav class="sidebar-nav">
     <ul>
       <li>
@@ -691,6 +697,45 @@
     document.getElementById('sidebarBackdrop').classList.toggle('visible');
   }
 
+  function liveFilter(value) {
+  const q = value.toLowerCase();
+  const cards = document.querySelectorAll(".component-card");
+  let found = false;
+
+  cards.forEach(card => {
+    const match =
+      card.dataset.name.toLowerCase().includes(q) ||
+      card.querySelector("h2").textContent.toLowerCase().includes(q);
+
+    card.style.display = match ? "" : "none";
+
+    if (match) found = true;
+  });
+
+  const empty = document.getElementById("emptySearchState");
+
+  if (empty) {
+    empty.style.display = found ? "none" : "block";
+  }
+}
+
+const observer = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("visible");
+
+        }
+
+    });
+
+});
+
+document
+.querySelectorAll(".component-card")
+.forEach(card => observer.observe(card));
   // Dark Mode Support
   const toggle = document.getElementById('darkModeToggle');
   const icon = toggle.querySelector('i');
