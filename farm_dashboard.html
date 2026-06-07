@@ -45,6 +45,52 @@
       </div>
     </section>
 
+
+    <div class="controls-row">
+  <div class="field">
+    <label for="deviceSelect">Device</label>
+    <select id="deviceSelect"></select>
+  </div>
+
+  <div class="field">
+    <label for="thresholdInput">
+      Moisture threshold (%)
+    </label>
+
+    <input
+      id="thresholdInput"
+      type="number"
+      min="1"
+      max="100"
+      step="0.1"
+      value="32"
+    >
+  </div>
+
+  <div class="controls-buttons">
+    <button id="refreshBtn" type="button">
+      Refresh now
+    </button>
+
+    <span id="syncState">
+      Waiting for first poll…
+    </span>
+  </div>
+</div>
+
+<article class="metric-card state-card">
+    <span class="metric-label">
+        Irrigation Status
+    </span>
+
+    <strong id="irrigationStatus">
+        No device selected
+    </strong>
+
+    <p id="recommendationText">
+        Choose a device to load its latest readings.
+    </p>
+</article>
     <section class="metrics-grid">
       <article class="metric-card state-card">
         <span class="metric-label">Irrigation status</span>

@@ -112,7 +112,75 @@ body{
   display: flex;
   gap: 16px;
 }
+.error-card{
+    background: rgba(255,255,255,.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 
+    border:1px solid rgba(255,255,255,.4);
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    transition:.35s;
+}
+
+.component-preview{
+
+    position:relative;
+
+    border-radius:22px;
+
+    padding:2px;
+
+    background:
+
+    linear-gradient(
+    135deg,
+    #7b61ff,
+    #eb6835,
+    #44d2ff);
+
+}
+
+body{
+
+background:
+
+radial-gradient(circle at top left,#7b61ff22,transparent),
+
+radial-gradient(circle at bottom right,#eb683522,transparent),
+
+#f7f8fc;
+
+}
+
+.error-code{
+
+font-size:72px;
+
+font-weight:900;
+
+animation:
+
+float 3s ease-in-out infinite;
+
+}
+.error-btn{
+
+transition:.3s;
+
+background:
+
+linear-gradient(
+135deg,
+#7b61ff,
+#eb6835);
+
+color:white;
+
+}
 .sidebar-footer a {
   color: #6a7a94;
   font-size: 16px;
