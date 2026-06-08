@@ -7,6 +7,179 @@
     content="width=device-width, initial-scale=1.0"
   />
 
+  <section>
+  <h2>Toast</h2>
+
+  <uiv-button id="toastBtn">
+    Show Toast
+  </uiv-button>
+
+  <uiv-toast
+    id="toast"
+    type="success">
+    Changes saved successfully
+  </uiv-toast>
+</section>
+
+<section>
+  <h2>Data Table</h2>
+
+  <uiv-table>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>John</td>
+          <td>Developer</td>
+          <td>Active</td>
+        </tr>
+
+        <tr>
+          <td>Sarah</td>
+          <td>Designer</td>
+          <td>Online</td>
+        </tr>
+
+        <tr>
+          <td>Alex</td>
+          <td>Manager</td>
+          <td>Offline</td>
+        </tr>
+      </tbody>
+    </table>
+  </uiv-table>
+</section>
+
+<section>
+  <h2>Timeline</h2>
+
+  <uiv-timeline>
+    <uiv-timeline-item date="2025">
+      UI-Verse Started
+    </uiv-timeline-item>
+
+    <uiv-timeline-item date="2026">
+      Web Components Released
+    </uiv-timeline-item>
+
+    <uiv-timeline-item date="2027">
+      Version 2.0 Launch
+    </uiv-timeline-item>
+  </uiv-timeline>
+</section>
+<section>
+  <h2>Tags</h2>
+
+  <div class="demo-row">
+    <uiv-chip>HTML</uiv-chip>
+    <uiv-chip>CSS</uiv-chip>
+    <uiv-chip>JavaScript</uiv-chip>
+    <uiv-chip removable>React</uiv-chip>
+  </div>
+</section> 
+
+<section>
+  <h2>Stats Cards</h2>
+
+  <div class="grid-4">
+    <uiv-stat
+      title="Users"
+      value="25K">
+    </uiv-stat>
+
+    <uiv-stat
+      title="Downloads"
+      value="120K">
+    </uiv-stat>
+
+    <uiv-stat
+      title="Stars"
+      value="8.5K">
+    </uiv-stat>
+
+    <uiv-stat
+      title="Growth"
+      value="+32%">
+    </uiv-stat>
+  </div>
+</section>
+
+<section>
+  <h2>Skeleton Loading</h2>
+
+  <uiv-skeleton height="18"></uiv-skeleton>
+  <uiv-skeleton height="18"></uiv-skeleton>
+  <uiv-skeleton height="120"></uiv-skeleton>
+</section>
+
+<section>
+  <h2>Notifications</h2>
+
+  <uiv-notification-list>
+    <uiv-notification>
+      New component released
+    </uiv-notification>
+
+    <uiv-notification>
+      Build completed
+    </uiv-notification>
+
+    <uiv-notification>
+      Deployment successful
+    </uiv-notification>
+  </uiv-notification-list>
+</section>
+
+<section>
+  <h2>Pricing</h2>
+
+  <div class="grid-3">
+    <uiv-pricing-card
+      plan="Starter"
+      price="$9">
+    </uiv-pricing-card>
+
+    <uiv-pricing-card
+      featured
+      plan="Pro"
+      price="$29">
+    </uiv-pricing-card>
+
+    <uiv-pricing-card
+      plan="Enterprise"
+      price="$99">
+    </uiv-pricing-card>
+  </div>
+</section>
+
+<section>
+  <h2>Features</h2>
+
+  <div class="grid-3">
+    <uiv-feature-card
+      icon="⚡"
+      title="Fast">
+    </uiv-feature-card>
+
+    <uiv-feature-card
+      icon="🎨"
+      title="Customizable">
+    </uiv-feature-card>
+
+    <uiv-feature-card
+      icon="🌐"
+      title="Framework Agnostic">
+    </uiv-feature-card>
+  </div>
+</section>
+
   <title>UI-Verse Web Components Demo</title>
 
   <link rel="stylesheet" href="style.css" />

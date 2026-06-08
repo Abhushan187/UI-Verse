@@ -83,3 +83,20 @@ eraserBtn.addEventListener("click", () => {
   currentColor = "#ffffff";
 
 });
+
+// Save Canvas
+
+saveBtn.addEventListener("click", () => {
+  const link = document.createElement("a");
+
+  link.download = "whiteboard.png";
+  link.href = canvas.toDataURL();
+
+  link.click();
+});
+
+// Brush Size Label
+
+brushSize.addEventListener("input", () => {
+  sizeValue.textContent = brushSize.value;
+});

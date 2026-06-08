@@ -1004,3 +1004,349 @@ RESPONSIVE
   }
 
 }
+
+/* ===============================
+   FUNNEL CHART
+================================== */
+
+.funnel-chart{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  padding:20px;
+}
+
+.funnel-stage{
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-weight:700;
+  border-radius:14px;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+
+.s1{width:100%;}
+.s2{width:82%;}
+.s3{width:62%;}
+.s4{width:42%;}
+
+
+/* ===============================
+   KPI DASHBOARD
+================================== */
+
+.kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:18px;
+}
+
+.kpi-box{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  padding:24px;
+  backdrop-filter:blur(12px);
+  transition:.35s;
+}
+
+.kpi-box:hover{
+  transform:translateY(-6px);
+  border-color:#8b5cf6;
+}
+
+.kpi-box span{
+  color:#9ca3af;
+  font-size:.9rem;
+}
+
+.kpi-box h2{
+  margin:10px 0;
+  font-size:2rem;
+}
+
+.kpi-box small{
+  color:#10b981;
+  font-weight:600;
+}
+
+
+/* ===============================
+   BUBBLE CHART
+================================== */
+
+.bubble{
+  fill:#8b5cf6;
+  opacity:.75;
+  transition:.35s;
+}
+
+.bubble:hover{
+  opacity:1;
+  transform:scale(1.08);
+  transform-origin:center;
+}
+
+.b1{fill:#8b5cf6;}
+.b2{fill:#06b6d4;}
+.b3{fill:#ec4899;}
+.b4{fill:#10b981;}
+
+
+/* ===============================
+   COMPARISON CHART
+================================== */
+
+.compare-bars{
+  display:flex;
+  justify-content:space-evenly;
+  align-items:flex-end;
+  gap:35px;
+  height:240px;
+}
+
+.compare-group{
+  display:flex;
+  align-items:flex-end;
+  gap:8px;
+}
+
+.bar{
+  width:28px;
+  border-radius:12px 12px 0 0;
+}
+
+.revenue{
+  height:180px;
+  background:linear-gradient(180deg,#06b6d4,#0891b2);
+}
+
+.expense{
+  height:120px;
+  background:linear-gradient(180deg,#ef4444,#dc2626);
+}
+
+
+/* ===============================
+   GAUGE KPI
+================================== */
+
+.gauge-bg{
+  fill:none;
+  stroke:#23252e;
+  stroke-width:14;
+}
+
+.gauge-progress{
+  fill:none;
+  stroke:#06b6d4;
+  stroke-width:14;
+  stroke-linecap:round;
+  stroke-dasharray:502;
+  stroke-dashoffset:80;
+  transform:rotate(-90deg);
+  transform-origin:center;
+}
+
+.gauge-value{
+  fill:#fff;
+  font-size:28px;
+  font-weight:800;
+}
+
+
+/* ===============================
+   DEPTH CHART
+================================== */
+
+.buy-depth{
+  fill:none;
+  stroke:#10b981;
+  stroke-width:5;
+}
+
+.sell-depth{
+  fill:none;
+  stroke:#ef4444;
+  stroke-width:5;
+}
+
+
+/* ===============================
+   SEGMENTED RING
+================================== */
+
+.segmented-ring{
+  width:170px;
+  height:170px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  align-content:center;
+  justify-content:center;
+}
+
+.segment{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:#272a34;
+}
+
+.segment.active{
+  background:#8b5cf6;
+  box-shadow:0 0 12px #8b5cf6;
+}
+
+
+/* ===============================
+   AI METRICS
+================================== */
+
+.ai-metrics{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:18px;
+}
+
+.metric{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:20px;
+  text-align:center;
+  transition:.3s;
+}
+
+.metric:hover{
+  transform:translateY(-5px);
+  border-color:#06b6d4;
+}
+
+.metric span{
+  color:#9ca3af;
+  display:block;
+  margin-bottom:8px;
+}
+
+.metric h2{
+  margin:0;
+  font-size:2rem;
+}
+
+
+/* ===============================
+   HEXAGON GRID
+================================== */
+
+.hex-grid{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:16px;
+}
+
+.hex{
+  width:90px;
+  height:100px;
+  background:linear-gradient(135deg,#8b5cf6,#06b6d4);
+  clip-path:polygon(
+    25% 6%,
+    75% 6%,
+    100% 50%,
+    75% 94%,
+    25% 94%,
+    0 50%
+  );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-weight:700;
+  transition:.35s;
+}
+
+.hex:hover{
+  transform:translateY(-8px);
+}
+
+
+/* ===============================
+   ANALYTICS TIMELINE
+================================== */
+
+.analytics-timeline{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:relative;
+  padding:40px 10px;
+}
+
+.analytics-timeline::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
+  height:4px;
+  background:#23252e;
+}
+
+.timeline-point{
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:#2d313d;
+  position:relative;
+  z-index:2;
+}
+
+.timeline-point.completed{
+  background:#10b981;
+  box-shadow:0 0 14px #10b981;
+}
+
+.timeline-point.active{
+  background:#8b5cf6;
+  box-shadow:0 0 16px #8b5cf6;
+  animation:pulseTimeline 1.8s infinite;
+}
+
+@keyframes pulseTimeline{
+  0%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.18);
+  }
+  100%{
+    transform:scale(1);
+  }
+}
+
+
+/* ===============================
+   GLOBAL PREMIUM EFFECTS
+================================== */
+
+.preview-box svg{
+  width:100%;
+  height:auto;
+}
+
+.component-card{
+  overflow:hidden;
+}
+
+.component-card:hover{
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.35),
+    0 0 0 1px rgba(139,92,246,.15);
+}

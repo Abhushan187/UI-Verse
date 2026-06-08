@@ -4,48 +4,90 @@
   <link rel="stylesheet" href="../dist/shared.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Whiteboard UI</title>
+  <title>Digital Whiteboard Pro</title>
   <link rel="stylesheet" href="wb.css">
 </head>
+
 <body>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
 
+<a class="skip-link" href="#main-content">
+  Skip to main content
+</a>
 
-  <div class="whiteboard-container">
+<main id="main-content">
 
-    <div class="toolbar">
+<div class="whiteboard-container">
 
-      <h2>Digital Whiteboard</h2>
+  <header class="toolbar">
 
-      <div class="tools">
+    <div class="toolbar-left">
+      <h2>🎨 Whiteboard Pro</h2>
+    </div>
 
-        <input type="color" id="colorPicker" data-a11y-remediation="label-needed">
+    <div class="tools">
+
+      <div class="tool-group">
+        <label for="colorPicker">Color</label>
+        <input type="color" id="colorPicker" value="#2563eb">
+      </div>
+
+      <div class="tool-group">
+        <label for="brushSize">
+          Size <span id="sizeValue">4</span>px
+        </label>
 
         <input
           type="range"
           id="brushSize"
           min="1"
-          max="20"
+          max="30"
           value="4"
         >
-
-        <button id="eraserBtn">
-          Eraser
-        </button>
-
-        <button id="clearBtn">
-          Clear
-        </button>
-
       </div>
+
+      <button class="tool-btn active" id="penBtn">
+        ✏️ Pen
+      </button>
+
+      <button class="tool-btn" id="eraserBtn">
+        🧽 Eraser
+      </button>
+
+      <button class="tool-btn" id="undoBtn">
+        ↶ Undo
+      </button>
+
+      <button class="tool-btn" id="redoBtn">
+        ↷ Redo
+      </button>
+
+      <button class="tool-btn danger" id="clearBtn">
+        🗑 Clear
+      </button>
+
+      <button class="tool-btn success" id="saveBtn">
+        💾 Save
+      </button>
 
     </div>
 
+  </header>
+
+  <section class="canvas-wrapper">
     <canvas id="canvas"></canvas>
+  </section>
 
-  </div>
+  <footer class="status-bar">
+    <span>Ready</span>
+    <span>Shortcut: Ctrl + Z (Undo)</span>
+  </footer>
 
-  <script src="wb.js"></script>
-      <script src="../dist/shared.js"></script>
+</div>
+
+</main>
+
+<script src="wb.js"></script>
+<script src="../dist/shared.js"></script>
+
 </body>
 </html>

@@ -64,6 +64,25 @@ body {
 
 /* ---- TOPBAR ---- */
 
+
+.sidebar.collapsed a {
+  position: relative;
+}
+
+.sidebar.collapsed a:hover::after {
+  content: attr(data-tooltip);
+
+  position: absolute;
+  left: 70px;
+
+  background: #111827;
+
+  padding: 8px 12px;
+  border-radius: 10px;
+
+  white-space: nowrap;
+}
+
 .topbar {
   padding: 20px 40px;
   background: rgb(7 9 19 / 80%);
@@ -76,6 +95,15 @@ body {
   position: sticky;
   top: 0;
   z-index: 99;
+}
+
+.dashboard-overview {
+  display: grid;
+
+  grid-template-columns:
+  repeat(12, 1fr);
+
+  gap: 1rem;
 }
 
 .search-box {

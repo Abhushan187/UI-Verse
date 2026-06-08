@@ -7,6 +7,7 @@ body {
   min-height: 100vh !important;
   background-color: #f9fafb !important;
 }
+
 body.dark-mode {
   background-color: #0b0f19 !important;
 }
@@ -964,6 +965,357 @@ body {
 
 .team-card:hover{
   transform:translateY(-8px);
+}
+
+/* =========================
+   MUSIC CARD
+========================= */
+
+.music-card{
+  background:#111827;
+  color:#fff;
+  border-radius:24px;
+  padding:24px;
+  text-align:center;
+  transition:.35s;
+}
+
+.music-card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:18px;
+  margin-bottom:18px;
+}
+
+.music-card h4{
+  margin-bottom:4px;
+}
+
+.music-card p{
+  opacity:.7;
+}
+
+.music-controls{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  font-size:1.25rem;
+}
+
+.music-card:hover{
+  transform:translateY(-8px);
+}
+
+
+/* =========================
+   SOCIAL CARD
+========================= */
+
+.social-card{
+  background:#fff;
+  border-radius:20px;
+  padding:22px;
+  box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+.social-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.social-header img{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+}
+
+.social-header span{
+  color:#777;
+  font-size:.85rem;
+}
+
+.social-actions{
+  display:flex;
+  gap:24px;
+  margin-top:18px;
+  color:#666;
+}
+
+
+/* =========================
+   COURSE CARD
+========================= */
+
+.course-card{
+  padding:24px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  color:white;
+}
+
+.course-tag{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.15);
+  margin-bottom:16px;
+}
+
+.course-meta{
+  display:flex;
+  justify-content:space-between;
+  margin:18px 0;
+}
+
+.course-card button{
+  width:100%;
+  border:none;
+  padding:12px;
+  border-radius:12px;
+  background:white;
+  color:#111;
+  font-weight:700;
+}
+
+
+/* =========================
+   BANK CARD
+========================= */
+
+.bank-card{
+  min-height:220px;
+  border-radius:24px;
+  padding:28px;
+  background:linear-gradient(
+      135deg,
+      #0f172a,
+      #1e293b
+  );
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.bank-card h2{
+  letter-spacing:4px;
+  font-size:1.8rem;
+}
+
+.bank-footer{
+  display:flex;
+  justify-content:space-between;
+}
+
+
+/* =========================
+   NOTIFICATION CARD
+========================= */
+
+.notification-card{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  padding:20px;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.notification-card i{
+  width:56px;
+  height:56px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#eef2ff;
+  color:#6366f1;
+  font-size:1.2rem;
+}
+
+
+/* =========================
+   STATS CARD
+========================= */
+
+.stats-card{
+  text-align:center;
+  padding:30px;
+  border-radius:24px;
+  background:linear-gradient(
+      135deg,
+      #10b981,
+      #06b6d4
+  );
+  color:white;
+}
+
+.stats-card i{
+  font-size:2rem;
+  margin-bottom:16px;
+}
+
+.stats-card h2{
+  font-size:3rem;
+  margin-bottom:8px;
+}
+
+
+/* =========================
+   TRAVEL CARD
+========================= */
+
+.travel-card{
+  overflow:hidden;
+  border-radius:24px;
+  background:white;
+  box-shadow:0 20px 50px rgba(0,0,0,.08);
+}
+
+.travel-card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.travel-body{
+  padding:20px;
+}
+
+.travel-body button{
+  margin-top:14px;
+  width:100%;
+}
+
+
+/* =========================
+   NFT CARD
+========================= */
+
+.nft-card{
+  padding:18px;
+  border-radius:24px;
+  background:#0f172a;
+  color:white;
+}
+
+.nft-card img{
+  width:100%;
+  border-radius:18px;
+  margin-bottom:16px;
+}
+
+.nft-card button{
+  width:100%;
+  margin-top:14px;
+}
+
+
+/* =========================
+   WORKSPACE CARD
+========================= */
+
+.workspace-card{
+  padding:24px;
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+.workspace-users{
+  display:flex;
+  margin-top:20px;
+}
+
+.workspace-users img{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:3px solid white;
+  margin-left:-10px;
+}
+
+.workspace-users img:first-child{
+  margin-left:0;
+}
+
+
+/* =========================
+   BENTO DASHBOARD
+========================= */
+
+.dashboard-bento{
+  padding:42px;
+  min-height:320px;
+  border-radius:32px;
+  background:linear-gradient(
+      135deg,
+      #0f172a,
+      #1e293b,
+      #2563eb
+  );
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.dashboard-bento span{
+  color:#93c5fd;
+  font-weight:700;
+  letter-spacing:2px;
+}
+
+.dashboard-bento h2{
+  margin:14px 0;
+  font-size:2.3rem;
+}
+
+.dashboard-stats{
+  margin-top:24px;
+  display:flex;
+  gap:30px;
+}
+
+.dashboard-stats strong{
+  display:block;
+  font-size:1.5rem;
+}
+
+
+/* =========================
+   GLOBAL CARD HOVER
+========================= */
+
+.music-card,
+.social-card,
+.course-card,
+.bank-card,
+.notification-card,
+.stats-card,
+.travel-card,
+.nft-card,
+.workspace-card,
+.dashboard-bento{
+  transition:all .35s ease;
+}
+
+.music-card:hover,
+.social-card:hover,
+.course-card:hover,
+.bank-card:hover,
+.notification-card:hover,
+.stats-card:hover,
+.travel-card:hover,
+.nft-card:hover,
+.workspace-card:hover,
+.dashboard-bento:hover{
+  transform:translateY(-8px);
+  box-shadow:0 25px 60px rgba(0,0,0,.15);
 }
 
 .team-card img{

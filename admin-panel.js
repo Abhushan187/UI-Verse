@@ -71,6 +71,47 @@ function initThemeSystem() {
 
 }
 
+
+function animateCounter(el, target) {
+  let count = 0;
+
+  const timer = setInterval(() => {
+    count += Math.ceil(target / 60);
+
+    if (count >= target) {
+      count = target;
+      clearInterval(timer);
+    }
+
+    el.textContent =
+      "$" + count.toLocaleString();
+  }, 20);
+}
+
+const toggle =
+document.getElementById("darkModeToggle");
+
+toggle.addEventListener("click", () => {
+
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("dark")
+      ? "dark"
+      : "light"
+  );
+});
+
+window.addEventListener("load", () => {
+
+  const theme =
+    localStorage.getItem("theme");
+
+  if(theme === "dark"){
+    document.body.classList.add("dark");
+  }
+});
 /* ==========================================
    2. COMPONENT CATEGORY FILTERS
 ========================================== */
