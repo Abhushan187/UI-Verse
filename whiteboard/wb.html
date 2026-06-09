@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; connect-src 'self' https:; img-src 'self' data: https:; font-src 'self' data: https:; script-src 'self' https: 'unsafe-hashes'; script-src-attr 'unsafe-hashes'; style-src 'self' https: 'unsafe-hashes'; style-src-attr 'unsafe-hashes'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Whiteboard Pro</title>
   <title>Digital Whiteboard</title>
   <link rel="stylesheet" href="wb.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +13,88 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
+
+<a class="skip-link" href="#main-content">
+  Skip to main content
+</a>
+
+<main id="main-content">
+
+<div class="whiteboard-container">
+
+  <header class="toolbar">
+
+    <div class="toolbar-left">
+      <h2>🎨 Whiteboard Pro</h2>
+    </div>
+
+    <div class="tools">
+
+      <div class="tool-group">
+        <label for="colorPicker">Color</label>
+        <input type="color" id="colorPicker" value="#2563eb">
+      </div>
+
+      <div class="tool-group">
+        <label for="brushSize">
+          Size <span id="sizeValue">4</span>px
+        </label>
+
+        <input
+          type="range"
+          id="brushSize"
+          min="1"
+          max="30"
+          value="4"
+        >
+      </div>
+
+      <button class="tool-btn active" id="penBtn">
+        ✏️ Pen
+      </button>
+
+      <button class="tool-btn" id="eraserBtn">
+        🧽 Eraser
+      </button>
+
+      <button class="tool-btn" id="undoBtn">
+        ↶ Undo
+      </button>
+
+      <button class="tool-btn" id="redoBtn">
+        ↷ Redo
+      </button>
+
+      <button class="tool-btn danger" id="clearBtn">
+        🗑 Clear
+      </button>
+
+      <button class="tool-btn success" id="saveBtn">
+        💾 Save
+      </button>
+
+    </div>
+
+  </header>
+
+  <section class="canvas-wrapper">
+    <canvas id="canvas"></canvas>
+  </section>
+
+  <footer class="status-bar">
+    <span>Ready</span>
+    <span>Shortcut: Ctrl + Z (Undo)</span>
+  </footer>
+
+</div>
+
+</main>
+
+<script src="wb.js"></script>
+<script src="../dist/shared.js"></script>
+
 
   <div class="whiteboard-container">
     <div class="toolbar">

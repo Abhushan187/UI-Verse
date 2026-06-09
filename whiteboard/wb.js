@@ -388,6 +388,23 @@ savePngBtn.addEventListener("click", () => {
   closeSaveModal();
 });
 
+});
+
+// Save Canvas
+
+saveBtn.addEventListener("click", () => {
+  const link = document.createElement("a");
+
+  link.download = "whiteboard.png";
+  link.href = canvas.toDataURL();
+
+  link.click();
+});
+
+// Brush Size Label
+
+brushSize.addEventListener("input", () => {
+  sizeValue.textContent = brushSize.value;
 saveJpgBtn.addEventListener("click", () => {
   executeSave("jpg");
   closeSaveModal();
