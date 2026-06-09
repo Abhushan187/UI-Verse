@@ -80,6 +80,47 @@
   transform: translateX(2px) scale(0.98);
 }
 
+
+.live-alert{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px;
+  border-radius:16px;
+  background:#052e16;
+  color:#86efac;
+}
+
+.live-ping{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#22c55e;
+  animation:ping 1.5s infinite;
+}
+
+@keyframes ping{
+  50%{transform:scale(1.8);opacity:.5;}
+}
+.update-alert{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  border-radius:18px;
+  background:#111827;
+}
+
+
+.threat-alert{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:18px;
+  border-radius:18px;
+  background:#450a0a;
+  color:#fecaca;
+}
 .sidebar-nav li.active a {
   background: var(--sidebar-active);
   color: var(--accent);

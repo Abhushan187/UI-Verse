@@ -74,6 +74,25 @@ button {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+
+.timeline-event {
+  position: relative;
+}
+
+.timeline-event::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 24px;
+  width: 2px;
+  height: 100%;
+}
+
+.feed-toolbar {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+}
 .brand-icon {
   font-size: 24px;
   color: #eb6835;

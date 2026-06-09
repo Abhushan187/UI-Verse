@@ -225,6 +225,53 @@ body.dark {
   z-index:999;
 }
 
+
+.accordion-card{
+  position:relative;
+  overflow:hidden;
+
+  background:rgba(255,255,255,.06);
+
+  backdrop-filter:blur(20px);
+
+  border:1px solid rgba(255,255,255,.12);
+
+  border-radius:24px;
+
+  transition:.4s ease;
+}
+
+.accordion-card:hover{
+  transform:translateY(-8px);
+
+  box-shadow:
+  0 20px 60px rgba(123,97,255,.18);
+}
+
+.accordion-content{
+  max-height:0;
+  overflow:hidden;
+
+  opacity:0;
+
+  transition:
+    max-height .4s ease,
+    opacity .3s ease;
+}
+
+.accordion-item.active .accordion-content{
+  max-height:300px;
+  opacity:1;
+}
+
+
+.accordion-btn i{
+  transition:.3s ease;
+}
+
+.accordion-item.active i{
+  transform:rotate(45deg);
+}
 .search-bar{
 
   width:420px;
