@@ -121,6 +121,16 @@
   padding:10px;
 }
 
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+}
+
+.faq-item.active .faq-content {
+  max-height: 200px;
+}
+
 .sidebar-footer a{
 
   width:42px;

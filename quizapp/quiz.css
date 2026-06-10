@@ -282,6 +282,35 @@ body{
   font-weight:600;
 }
 
+
+.badge-row{
+  display:flex;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.difficulty-badge{
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:600;
+}
+
+.easy{
+  background:#10b98122;
+  color:#10b981;
+}
+
+.medium{
+  background:#f59e0b22;
+  color:#f59e0b;
+}
+
+.hard{
+  background:#ef444422;
+  color:#ef4444;
+}
+
 .option-btn:hover{
   transform:translateY(-5px);
   background:linear-gradient(
@@ -364,4 +393,41 @@ body{
     gap:15px;
   }
 
+}
+
+.lifelines{
+  display:flex;
+  gap:10px;
+  margin:20px 0;
+}
+
+.life-btn{
+  flex:1;
+  border:none;
+  padding:12px;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+.stats-panel{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:24px;
+}
+
+.stat{
+  text-align:center;
+  padding:18px;
+  border-radius:16px;
+  background:rgba(255,255,255,.05);
+}
+
+.result-screen{
+  text-align:center;
+  padding:40px;
+}
+
+.hidden{
+  display:none;
 }
