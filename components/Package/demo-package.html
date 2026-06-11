@@ -35,6 +35,43 @@
       justify-content: space-between;
     }
 
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="../../dist/shared.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI-Verse Package Demo</title>
+  <link rel="stylesheet" href="/design-tokens.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+      color: var(--text-primary);
+      padding: 40px 20px;
+    }
+
+    .panel {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(16px);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     .actions {
       display: flex;
       gap: 12px;
@@ -42,7 +79,7 @@
     }
   </style>
   <script type="module">
-    import '/dist/index.js';
+    import '/dist/index.esm.js';
     window.addEventListener('DOMContentLoaded', () => {
       window.DesignTokens.init();
     });
@@ -62,11 +99,34 @@
 
     <p>These components are ready to import from the package entry or subpath exports.</p>
 
-    <div class="actions">
+    <div class="actions" style="margin-bottom: 24px;">
       <uv-button>Primary Button</uv-button>
       <uv-tooltip>Hover demo</uv-tooltip>
       <uv-language-switcher></uv-language-switcher>
       <uv-modal>Modal shell</uv-modal>
+    </div>
+
+    <div class="interactive-demos" style="display: flex; flex-direction: column; gap: 24px; border-top: 1px solid var(--border-primary); padding-top: 24px;">
+      <div>
+        <h3>uv-dropdown</h3>
+        <uv-dropdown>
+          <button slot="trigger" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-primary); background: var(--bg-secondary); color: var(--text-primary); cursor: pointer;">Click to Open Dropdown</button>
+          <div slot="content" style="padding: 12px; border: 1px solid var(--border-primary); border-radius: 8px; background: var(--bg-secondary); color: var(--text-primary); box-shadow: var(--shadow-md); margin-top: 8px;">
+            <div style="padding: 4px 8px; cursor: pointer; border-radius: 4px;">Option A</div>
+            <div style="padding: 4px 8px; cursor: pointer; border-radius: 4px;">Option B</div>
+          </div>
+        </uv-dropdown>
+      </div>
+
+      <div>
+        <h3>uv-tabs</h3>
+        <uv-tabs style="border: 1px solid var(--border-primary); border-radius: 8px; padding: 16px; background: var(--bg-secondary);">
+          <button slot="tab" style="padding: 8px 16px; font-weight: 500; cursor: pointer; background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-secondary);">Tab 1</button>
+          <button slot="tab" style="padding: 8px 16px; font-weight: 500; cursor: pointer; background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-secondary);">Tab 2</button>
+          <div slot="panel" style="padding: 16px 0;">Content panel for Tab 1</div>
+          <div slot="panel" style="padding: 16px 0;">Content panel for Tab 2</div>
+        </uv-tabs>
+      </div>
     </div>
   </main>
       <script src="../../dist/shared.js"></script>

@@ -1,11 +1,37 @@
-export class UVTooltip extends HTMLElement {
-  constructor() {
-    super();
-    const shadow = this.attachShadow({ mode: 'open' });
-    shadow.innerHTML = `<span><slot></slot></span>`;
-  }
+class UVTooltip extends HTMLElement {
+    constructor() {
+        super();
+        const s = this.attachShadow({ mode: 'open' });
+        s.innerHTML = `
+      <style>
+        .tooltip {
+          position: absolute;
+          background: #333;
+          color: #fff;
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 12px;
+          z-index: 100;
+        }
+        .tooltip[hidden] {
+          display: none;
+        }
+      </style>
+      <span><slot></slot></span>
+      <div class="tooltip" hidden>Tooltip text</div>
+    `;
+        this._tooltipEl = s.querySelector('.tooltip');
+    }
+    show() {
+        this._tooltipEl.removeAttribute('hidden');
+    }
+    hide() {
+        this._tooltipEl.setAttribute('hidden', '');
+    }
+}
+if (typeof customElements !== 'undefined' && !customElements.get('uv-tooltip')) {
+    customElements.define('uv-tooltip', UVTooltip);
 }
 
-if (typeof customElements !== 'undefined' && !customElements.get('uv-tooltip')) {
-  customElements.define('uv-tooltip', UVTooltip);
-}
+export { UVTooltip };
+//# sourceMappingURL=uv-tooltip.js.map
