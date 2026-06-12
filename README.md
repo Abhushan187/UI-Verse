@@ -2,7 +2,7 @@
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
-<h4 align="center"> 🚀 UIverse – Frontend Component Hub </h4>
+<h2 align="center"> 🚀 UIverse – Frontend Component Hub </h2>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
@@ -43,7 +43,6 @@
 ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=flat)
 ![Built with Love](https://img.shields.io/badge/Built%20with-%E2%9D%A4-red?style=for-the-badge)
 ![Visitors](https://api.visitorbadge.io/api/Visitors?path=Tushar-sonawane06%2FUI-Verse%20&countColor=%23263759&style=flat)
-![GitHub Last Commit](https://img.shields.io/github/last-commit/Tushar-sonawane06/UI-Verse)
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/Tushar-sonawane06/UI-Verse)
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
@@ -565,7 +564,7 @@ We love our contributors! If you'd like to help, please check out our [`CONTRIBU
 
 <!-- Contributors badge (auto-updating) -->
 
-[![Contributors](https://img.shields.io/github/contributors/Tushar-sonawane06/UI-Verse?style=for-the-badge)](https://github.com/Tushar-sonawane06/UI-Verse/contributors)
+[![Contributors](https://img.shields.io/github/contributors/Tushar-sonawane06/UI-Verse?style=for-the-badge)](https://github.com/Tushar-sonawane06/UI-Verse/graphs/contributors?from=3%2F7%2F2026)
 
 <!-- Contributors avatars (auto-updating) -->
 <p align="left">
@@ -631,7 +630,7 @@ This project is licensed under the MIT License - see the [`License`](https://git
 <h3 align="center"> 👨‍💻 Built with ❤️ by UI-Verse Team</h3>
 <h4 align="center"> ❤️ Tushar Sonawane and Contributors ❤️ </h4>
 <p align="center">
-<a href="https://github.com/Tushar-sonawane06/UI-Verse/issues">Open an Issue</a> | <a href="https://github.com/Tushar-sonawane06/UI-Verse">🌟 Star on GitHub</a> | <a href="https://ui-verse.netlify.app/">🚀 Live Demo</a></p>
+<a href="https://github.com/Tushar-sonawane06/UI-Verse/issues">Open an Issue</a> | <a href="https://github.com/Tushar-sonawane06/UI-Verse">🌟 Star on GitHub</a> | <a href="https://tushar-sonawane06.github.io/UI-Verse/">🚀 Live Demo</a></p>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=65&section=footer"/>
 
