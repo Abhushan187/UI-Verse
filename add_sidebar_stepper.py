@@ -3,8 +3,9 @@ import re
 with open('e:/nsoc26/UI-Verse/step-indicators.html', 'r', encoding='utf-8') as f:
     content = f.read()
 
-# Remove all existing aside
-content = re.sub(r'<aside class="sidebar" id="sidebar">.*?</aside>', '', content, flags=re.DOTALL)
+# Add shared-sidebar.css
+if 'shared-sidebar.css' not in content:
+    content = content.replace('href="step-indicators.css">', 'href="step-indicators.css">\n  <link rel="stylesheet" href="shared-sidebar.css">')
 
 sidebar_html = """
 <aside class="sidebar" id="sidebar">
@@ -28,10 +29,11 @@ sidebar_html = """
 </aside>
 """
 
-# Now replace the first occurrence of <div class="main-content">
-content = content.replace('<div class="main-content">', sidebar_html + '\n<div class="main-content">', 1)
+if '<aside class="sidebar"' not in content:
+    # Insert sidebar before <div class="main-content">
+    content = content.replace('<div class="main-content">', sidebar_html + '\n<div class="main-content">')
 
 with open('e:/nsoc26/UI-Verse/step-indicators.html', 'w', encoding='utf-8') as f:
     f.write(content)
 
-print("Sidebar fixed successfully!")
+print("Sidebar added successfully to step-indicators.html")
