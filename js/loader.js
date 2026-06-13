@@ -30,16 +30,18 @@
     'js/features/accessibility.js',
     'js/features/command-palette.js',
     'js/features/url-state.js',
-    'js/features/url-state-integration.js'
+    'js/features/url-state-integration.js',
+    'js/features/component-ratings.js',
+    'js/features/creator-profile.js'
   ];
 
   // Per-page overrides (only load what's necessary)
   const pageMap = {
     'index.html': defaultFeatures,
-    'button.html': ['js/features/toast.js','js/features/code-tools.js','js/features/sidebar.js','js/features/theme.js','js/features/scroll.js','js/features/search.js','js/features/command-palette.js','js/features/url-state.js','js/features/url-state-integration.js','js/features/component-recommendations.js','js/features/recommendations-ui.js','js/features/bundle-exporter.js','js/features/bundle-exporter-ui.js'],
-    'cards.html': ['js/features/toast.js','js/features/code-tools.js','js/features/sidebar.js','js/features/search.js','js/features/theme.js','js/features/scroll.js','js/features/sandbox.js','js/features/command-palette.js','js/features/component-recommendations.js','js/features/recommendations-ui.js','js/features/bundle-exporter.js','js/features/bundle-exporter-ui.js'],
-    'badges.html': ['js/features/toast.js','js/features/sidebar.js','js/features/command-palette.js','js/features/component-recommendations.js','js/features/recommendations-ui.js','js/features/bundle-exporter.js','js/features/bundle-exporter-ui.js'],
-    'forms.html': ['js/features/toast.js','js/features/alerts.js','js/features/sidebar.js','js/features/command-palette.js','js/features/component-recommendations.js','js/features/recommendations-ui.js','js/features/bundle-exporter.js','js/features/bundle-exporter-ui.js']
+    'button.html': ['js/features/toast.js','js/features/code-tools.js','js/features/sidebar.js','js/features/theme.js','js/features/scroll.js','js/features/search.js','js/features/command-palette.js','js/features/url-state.js','js/features/url-state-integration.js','js/features/component-recommendations.js','js/features/recommendations-ui.js','js/features/bundle-exporter.js','js/features/bundle-exporter-ui.js','js/features/component-ratings.js','js/features/creator-profile.js'],
+    'cards.html': ['js/features/toast.js','js/features/code-tools.js','js/features/sidebar.js','js/features/search.js','js/features/theme.js','js/features/scroll.js','js/features/sandbox.js','js/features/command-palette.js','js/features/component-recommendations.js','js/features/recommendations-ui.js','js/features/bundle-exporter.js','js/features/bundle-exporter-ui.js','js/features/component-ratings.js','js/features/creator-profile.js'],
+    'badges.html': ['js/features/toast.js','js/features/sidebar.js','js/features/command-palette.js','js/features/component-recommendations.js','js/features/recommendations-ui.js','js/features/bundle-exporter.js','js/features/bundle-exporter-ui.js','js/features/component-ratings.js','js/features/creator-profile.js'],
+    'forms.html': ['js/features/toast.js','js/features/alerts.js','js/features/sidebar.js','js/features/command-palette.js','js/features/component-recommendations.js','js/features/recommendations-ui.js','js/features/bundle-exporter.js','js/features/bundle-exporter-ui.js','js/features/component-ratings.js','js/features/creator-profile.js']
   };
 
   const scriptsToLoad = [];
