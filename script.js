@@ -701,12 +701,73 @@ function subscribe(e) {
 }
 
 
+/* ================= COLLABORATE BUTTONS ================= */
+function splitCodeBlock(text) {
+  const decoded = text
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
+  const cssStart = decoded.search(/(?:^|\n)\s*([.#@][^{]+\{|[a-z]+[\s,]*\{)/i);
+  if (cssStart > 0) {
+    return {
+      html: decoded.slice(0, cssStart).trim(),
+      css: decoded.slice(cssStart).trim(),
+      js: ''
+    };
+  }
+  return { html: decoded.trim(), css: '', js: '' };
+}
+
+function initCollaborateButtons() {
+  const cards = document.querySelectorAll('.component-card');
+  if (cards.length === 0) return;
+
+  if (!document.getElementById('collab-btn-styles')) {
+    const style = document.createElement('style');
+    style.id = 'collab-btn-styles';
+    style.textContent = '.action-btn.collab-btn{background:#6c5ce7;color:#fff;border-color:#6c5ce7}.action-btn.collab-btn:hover{background:#5b4cc4}';
+    document.head.appendChild(style);
+  }
+
+  cards.forEach((card) => {
+    const actions = card.querySelector('.actions');
+    const codeBlock = card.querySelector('.code-block');
+    const preview = card.querySelector('.card-preview');
+    if (!actions || !codeBlock || !preview) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'action-btn collab-btn';
+    btn.innerHTML = '<i class="fa-solid fa-users"></i> Collaborate';
+    btn.title = 'Open in collaborative workspace';
+
+    btn.addEventListener('click', () => {
+      const raw = codeBlock.innerText;
+      const split = splitCodeBlock(raw);
+      const title = card.querySelector('.card-label')?.textContent?.trim() || 'component';
+      const roomId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Math.random().toString(36).slice(2, 8);
+
+      const seed = {
+        html: split.html || preview.innerHTML,
+        css: split.css,
+        js: split.js,
+        title: title
+      };
+
+      sessionStorage.setItem('workspace-seed', JSON.stringify(seed));
+      window.location.href = 'workspace.html#room=' + roomId;
+    });
+
+    actions.appendChild(btn);
+  });
+}
+
 /* ================= INIT (DOMContentLoaded) ================= */
 window.addEventListener("DOMContentLoaded", () => {
   initSidebar();
   initLegacyCardFavorites();
   initRecentComponentsTracker();
   initLiveSandboxes();
+  initCollaborateButtons();
   initDevicePreviewFeature();
   initKeyboardShortcutsFeature();
   initDownloadFeature();
@@ -716,111 +777,4 @@ window.addEventListener("DOMContentLoaded", () => {
   initSearchFilter();
 });
 
-// DARK MODE
-  const toggle = document.getElementById('darkModeToggle');
-  const icon = toggle.querySelector('i');
-
-  if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-    icon.className = 'fa-solid fa-sun';
-  }
-
-  toggle.addEventListener('click', () => {
-
-    document.body.classList.toggle('dark-mode');
-
-    const isDark = document.body.classList.contains('dark-mode');
-
-    icon.className = isDark
-      ? 'fa-solid fa-sun'
-      : 'fa-solid fa-moon';
-
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-
-  });
-
-
-  // SIDEBAR
-  function toggleSidebar() {
-
-    document.getElementById('sidebar').classList.toggle('open');
-
-    document.getElementById('sidebarBackdrop')
-      .classList.toggle('visible');
-
-  }
-
-
-  // SCROLL TOP
-  function scrollToTop() {
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-
-  }
-  // SHOW BUTTON
-  window.addEventListener('scroll', () => {
-
-    document.getElementById('scrollTopBtn')
-      .classList.toggle('visible', window.scrollY > 400);
-
-    document.getElementById('navbar')
-      .classList.toggle('scrolled', window.scrollY > 40);
-
-  });
-
-  // TOGGLE CODE
-  function toggleCode(id, btn) {
-
-    const block = document.getElementById(id);
-
-    const isOpen = block.classList.toggle('open');
-
-    btn.innerHTML = isOpen
-      ? '<i class="fa-solid fa-eye-slash"></i> Hide Code'
-      : '<i class="fa-solid fa-code"></i> View Code';
-
-  }
-
-  // COPY CODE
-  function copyCode(id, btn) {
-
-    navigator.clipboard.writeText(
-      document.getElementById(id).innerText
-    ).then(() => {
-
-      btn.innerHTML =
-        '<i class="fa-solid fa-check"></i> Copied!';
-
-      btn.classList.add('copied');
-
-      setTimeout(() => {
-
-        btn.innerHTML =
-          '<i class="fa-solid fa-copy"></i> Copy';
-
-        btn.classList.remove('copied');
-
-      }, 2000);
-
-    });
-
-  }
-
-  // SCROLL ANIMATION
-  const observer = new IntersectionObserver(entries => {
-
-    entries.forEach(e => {
-
-      if (e.isIntersecting) {
-        e.target.classList.add('in-view');
-      }
-
-    });
-
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.form-component-card')
-    .forEach(el => observer.observe(el));
+/* eof */

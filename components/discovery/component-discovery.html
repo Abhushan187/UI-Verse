@@ -26,6 +26,164 @@
     </header>
     <section class="filters"></section>
     <section class="results"></section>
+
+    <section class="duplicates" id="duplicatesPanel" style="display:none;">
+      <h2 class="duplicates__heading">
+        ⚠️ Possible Duplicate Components
+        <span class="duplicates__count" id="duplicatesCount"></span>
+      </h2>
+      <p class="duplicates__sub muted">
+        These component pairs share high metadata overlap. Maintainers should review before merging new additions.
+      </p>
+      <div class="duplicates__list" id="duplicatesList"></div>
+    </section>
+
+    <style>
+      .duplicates {
+        margin: 2rem auto;
+        max-width: 860px;
+        padding: 0 1rem;
+      }
+      .duplicates__heading {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .duplicates__count {
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: #eb6835;
+        color: #fff;
+        padding: 2px 8px;
+        border-radius: 999px;
+      }
+      .duplicates__sub {
+        font-size: 0.875rem;
+        margin-bottom: 1.2rem;
+      }
+      .dup-card {
+        border: 1px solid var(--color-border, #e2e8f0);
+        border-radius: 10px;
+        padding: 1rem 1.2rem;
+        margin-bottom: 0.75rem;
+        background: var(--color-surface, #fff);
+      }
+      .dup-card--high   { border-left: 4px solid #ef4444; }
+      .dup-card--medium { border-left: 4px solid #f59e0b; }
+      .dup-card__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+      }
+      .dup-card__score {
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 999px;
+        color: #fff;
+      }
+      .dup-card--high   .dup-card__score { background: #ef4444; }
+      .dup-card--medium .dup-card__score { background: #f59e0b; }
+      .dup-card__pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .dup-card__item {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+        background: var(--color-surface-2, #f8fafc);
+        border-radius: 6px;
+      }
+      .dup-card__item a {
+        color: var(--color-accent, #eb6835);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .dup-card__item a:hover { text-decoration: underline; }
+      .dup-card__path {
+        font-size: 0.75rem;
+        color: var(--color-muted, #64748b);
+        display: block;
+        margin-top: 2px;
+      }
+      .dup-card__reasons {
+        font-size: 0.78rem;
+        color: var(--color-muted, #64748b);
+      }
+      .dup-card__reasons span {
+        display: inline-block;
+        background: var(--color-surface-2, #f1f5f9);
+        border-radius: 4px;
+        padding: 1px 6px;
+        margin: 2px 2px 0 0;
+      }
+      .muted { color: var(--color-muted, #64748b); }
+    </style>
   </main>
+
+  <script type="module">
+    import '/js/features/similarity-detector.js';
+
+    async function runDuplicateDetection() {
+      const panel = document.getElementById('duplicatesPanel');
+      const list  = document.getElementById('duplicatesList');
+      const count = document.getElementById('duplicatesCount');
+
+      let pairs = [];
+      try {
+        pairs = await SimilarityDetector.run({ threshold: 0.50, limit: 50 });
+      } catch (err) {
+        console.warn('[SimilarityDetector] Detection failed:', err);
+        return;
+      }
+
+      if (!pairs.length) return; // nothing to show — keep panel hidden
+
+      count.textContent = pairs.length + ' pair' + (pairs.length === 1 ? '' : 's');
+      panel.style.display = '';
+
+      const frag = document.createDocumentFragment();
+      pairs.forEach(pair => {
+        const card = document.createElement('div');
+        card.className = `dup-card dup-card--${pair.severity}`;
+
+        const aTitle = pair.a.title || pair.a.id;
+        const bTitle = pair.b.title || pair.b.id;
+        const aPath  = pair.a.path || pair.a.page || '#';
+        const bPath  = pair.b.path || pair.b.page || '#';
+
+        card.innerHTML = `
+          <div class="dup-card__header">
+            <strong>${aTitle} &amp; ${bTitle}</strong>
+            <span class="dup-card__score">${pair.score}% match</span>
+          </div>
+          <div class="dup-card__pair">
+            <div class="dup-card__item">
+              <a href="/${aPath}" target="_blank">${aTitle}</a>
+              <span class="dup-card__path">${aPath}</span>
+            </div>
+            <div class="dup-card__item">
+              <a href="/${bPath}" target="_blank">${bTitle}</a>
+              <span class="dup-card__path">${bPath}</span>
+            </div>
+          </div>
+          <div class="dup-card__reasons">
+            ${pair.reasons.map(r => `<span>${r}</span>`).join('')}
+          </div>
+        `;
+        frag.appendChild(card);
+      });
+
+      list.appendChild(frag);
+    }
+
+    window.addEventListener('DOMContentLoaded', runDuplicateDetection);
+  </script>
 </body>
 </html>
