@@ -944,3 +944,50 @@ body.dark-mode .feature-card
     padding: 30px 20px;
   }
 }
+
+/* Mobile-first adjustments */
+@media (max-width: 768px) {
+  .tooltip-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tooltip-card {
+    width: 100%;
+    min-height: 160px;
+    text-align: center;
+  }
+
+  .tooltip-card h3 {
+    font-size: 1rem;
+  }
+
+  .tooltip-card p {
+    font-size: 0.9rem;
+    word-wrap: break-word;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tooltip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+ .sidebar {
+  display: none; /* hidden by default on mobile */
+}
+
+.sidebar.active {
+  display: block;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: #111;
+  padding: 1rem;
+}
