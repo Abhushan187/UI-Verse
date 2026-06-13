@@ -431,6 +431,33 @@
     </div>
 
   </div>
+
+  <!-- Toast Container (global, fixed position) -->
+<div id="toast-container" class="toast-container"></div>
+
+<script>
+  function showToast(message, type = "info", duration = 3000) {
+  const container = document.getElementById("toast-container");
+
+  const toast = document.createElement("div");
+  toast.classList.add("toast", type);
+  toast.textContent = message;
+
+  container.appendChild(toast);
+
+  // Auto-remove after duration
+  setTimeout(() => {
+    toast.style.animation = "fadeOut 0.5s forwards";
+    toast.addEventListener("animationend", () => toast.remove());
+  }, duration);
+}
+
+// Example usage:
+// showToast("Data saved successfully!", "success");
+// showToast("Something went wrong!", "error");
+
+</script>
+
   <!-- ================= FOOTER ================= -->
 <footer class="footer">
   <div class="footer-container">
