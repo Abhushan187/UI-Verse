@@ -1720,6 +1720,9 @@ def api_generate() -> tuple[object, int]:
         return jsonify({"error": f"Generation failed: {str(e)}"}), 502
     except Exception as e:
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+@app.get("/workspace.html")
+def workspace_entry() -> object:
+    return send_from_directory(PROJECT_ROOT, "workspace.html")
 
 
 if __name__ == "__main__":
