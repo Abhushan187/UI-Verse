@@ -296,14 +296,6 @@ function toggleCode(id, btn) {
    – Merges the two conflicting dark-mode blocks.
 ───────────────────────────────────────────── */
 
-/**
- * Apply the persisted (or system) theme immediately, then wire up any
- * toggle button found on the page.
- *
- * Supports two button patterns used across the codebase:
- *   1. id="theme-toggle"   → updates innerText
- *   2. id="darkModeToggle" → updates a child <i> icon class
- */
 function initDarkMode() {
   const saved = localStorage.getItem(THEME_KEY);
 
@@ -311,7 +303,7 @@ function initDarkMode() {
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const shouldBeDark = saved === "dark" || (!saved && prefersDark);
 
-  document.body.classList.toggle(DARK_CLASS, shouldBeDark);
+  document.documentElement.classList.toggle(DARK_CLASS, shouldBeDark);
 
   /** Sync all toggle button variants to the current theme state. */
   const syncButtons = (isDark) => {
@@ -331,7 +323,7 @@ function initDarkMode() {
 
   /** Shared click handler for both button patterns. */
   const handleToggle = () => {
-    const isDark = document.body.classList.toggle(DARK_CLASS);
+    const isDark = document.documentElement.classList.toggle(DARK_CLASS);
     localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
     syncButtons(isDark);
   };
