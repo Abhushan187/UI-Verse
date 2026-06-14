@@ -122,10 +122,6 @@
         "test": "npm run test:unit:coverage && npm run wc:test",
         "prepare": "npm run build"
     },
-    "bench": "node bench/bench.js",
-    "bench:sizes": "node bench/bundle-sizes.js",
-    "bench:all": "npm run bench && npm run bench:sizes",
-    "security:test": "playwright test tests/security --config=playwright.state.config.ts --reporter=list",
     "devDependencies": {
         "@axe-core/playwright": "^4.0.0",
         "@playwright/test": "^1.40.0",
@@ -139,6 +135,7 @@
         "html-validate": "^8.5.0",
         "jsdom": "^22.1.0",
         "linkinator": "^7.6.1",
+        "postcss": "^8.4.38",
         "rollup": "^3.30.0",
         "sharp": "^0.33.5",
         "storybook": "^8.6.18",
@@ -151,9 +148,8 @@
         "dompurify": "^3.4.5",
         "fuse.js": "^7.3.0",
         "yjs": "^13.6.24",
-        "y-webrtc": "^10.3.1",
+        "y-webrtc": "^10.3.0",
         "y-indexeddb": "^9.0.12"
-        "fuse.js": "^7.3.0"
     },
     "lint-staged": {
         "*.html": "html-validate",
